@@ -1,13 +1,20 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
 
+import lombok.Getter;
+import lombok.Setter;
+import raf.dsw.classycraft.app.controller.ActionManager;
+
 import javax.swing.*;
 import java.awt.*;
-
+@Getter
+@Setter
 public class MainFrame extends JFrame {
     private static MainFrame insance;
+    private ActionManager actionManager;
     //buduca polja za sve komponente view-a na glavnom prozoru
     private MainFrame(){
+        actionManager = new ActionManager();
 
     }
     private void initialize(){
@@ -32,5 +39,9 @@ public class MainFrame extends JFrame {
             insance.initialize();
         }
         return insance;
+    }
+
+    public ActionManager getActionManager() {
+        return actionManager;
     }
 }
