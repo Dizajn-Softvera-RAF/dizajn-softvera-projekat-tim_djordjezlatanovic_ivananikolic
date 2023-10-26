@@ -5,13 +5,10 @@ package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
 import lombok.Setter;
-import raf.dsw.classycraft.app.controller.AbstractClassyAction;
-import raf.dsw.classycraft.app.controller.ActionManager;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.image.ImageProducer;
 import java.net.URL;
 @Getter
 @Setter
@@ -28,9 +25,9 @@ public class ScenaZaAboutUs extends JFrame {
         Border border1 = BorderFactory.createLineBorder(Color.black, 3);
         gp = new GridLayout(2, 1);
 
-        l1 = new JLabel("Djordje Zlatanovic");
+        l1 = new JLabel("Đorđe Zlatanović");
         l1.setIcon(loadIcon("/images/djordje.png"));
-        l1.setFont(new Font("MV Boli", Font.PLAIN, 30));
+        l1.setFont(new Font("Arial", Font.PLAIN, 30));
         l1.setForeground(Color.white);
         l1.setBackground(Color.black);
         l1.setOpaque(true);
@@ -38,9 +35,9 @@ public class ScenaZaAboutUs extends JFrame {
         l1.setBorder(border1);
 
 
-        l2 = new JLabel("Ivana Nikolic");
+        l2 = new JLabel("Ivana Nikolić");
         l2.setIcon(loadIcon("/images/Ivana.png"));
-        l2.setFont(new Font("MV Boli", Font.PLAIN, 30));
+        l2.setFont(new Font("Arial", Font.PLAIN, 30));
         l2.setForeground(Color.white);
         l2.setBackground(Color.black);
         l2.setOpaque(true);
@@ -62,7 +59,7 @@ public class ScenaZaAboutUs extends JFrame {
         URL ImageURL = getClass().getResource(fileName);
         if(ImageURL != null){
             Image img = new ImageIcon(ImageURL).getImage();
-            Image newImg = img.getScaledInstance((screenWidth / 2) / 2, screenHeight / 2,Image.SCALE_DEFAULT);
+            Image newImg = img.getScaledInstance((screenWidth*2)/9 , screenHeight / 2,Image.SCALE_DEFAULT);
             icon = new ImageIcon(newImg);
         }
         else{
