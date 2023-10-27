@@ -12,7 +12,7 @@ public abstract class AbstractClassyAction extends AbstractAction{
             URL ImageURL = getClass().getResource(fileName);
             if(ImageURL != null){
                 Image img = new ImageIcon(ImageURL).getImage();
-                Image newImg = img.getScaledInstance(30,30,Image.SCALE_DEFAULT);
+                Image newImg = img.getScaledInstance(35,30,Image.SCALE_DEFAULT);
                 icon = new ImageIcon(newImg);
             }
             else{

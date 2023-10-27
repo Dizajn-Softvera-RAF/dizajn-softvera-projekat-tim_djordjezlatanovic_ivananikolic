@@ -1,5 +1,10 @@
 package raf.dsw.classycraft.app.controller;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ActionManager{
     private ExitAction exitAction;
     private  AboutUs aboutUs;
@@ -8,11 +13,5 @@ public class ActionManager{
         aboutUs = new AboutUs();
     }
 
-    public ExitAction getExitAction() {
-        return exitAction;
-    }
 
-    public AboutUs getAboutUs() {
-        return aboutUs;
-    }
 }
