@@ -5,7 +5,7 @@ import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 public class ApplicationFramework {
     private static ApplicationFramework instance;
     private ApplicationFramework(){
-
+//classyrepositoryinterface
     }
     public void initialize(){
         MainFrame.getInstance().setVisible(true);
