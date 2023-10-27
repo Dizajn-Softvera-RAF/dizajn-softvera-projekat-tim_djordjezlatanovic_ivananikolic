@@ -15,7 +15,7 @@ public class AboutUs extends AbstractClassyAction{
     private ScenaZaAboutUs scenaZaAboutUs;
     public AboutUs(){
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F1, ActionEvent.ALT_MASK));
-        putValue(SMALL_ICON, loadIcon("/images/AboutUs.png"));
+        putValue(SMALL_ICON, loadIcon("/images/user.png"));
         putValue(NAME, "About us");
         putValue(SHORT_DESCRIPTION, "About us");
     }
