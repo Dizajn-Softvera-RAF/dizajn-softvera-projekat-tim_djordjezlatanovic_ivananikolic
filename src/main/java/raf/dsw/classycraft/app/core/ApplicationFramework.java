@@ -47,7 +47,7 @@ public class ApplicationFramework {
     }
 
     public void clearFile(){
-        File file = new File("C:\\Users\\PC - Nikolic\\Desktop\\dizajn-softvera-projekat-tim_djordjezlatanovic_ivananikolic\\src\\main\\resources\\log.txt");
+        File file = new File("log.txt");
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(file,false));
             bw.flush();
