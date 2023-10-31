@@ -14,7 +14,7 @@ public class FileLogger implements Logger {
     @Override
     public void update(Message message) {
 
-        File file = new File("C:\\Users\\PC - Nikolic\\Desktop\\dizajn-softvera-projekat-tim_djordjezlatanovic_ivananikolic\\src\\main\\resources\\log.txt");
+        File file = new File("log.txt");
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(file,true));
             bw.write(String.valueOf(message + "\n"));
