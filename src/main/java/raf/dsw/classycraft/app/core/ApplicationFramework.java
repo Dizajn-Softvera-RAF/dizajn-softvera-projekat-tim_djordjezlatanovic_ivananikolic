@@ -33,10 +33,10 @@ public class ApplicationFramework {
 
         messageGenerator.addLogger(loggerFactory.createLogger("consolelogger"));
         messageGenerator.addLogger(loggerFactory.createLogger("filelogger"));
-
+        classyRepository = new ClassyRepositoryImplementation();
         MainFrame.getInstance().setVisible(true);
 
-         classyRepository = new ClassyRepositoryImplementation();
+
          //classyRepository.getRoot();
     }
     public static ApplicationFramework getInstance(){
