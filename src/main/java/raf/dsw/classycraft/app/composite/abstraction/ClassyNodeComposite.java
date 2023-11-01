@@ -15,9 +15,11 @@ import java.util.List;
 public abstract class ClassyNodeComposite extends ClassyNode{
     private List<ClassyNode> children;
 
-    public ClassyNodeComposite() {
+    public ClassyNodeComposite(ClassyNode parent, String name) {
+        super(parent, name);
         children = new ArrayList<>();
     }
+
 
     public abstract void addChild(ClassyNode child);
     public abstract void deleteChild(ClassyNode child);

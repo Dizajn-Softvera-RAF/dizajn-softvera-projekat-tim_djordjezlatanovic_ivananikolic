@@ -8,16 +8,15 @@ import raf.dsw.classycraft.app.composite.abstraction.ClassyNodeComposite;
 @Setter
 
 public class Project extends ClassyNodeComposite {
-    private String ime;
     private String imeAutora;
     private String fajl;
 
-
-    public Project(String ime, String imeAutora, String fajl) {
-        this.ime = ime;
+    public Project(ClassyNode parent, String name, String imeAutora, String fajl) {
+        super(parent, name);
         this.imeAutora = imeAutora;
         this.fajl = fajl;
     }
+
 
     @Override
     public void addChild(ClassyNode child) {

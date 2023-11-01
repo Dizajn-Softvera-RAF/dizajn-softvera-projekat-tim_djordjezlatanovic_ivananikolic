@@ -3,6 +3,8 @@ package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
 import lombok.Setter;
+import raf.dsw.classycraft.app.JTree.CLassyTree;
+import raf.dsw.classycraft.app.JTree.ClassyTreeImplementation;
 import raf.dsw.classycraft.app.controller.ActionManager;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.observer.message.Logger;
@@ -17,11 +19,13 @@ public class MainFrame extends JFrame implements Logger {
 
     private static MainFrame insance;
     private ActionManager actionManager;
+    private CLassyTree cLassyTree;
     //buduca polja za sve komponente view-a na glavnom prozoru
     private MainFrame(){
         actionManager = new ActionManager();
-
         ApplicationFramework.getInstance().getMessageGenerator().addLogger(this);
+        cLassyTree = new ClassyTreeImplementation();
+
     }
 
     private void initialize(){
@@ -41,6 +45,19 @@ public class MainFrame extends JFrame implements Logger {
 
         MyToolBar toolBar = new MyToolBar();
         add(toolBar, BorderLayout.NORTH);
+
+
+
+        JTree jTree = cLassyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getRoot());
+        JPanel panel = new JPanel(); // leva strana ekrana
+
+        JScrollPane jScrollPane = new JScrollPane(jTree);
+        jScrollPane.setMinimumSize(new Dimension(200, 150));
+        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jScrollPane, panel);
+        getContentPane().add(split, BorderLayout.CENTER);
+        split.setDividerLocation(250);
+        split.setOneTouchExpandable(true);
+
 
 
     }

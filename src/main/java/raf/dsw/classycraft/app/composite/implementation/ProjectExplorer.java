@@ -4,22 +4,18 @@ import raf.dsw.classycraft.app.composite.abstraction.ClassyNode;
 import raf.dsw.classycraft.app.composite.abstraction.ClassyNodeComposite;
 
 public class ProjectExplorer extends ClassyNodeComposite {
-    private String ime;
 
-    public ProjectExplorer(String ime) {
-        this.ime = ime;
+    public ProjectExplorer(String name) {
+        super(null, name);
     }
 
     @Override
     public void addChild(ClassyNode child) {
-        if(super.getParent() == null){
-            if(child instanceof ProjectExplorer){
+            if(child instanceof Project){
                 if(!super.getChildren().contains(child)){
                     super.getChildren().add(child);
-                    child.setParent(this);
                 }
             }
-        }
     }
 
     @Override

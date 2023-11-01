@@ -4,10 +4,10 @@ import raf.dsw.classycraft.app.composite.abstraction.ClassyNode;
 import raf.dsw.classycraft.app.composite.abstraction.ClassyNodeComposite;
 
 public class Package extends ClassyNodeComposite {
-    private String ime;
 
-    public Package(String ime) {
-        this.ime = ime;
+
+    public Package(ClassyNode parent, String name) {
+        super(parent, name);
     }
 
     @Override

@@ -6,7 +6,7 @@ public class ClassyRepositoryImplementation implements ClassyRepository {
     private ProjectExplorer projectExplorer;
 
     public ClassyRepositoryImplementation() {
-        this.projectExplorer = new ProjectExplorer("Project Expolorer");
+        this.projectExplorer = new ProjectExplorer("Project Explorer");
     }
 
     @Override
