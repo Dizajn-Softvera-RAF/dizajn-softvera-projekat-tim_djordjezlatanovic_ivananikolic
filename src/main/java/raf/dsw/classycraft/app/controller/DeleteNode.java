@@ -1,0 +1,19 @@
+package raf.dsw.classycraft.app.controller;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
+public class DeleteNode extends AbstractClassyAction{
+    public DeleteNode() {
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F9, ActionEvent.SHIFT_MASK));
+        putValue(SMALL_ICON, loadIcon("/images/delete.png"));
+        putValue(NAME, "Delete node");
+        putValue(SHORT_DESCRIPTION, "Delete node");
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.exit(0);
+    }
+}
