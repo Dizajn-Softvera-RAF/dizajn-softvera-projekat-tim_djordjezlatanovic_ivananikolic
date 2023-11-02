@@ -9,10 +9,12 @@ public class ActionManager{
     private NewProjectAction newProjectAction;
     private ExitAction exitAction;
     private  AboutUs aboutUs;
+    private DeleteNode deleteNode;
     public ActionManager(){
         newProjectAction = new NewProjectAction();
         exitAction = new ExitAction();
         aboutUs = new AboutUs();
+        deleteNode = new DeleteNode();
     }
 
 

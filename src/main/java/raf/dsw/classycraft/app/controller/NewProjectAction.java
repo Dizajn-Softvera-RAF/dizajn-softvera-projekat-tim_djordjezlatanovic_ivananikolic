@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class NewProjectAction extends AbstractClassyAction{
     public NewProjectAction() {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.SHIFT_MASK));
-        putValue(SMALL_ICON, loadIcon("/images/more.png"));
+        putValue(SMALL_ICON, loadIcon("/images/add.png"));
         putValue(NAME, "New Project");
         putValue(SHORT_DESCRIPTION, "New Project");
     }
