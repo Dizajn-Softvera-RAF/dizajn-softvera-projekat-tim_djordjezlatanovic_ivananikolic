@@ -17,7 +17,6 @@ public class FactoryUtil{
             return projectExplorer;
         }
         else if(tip instanceof Project){
-            System.out.println("sadas");
             return new ProjectFactory();
         }
         else if(tip instanceof Package){
