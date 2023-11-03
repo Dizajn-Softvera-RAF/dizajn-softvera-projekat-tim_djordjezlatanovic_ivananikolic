@@ -57,12 +57,6 @@ public class ClassyTreeImplementation implements CLassyTree{
         System.out.println(roditelj.getChildren());
         if(dete instanceof ClassyNodeComposite){
             System.out.println(((ClassyNodeComposite) dete).getChildren());
-            for (ClassyNode c: ((ClassyNodeComposite) dete).getChildren()
-                 ) {
-                System.out.println("ss");
-                System.out.println(c);
-
-            }
         }
     }
 
