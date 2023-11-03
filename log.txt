@@ -1,1 +1,2 @@
-WARNING 03-11-2023 13:35:52 Morate selektovati cvor u stablu
+WARNING 03-11-2023 16:44:28 Morate selektovati neku od ponudjenih opcija
+WARNING 03-11-2023 16:44:36 Morate selektovati neku od ponudjenih opcija
