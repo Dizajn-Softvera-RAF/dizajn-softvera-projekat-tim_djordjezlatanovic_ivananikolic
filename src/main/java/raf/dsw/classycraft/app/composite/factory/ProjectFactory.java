@@ -17,4 +17,11 @@ public class ProjectFactory extends ClassyNodeFactory{
         return classyNode;
     }
 
+    public static int getCnt() {
+        return cnt;
+    }
+
+    public static void setCnt(int cnt) {
+        ProjectFactory.cnt = cnt;
+    }
 }

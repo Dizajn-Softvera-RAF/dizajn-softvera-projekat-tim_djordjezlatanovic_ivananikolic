@@ -24,21 +24,21 @@ public class Package extends ClassyNodeComposite {
         }
     }
 
-    private void delete(List<ClassyNode> deca,ClassyNodeComposite root,ClassyNodeComposite pom) {
-
-        if (root==null)
-            return;
-        for (ClassyNode c: deca) {
-            if(c instanceof ClassyNodeComposite) {
-                System.out.println(((ClassyNodeComposite) c.getParent()));
-                delete(((ClassyNodeComposite) c).getChildren(), root, ((ClassyNodeComposite) c.getParent()));
-            }else if (c instanceof ClassyNode) {
-
-                pom.deleteChild(c);
-            }
-        }
-
-    }
+//    private void delete(List<ClassyNode> deca,ClassyNodeComposite root,ClassyNodeComposite pom) {
+//
+//        if (root==null)
+//            return;
+//        for (ClassyNode c: deca) {
+//            if(c instanceof ClassyNodeComposite) {
+//                System.out.println(((ClassyNodeComposite) c.getParent()));
+//                delete(((ClassyNodeComposite) c).getChildren(), root, ((ClassyNodeComposite) c.getParent()));
+//            }else if (c instanceof ClassyNode) {
+//
+//                pom.deleteChild(c);
+//            }
+//        }
+//
+//    }
 
 
 

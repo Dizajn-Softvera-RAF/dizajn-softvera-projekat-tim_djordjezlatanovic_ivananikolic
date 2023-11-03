@@ -8,6 +8,7 @@ import raf.dsw.classycraft.app.composite.implementation.Project;
 import raf.dsw.classycraft.app.composite.implementation.ProjectExplorer;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 @Getter
 @Setter
@@ -23,26 +24,27 @@ public abstract class ClassyNodeComposite extends ClassyNode{
 
     public abstract void addChild(ClassyNode child);
     public void deleteChild(ClassyNode child) {
+        getChildren().remove(child);
+        if (child instanceof ClassyNodeComposite) {
+            deleteSub((ClassyNodeComposite) child);
+        }
+    }
+        //child.setParent(null);
+    private void deleteSub(ClassyNodeComposite child) {
+        List<ClassyNode> children = child.getChildren();
+        Iterator<ClassyNode> iterator = children.iterator();
 
-        if(child instanceof ClassyNodeComposite) {
+        while (iterator.hasNext()) {
+            ClassyNode subDete = iterator.next();
+            iterator.remove();
+            if (subDete instanceof ClassyNodeComposite) {
 
-            for (ClassyNode c : ((ClassyNodeComposite) child).getChildren()) {
-                if(c instanceof ClassyNodeComposite) {
-                    deleteChild(c);
-                    getChildren().remove(c);
-                }
-                else {
-                    getChildren().remove(c);
-                }
+                deleteSub((ClassyNodeComposite) subDete);
+                System.out.println(((ClassyNodeComposite) subDete).getChildren().size());
             }
         }
-        else {
-            getChildren().remove(child);
-        }
-
-
-
-        //child.setParent(null);
     }
+
+
 
 }
