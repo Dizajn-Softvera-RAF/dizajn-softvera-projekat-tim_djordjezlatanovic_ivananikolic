@@ -10,4 +10,5 @@ public class Diagram extends ClassyNodeLeaf {
     public Diagram(ClassyNode parent, String name) {
         super(parent, name);
     }
+
 }

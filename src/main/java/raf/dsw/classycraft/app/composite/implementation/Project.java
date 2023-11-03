@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import raf.dsw.classycraft.app.composite.abstraction.ClassyNode;
 import raf.dsw.classycraft.app.composite.abstraction.ClassyNodeComposite;
+
+import java.util.List;
+
 @Getter
 @Setter
 
@@ -30,11 +33,6 @@ public class Project extends ClassyNodeComposite {
         }
     }
 
-    @Override
-    public void deleteChild(ClassyNode child) {
-        if(super.getChildren().contains(child)){
-            super.getChildren().remove(child);
-            child.setParent(null);
-        }
-    }
+
+
 }

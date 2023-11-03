@@ -8,4 +8,5 @@ public interface CLassyTree {
     ClassyTreeView generateTree(ProjectExplorer projectExplorer);
     void addChild(ClassyTreeItem parent, String ime);
     ClassyTreeItem getSelectedNode();
+    void deleteChild(ClassyTreeItem parent);
 }

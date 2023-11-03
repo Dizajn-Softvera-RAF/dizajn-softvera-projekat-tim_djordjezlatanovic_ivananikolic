@@ -22,6 +22,27 @@ public abstract class ClassyNodeComposite extends ClassyNode{
 
 
     public abstract void addChild(ClassyNode child);
-    public abstract void deleteChild(ClassyNode child);
+    public void deleteChild(ClassyNode child) {
+
+        if(child instanceof ClassyNodeComposite) {
+
+            for (ClassyNode c : ((ClassyNodeComposite) child).getChildren()) {
+                if(c instanceof ClassyNodeComposite) {
+                    deleteChild(c);
+                    getChildren().remove(c);
+                }
+                else {
+                    getChildren().remove(c);
+                }
+            }
+        }
+        else {
+            getChildren().remove(child);
+        }
+
+
+
+        //child.setParent(null);
+    }
 
 }
