@@ -18,8 +18,8 @@ public class PackageFactory extends ClassyNodeFactory{
                 cnt++;
             }
             else if(ime.toLowerCase().equals("package")){
-                classyNode = new Package(ApplicationFramework.getInstance().getClassyRepository().getRoot(), "Package" + String.valueOf(cnt2));
-                cnt2++;
+                classyNode = new Package(ApplicationFramework.getInstance().getClassyRepository().getRoot(), "Package" + String.valueOf(ProjectFactory.getCnt()));
+                ProjectFactory.setCnt(ProjectFactory.getCnt()+1);
             }
 
 
