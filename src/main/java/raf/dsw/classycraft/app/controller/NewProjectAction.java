@@ -28,6 +28,12 @@ public class NewProjectAction extends AbstractClassyAction{
                 Object[] selectionValues = {"Package", "Diagram"};
                 String basicSelection = "Package";
                 Object selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+                    while(selection == null){
+                        ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.WARNING, LocalDateTime.now());
+                        selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+                    }
+
+
                 String s = selection.toString();
                 MainFrame.getInstance().getCLassyTree().addChild(selected, s);
             }
