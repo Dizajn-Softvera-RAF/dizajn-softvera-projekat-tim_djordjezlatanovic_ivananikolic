@@ -3,6 +3,8 @@ package raf.dsw.classycraft.app.composite.implementation;
 import raf.dsw.classycraft.app.composite.abstraction.ClassyNode;
 import raf.dsw.classycraft.app.composite.abstraction.ClassyNodeComposite;
 
+import java.util.List;
+
 public class Package extends ClassyNodeComposite {
 
 
@@ -22,11 +24,23 @@ public class Package extends ClassyNodeComposite {
         }
     }
 
-    @Override
-    public void deleteChild(ClassyNode child) {
-        if(super.getChildren().contains(child)){
-            super.getChildren().remove(child);
-            child.setParent(null);
+    private void delete(List<ClassyNode> deca,ClassyNodeComposite root,ClassyNodeComposite pom) {
+
+        if (root==null)
+            return;
+        for (ClassyNode c: deca) {
+            if(c instanceof ClassyNodeComposite) {
+                System.out.println(((ClassyNodeComposite) c.getParent()));
+                delete(((ClassyNodeComposite) c).getChildren(), root, ((ClassyNodeComposite) c.getParent()));
+            }else if (c instanceof ClassyNode) {
+
+                pom.deleteChild(c);
+            }
         }
+
     }
+
+
+
+
 }

@@ -47,5 +47,26 @@ public class ClassyTreeImplementation implements CLassyTree{
 
     }
 
+    @Override
+    public void deleteChild(ClassyTreeItem selected) {
+        ClassyNode dete = selected.getClassyNode();
+        ClassyNodeComposite  roditelj = (ClassyNodeComposite) dete.getParent();
+        roditelj.deleteChild(dete);
+        selected.removeFromParent();
+        SwingUtilities.updateComponentTreeUI(classyTreeView);
+        System.out.println(roditelj.getChildren());
+        if(dete instanceof ClassyNodeComposite){
+            System.out.println(((ClassyNodeComposite) dete).getChildren());
+            for (ClassyNode c: ((ClassyNodeComposite) dete).getChildren()
+                 ) {
+                System.out.println("ss");
+                System.out.println(c);
+
+            }
+        }
+    }
+
+
+
 
 }

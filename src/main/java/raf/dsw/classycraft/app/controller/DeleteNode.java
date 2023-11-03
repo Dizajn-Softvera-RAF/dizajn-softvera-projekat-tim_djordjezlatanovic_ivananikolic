@@ -1,5 +1,8 @@
 package raf.dsw.classycraft.app.controller;
 
+import raf.dsw.classycraft.app.JTree.model.ClassyTreeItem;
+import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -14,6 +17,8 @@ public class DeleteNode extends AbstractClassyAction{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.exit(0);
+        ClassyTreeItem selected = MainFrame.getInstance().getCLassyTree().getSelectedNode();
+        MainFrame.getInstance().getCLassyTree().deleteChild(selected);
+
     }
 }
