@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.controller;
 
 import raf.dsw.classycraft.app.JTree.model.ClassyTreeItem;
+import raf.dsw.classycraft.app.composite.abstraction.ClassyNode;
 import raf.dsw.classycraft.app.composite.abstraction.ClassyNodeComposite;
 import raf.dsw.classycraft.app.composite.implementation.Package;
 import raf.dsw.classycraft.app.composite.implementation.ProjectExplorer;
@@ -24,12 +25,12 @@ public class DeleteNode extends AbstractClassyAction{
     @Override
     public void actionPerformed(ActionEvent e) {
         ClassyTreeItem selected = MainFrame.getInstance().getCLassyTree().getSelectedNode();
-        ClassyNodeComposite node = null;
+        ClassyNode node = null;
         if(selected == null){
             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati cvor u stablu koji zelite da obrisete", MessageType.WARNING, LocalDateTime.now());
         }
         else if(selected != null){
-            node = (ClassyNodeComposite) selected.getClassyNode();
+            node = (ClassyNode) selected.getClassyNode();
             if (node instanceof ProjectExplorer) {
                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Project Explorer ne moze da se obrise", MessageType.WARNING, LocalDateTime.now());
             }

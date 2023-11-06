@@ -16,10 +16,12 @@ import java.awt.*;
 @Getter
 @Setter
 public class MainFrame extends JFrame implements Logger {
+    private PackageView packageView;
 
     private static MainFrame insance;
     private ActionManager actionManager;
     private CLassyTree cLassyTree;
+
     //buduca polja za sve komponente view-a na glavnom prozoru
     private MainFrame(){
         actionManager = new ActionManager();
@@ -49,14 +51,17 @@ public class MainFrame extends JFrame implements Logger {
 
 
         JTree jTree = cLassyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getRoot());
-        JPanel panel = new JPanel(); // leva strana ekrana
+
+        packageView = new PackageView(new FlowLayout());
+
 
         JScrollPane jScrollPane = new JScrollPane(jTree);
         jScrollPane.setMinimumSize(new Dimension(200, 150));
-        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jScrollPane, panel);
+        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, jScrollPane, packageView);
         getContentPane().add(split, BorderLayout.CENTER);
         split.setDividerLocation(250);
         split.setOneTouchExpandable(true);
+
 
 
 
