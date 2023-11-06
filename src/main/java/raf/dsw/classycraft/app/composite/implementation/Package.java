@@ -19,14 +19,14 @@ public class Package extends ClassyNodeComposite implements Publisher {
 
     @Override
     public void addChild(ClassyNode child) {
-        if(super.getParent() instanceof Project){
+
             if(child instanceof Package || child instanceof Diagram){
                 if(!super.getChildren().contains(child)){
                     super.getChildren().add(child);
                     child.setParent(this);
                 }
             }
-        }
+
     }
 
     @Override
