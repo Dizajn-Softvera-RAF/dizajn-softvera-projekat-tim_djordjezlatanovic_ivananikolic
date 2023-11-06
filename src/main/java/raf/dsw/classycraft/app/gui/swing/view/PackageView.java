@@ -34,18 +34,23 @@ public class PackageView extends JPanel implements Subscriber {
         jTabbedPane.setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);
         jTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         jTabbedPane.setPreferredSize(new Dimension(500, 300));
+        add(jTabbedPane);
         imeAutora = new JLabel();
         imeProjekta = new JLabel();
         box = new JPanel();
         box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
+        add(box);
     }
     public void dodajLabele(String imeAutora, String imeParenta){
+        this.imeProjekta.removeAll();
+        this.imeAutora.removeAll();
         this.imeProjekta.setText("Ime projekta: "+imeParenta);
         this.imeAutora.setText("Ime autora: "+imeAutora);
         box.add(this.imeAutora);
         box.add(this.imeProjekta);
         box.setPreferredSize(new Dimension(150, 30));
-        add(box);
+        box.revalidate();
+        box.repaint();
     }
 
     public void setaPackage(Package aPackage, Project aProject, ProjectExplorer aProjectExplorer) {
@@ -57,7 +62,9 @@ public class PackageView extends JPanel implements Subscriber {
     }
 
     private void dodajTab() {
+        System.out.println(aPackage.getChildren());
         for(ClassyNode c : aPackage.getChildren()){
+
             if(c instanceof Diagram){
                 DiagramView diagramView = new DiagramView((Diagram) c, this.brojac, this);
 
@@ -66,18 +73,22 @@ public class PackageView extends JPanel implements Subscriber {
             }
         }
 
-        add(jTabbedPane);
+        jTabbedPane.revalidate();
+        jTabbedPane.repaint();
     }
     public void promenaImena(String ime, int brojac){
         jTabbedPane.setTitleAt(brojac, ime);
     }
-    public void refreshTabs(Object var1){
-
+    public void refreshTabs(Diagram var1){
+        for (int i =0; i< jTabbedPane.getTabCount();i++){
+            //if(jTabbedPane.getComponentAt(i).para)
+        }
     }
 
     @Override
     public void update(Object var1) {
-            refreshTabs(var1);
+        if(var1 instanceof Diagram)
+            refreshTabs((Diagram)var1);
 
     }
 }
