@@ -19,7 +19,7 @@ public class Diagram extends ClassyNodeLeaf implements Publisher {
     @Override
     public void setName(String name) {
         super.setName(name);
-        notifySubscriber(name);
+        notifySubscriber(name,"");
     }
 
     @Override
@@ -38,11 +38,11 @@ public class Diagram extends ClassyNodeLeaf implements Publisher {
     }
 
     @Override
-    public void notifySubscriber(Object var1) {
+    public void notifySubscriber(Object var1,String tekst) {
         if(var1 == null || this.subscribers == null || this.subscribers.isEmpty())
             return;
         for (Subscriber s : this.subscribers)
-            s.update(var1);
+            s.update(var1,tekst);
     }
 
 

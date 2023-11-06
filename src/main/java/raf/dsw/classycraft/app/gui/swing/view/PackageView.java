@@ -34,7 +34,6 @@ public class PackageView extends JPanel implements Subscriber {
         jTabbedPane.setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);
         jTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         jTabbedPane.setPreferredSize(new Dimension(500, 300));
-        add(jTabbedPane);
         imeAutora = new JLabel();
         imeProjekta = new JLabel();
         box = new JPanel();
@@ -55,6 +54,13 @@ public class PackageView extends JPanel implements Subscriber {
 
     public void setaPackage(Package aPackage, Project aProject, ProjectExplorer aProjectExplorer) {
         this.aPackage = aPackage;
+        Package p = aPackage;
+        while(!(p.getParent() instanceof Project)){
+            Package pk = (Package) p.getParent();
+            pk.addSubscriber(this);
+            p = (Package) p.getParent();
+
+        }
         aPackage.addSubscriber(this);
         aProject.addSubscriber(this);
         aProjectExplorer.addSubscriber(this);
@@ -62,33 +68,56 @@ public class PackageView extends JPanel implements Subscriber {
     }
 
     private void dodajTab() {
-        System.out.println(aPackage.getChildren());
         for(ClassyNode c : aPackage.getChildren()){
-
             if(c instanceof Diagram){
-                DiagramView diagramView = new DiagramView((Diagram) c, this.brojac, this);
+                DiagramView diagramView = new DiagramView((Diagram) c, brojac, this);
 
-                jTabbedPane.add(diagramView.getImeTaba(), diagramView);
+                jTabbedPane.addTab(diagramView.getImeTaba(),diagramView);
                 brojac++;
             }
         }
+        add(jTabbedPane);
 
-        jTabbedPane.revalidate();
-        jTabbedPane.repaint();
+//        jTabbedPane.revalidate();
+//        jTabbedPane.repaint();
     }
     public void promenaImena(String ime, int brojac){
         jTabbedPane.setTitleAt(brojac, ime);
     }
     public void refreshTabs(Diagram var1){
         for (int i =0; i< jTabbedPane.getTabCount();i++){
-            //if(jTabbedPane.getComponentAt(i).para)
+            DiagramView d = (DiagramView) jTabbedPane.getComponentAt(i);
+            if(((DiagramView) jTabbedPane.getComponentAt(i)).getDiagram().getName().equals(var1.getName())){
+                jTabbedPane.removeTabAt(i);
+            }
         }
     }
 
     @Override
-    public void update(Object var1) {
-        if(var1 instanceof Diagram)
+    public void update(Object var1,String tekst) {
+        if(var1 instanceof Diagram && tekst=="delete"){
             refreshTabs((Diagram)var1);
+            dodajLabele("","");
+        }
+        else if(var1 instanceof Diagram && tekst=="add") {
+            boolean flag = false;
+            for (int i = 0; i < jTabbedPane.getTabCount(); i++) {
+                DiagramView d = (DiagramView) jTabbedPane.getComponentAt(i);
+                if (var1 instanceof Diagram) {
+                    if (((DiagramView) jTabbedPane.getComponentAt(i)).getDiagram().equals((Diagram) var1)) {
+                        flag = true;
+                    }
+                }
+            }
+            if(flag==false){
+                DiagramView diagramView = new DiagramView((Diagram) var1, brojac, this);
+
+                jTabbedPane.addTab(diagramView.getImeTaba(),diagramView);
+                brojac++;
+            }
+        }
 
     }
+
+
 }

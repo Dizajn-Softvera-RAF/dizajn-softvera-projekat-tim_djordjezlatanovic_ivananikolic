@@ -28,7 +28,7 @@ public class DiagramView extends JPanel implements Subscriber {
 
 
     @Override
-    public void update(Object var1) {
+    public void update(Object var1,String tekst) {
         imeTaba = String.valueOf(var1);
         packageView.promenaImena(imeTaba, brojac);
     }

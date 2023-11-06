@@ -40,12 +40,13 @@ public class Project extends ClassyNodeComposite implements Publisher {
 
     @Override
     public void deleteChild(ClassyNode child) {
+
         getChildren().remove(child);
         if (child instanceof ClassyNodeComposite) {
             deleteSub((ClassyNodeComposite) child);
         }
         child.setParent(null);
-        notifySubscriber(child);
+
     }
     private void deleteSub(ClassyNodeComposite child) {
         List<ClassyNode> children = child.getChildren();
@@ -53,6 +54,8 @@ public class Project extends ClassyNodeComposite implements Publisher {
 
         while (iterator.hasNext()) {
             ClassyNode subDete = iterator.next();
+            if(subDete instanceof Diagram)
+                notifySubscriber(subDete,"delete");
             iterator.remove();
             if (subDete instanceof ClassyNodeComposite) {
                 deleteSub((ClassyNodeComposite) subDete);
@@ -77,10 +80,10 @@ public class Project extends ClassyNodeComposite implements Publisher {
     }
 
     @Override
-    public void notifySubscriber(Object var1) {
+    public void notifySubscriber(Object var1,String tekst) {
         if(var1 == null || this.subscribers == null || this.subscribers.isEmpty())
             return;
         for (Subscriber s : this.subscribers)
-            s.update(var1);
+            s.update(var1,tekst);
     }
 }
