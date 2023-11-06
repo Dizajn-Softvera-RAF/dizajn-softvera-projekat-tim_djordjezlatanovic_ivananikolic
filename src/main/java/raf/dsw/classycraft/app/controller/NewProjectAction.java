@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 public class NewProjectAction extends AbstractClassyAction{
     public NewProjectAction() {
-        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.SHIFT_MASK));
+        putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, ActionEvent.SHIFT_MASK));
         putValue(SMALL_ICON, loadIcon("/images/add.png"));
         putValue(NAME, "New Project");
         putValue(SHORT_DESCRIPTION, "New Project");
@@ -26,7 +26,7 @@ public class NewProjectAction extends AbstractClassyAction{
             if(selected.getClassyNode() instanceof Package){
                 JDialog.setDefaultLookAndFeelDecorated(true);
                 Object[] selectionValues = {"Package", "Diagram"};
-                String basicSelection = "Package";
+                String basicSelection = "Diagram";
                 Object selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
                     while(selection == null){
                         ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.WARNING, LocalDateTime.now());

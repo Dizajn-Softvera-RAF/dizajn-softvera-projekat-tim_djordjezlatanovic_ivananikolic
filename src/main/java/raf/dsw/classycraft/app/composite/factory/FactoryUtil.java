@@ -8,7 +8,7 @@ import raf.dsw.classycraft.app.composite.implementation.ProjectExplorer;
 
 public class FactoryUtil{
     private static ProjectExplorerFactory projectExplorer = null;
- /*   private static ProjectFactory project = null;
+ /* private static ProjectFactory project = null;
     private static PackageFactory packagee = null;
     private static DiagramFactory diagram = null;*/
     public static ClassyNodeFactory createFactory(ClassyNode tip){

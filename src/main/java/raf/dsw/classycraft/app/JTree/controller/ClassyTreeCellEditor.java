@@ -20,7 +20,7 @@ public class ClassyTreeCellEditor extends DefaultTreeCellEditor {
     @Override
     public boolean isCellEditable(EventObject event) {
         if(event instanceof MouseEvent){
-            if(((MouseEvent) event).getClickCount() == 2){
+            if(((MouseEvent) event).getClickCount() == 3){
                 return true;
             }
         }

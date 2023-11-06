@@ -54,10 +54,6 @@ public class ClassyTreeImplementation implements CLassyTree{
         roditelj.deleteChild(dete);
         selected.removeFromParent();
         SwingUtilities.updateComponentTreeUI(classyTreeView);
-        System.out.println(roditelj.getChildren());
-        if(dete instanceof ClassyNodeComposite){
-            System.out.println(((ClassyNodeComposite) dete).getChildren());
-        }
     }
 
 
