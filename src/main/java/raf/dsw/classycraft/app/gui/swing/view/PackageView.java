@@ -95,9 +95,12 @@ public class PackageView extends JPanel implements Subscriber {
 
     @Override
     public void update(Object var1,String tekst) {
+        if(var1 instanceof Project && tekst=="delete"){
+            dodajLabele("","");
+        }
         if(var1 instanceof Diagram && tekst=="delete"){
             refreshTabs((Diagram)var1);
-            dodajLabele("","");
+
         }
         else if(var1 instanceof Diagram && tekst=="add") {
             boolean flag = false;

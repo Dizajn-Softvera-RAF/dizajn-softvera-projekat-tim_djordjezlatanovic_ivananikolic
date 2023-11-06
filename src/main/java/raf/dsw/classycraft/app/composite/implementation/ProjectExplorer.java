@@ -29,6 +29,7 @@ public class ProjectExplorer extends ClassyNodeComposite implements Publisher {
     @Override
     public void deleteChild(ClassyNode child) {
         getChildren().remove(child);
+        notifySubscriber(child,"delete");
         if (child instanceof ClassyNodeComposite) {
             deleteSub((ClassyNodeComposite) child);
         }
