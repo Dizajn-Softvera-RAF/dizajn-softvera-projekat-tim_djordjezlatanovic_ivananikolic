@@ -17,10 +17,16 @@ public class ProjectExplorerFactory extends ClassyNodeFactory{
         JFrame f = new JFrame();
         String name = JOptionPane.showInputDialog("Unesite ime autora");
         while(name == null || name.isEmpty()){
-            ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate uneti ime autora", MessageType.WARNING, LocalDateTime.now());
+            ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate uneti ime autora", MessageType.NOTIFICATION, LocalDateTime.now());
             name = JOptionPane.showInputDialog("Unesite ime autora");
         }
-        classyNode = new Project(ApplicationFramework.getInstance().getClassyRepository().getRoot(), "Project" + String.valueOf(cnt), name, "f.txt");
+        String fileName = JOptionPane.showInputDialog("Unesite ime fajla");
+        while(fileName == null || fileName.isEmpty()){
+            ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate uneti ime fajla", MessageType.NOTIFICATION, LocalDateTime.now());
+            fileName = JOptionPane.showInputDialog("Unesite ime fajla");
+        }
+        classyNode = new Project(ApplicationFramework.getInstance().getClassyRepository().getRoot(), "Project" + String.valueOf(cnt), name, fileName +".txt");
+        System.out.println(fileName+".txt");
         cnt++;
         return classyNode;
     }

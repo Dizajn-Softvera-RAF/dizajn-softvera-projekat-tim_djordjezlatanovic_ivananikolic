@@ -103,16 +103,7 @@ public class PackageView extends JPanel implements Subscriber {
 
         }
         else if(var1 instanceof Diagram && tekst=="add") {
-            boolean flag = false;
-            for (int i = 0; i < jTabbedPane.getTabCount(); i++) {
-                DiagramView d = (DiagramView) jTabbedPane.getComponentAt(i);
-                if (var1 instanceof Diagram) {
-                    if (((DiagramView) jTabbedPane.getComponentAt(i)).getDiagram().equals((Diagram) var1)) {
-                        flag = true;
-                    }
-                }
-            }
-            if(flag==false){
+
                 DiagramView diagramView = new DiagramView((Diagram) var1, brojac, this);
 
                 jTabbedPane.addTab(diagramView.getImeTaba(),diagramView);
@@ -123,4 +114,4 @@ public class PackageView extends JPanel implements Subscriber {
     }
 
 
-}
+

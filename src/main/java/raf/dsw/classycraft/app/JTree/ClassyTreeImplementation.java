@@ -50,6 +50,7 @@ public class ClassyTreeImplementation implements CLassyTree{
     @Override
     public void deleteChild(ClassyTreeItem selected) {
         ClassyNode dete = selected.getClassyNode();
+        System.out.println(dete);
         ClassyNodeComposite  roditelj = (ClassyNodeComposite) dete.getParent();
         roditelj.deleteChild(dete);
         selected.removeFromParent();
