@@ -29,7 +29,7 @@ public class NewProjectAction extends AbstractClassyAction{
                 String basicSelection = "Diagram";
                 Object selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
                     while(selection == null){
-                        ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.WARNING, LocalDateTime.now());
+                        ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.NOTIFICATION, LocalDateTime.now());
                         selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
                     }
 
@@ -45,7 +45,7 @@ public class NewProjectAction extends AbstractClassyAction{
         }
 
         else
-            ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati cvor u stablu", MessageType.WARNING, LocalDateTime.now());
+            ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati cvor u stablu", MessageType.NOTIFICATION, LocalDateTime.now());
     }
 
 }
