@@ -1,1 +1,3 @@
-WARNING 07-11-2023 14:28:53 Morate selektovati cvor u stablu koji zelite da obrisete
+NODE_NOT_SELECTED 09-11-2023 00:48:18 Niste selektovali cvor
+NODE_NOT_SELECTED 09-11-2023 00:48:29 Niste selektovali cvor
+CANNOT_DELETE_PROJECT_EXPLORER 09-11-2023 00:48:35 Project Explorer se ne moze obrisati

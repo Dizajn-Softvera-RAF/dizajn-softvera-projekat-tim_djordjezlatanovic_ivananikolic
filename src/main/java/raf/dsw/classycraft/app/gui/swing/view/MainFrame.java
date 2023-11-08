@@ -86,11 +86,26 @@ public class MainFrame extends JFrame implements Logger {
             jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.ERROR),jOptionPane.ERROR_MESSAGE);
 
         }
-        if(message.getType() == MessageType.WARNING){
-            jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.WARNING),jOptionPane.WARNING_MESSAGE);
+        if(message.getType() == MessageType.CANNOT_DELETE_PROJECT_EXPLORER){
+            jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.CANNOT_DELETE_PROJECT_EXPLORER),jOptionPane.WARNING_MESSAGE);
         }
-        if(message.getType() == MessageType.NOTIFICATION){
-            jOptionPane.showMessageDialog(f,message.toString(),"INFORMATION",jOptionPane.INFORMATION_MESSAGE);
+        if(message.getType() == MessageType.CANNOT_ADD_CHILD){
+            jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.CANNOT_ADD_CHILD),jOptionPane.INFORMATION_MESSAGE);
+        }
+        if(message.getType() == MessageType.NODE_NOT_SELECTED){
+            jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.NODE_NOT_SELECTED),jOptionPane.INFORMATION_MESSAGE);
+        }
+        if(message.getType() == MessageType.MUST_INSERT_NAME){
+            jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.MUST_INSERT_NAME),jOptionPane.INFORMATION_MESSAGE);
+        }
+        if(message.getType() == MessageType.CANNOT_DELETE_FILE){
+            jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.CANNOT_DELETE_FILE),jOptionPane.INFORMATION_MESSAGE);
+        }
+        if(message.getType() == MessageType.RESOURCE_NOT_FOUND){
+            jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.RESOURCE_NOT_FOUND),jOptionPane.INFORMATION_MESSAGE);
+        }
+        if(message.getType() == MessageType.COMPONENT_NOT_SELECTED){
+            jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.COMPONENT_NOT_SELECTED),jOptionPane.INFORMATION_MESSAGE);
         }
     }
 
