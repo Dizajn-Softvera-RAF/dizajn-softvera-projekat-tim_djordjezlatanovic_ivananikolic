@@ -14,6 +14,30 @@ public class MessageGeneratorImplementation implements MessageGenerator {
     }
     
     public void generateMessage(String text, MessageType type, LocalDateTime vreme){
+        if(type.equals(MessageType.ERROR)){
+            text = "Error";
+        }
+        if(type.equals(MessageType.CANNOT_DELETE_PROJECT_EXPLORER)){
+            text = "Project Explorer se ne moze obrisati";
+        }
+        if(type.equals(type.CANNOT_ADD_CHILD)){
+            text = "Ne mozete dodati dete na izabrani cvor";
+        }
+        if(type.equals(type.NODE_NOT_SELECTED)){
+            text = "Niste selektovali cvor";
+        }
+        if(type.equals(type.MUST_INSERT_NAME)){
+            text = "Morate uneti ime autora";
+        }
+        if(type.equals(type.CANNOT_DELETE_FILE)){
+            text = "Ne mozete obrisati fajl";
+        }
+        if(type.equals(type.RESOURCE_NOT_FOUND)){
+            text = "Resurs nije pronadjen";
+        }
+        if (type.equals(type.COMPONENT_NOT_SELECTED)) {
+            text = "Niste selektovali neku od ponudjenih opcija";
+        }
         message = new Message(text, type, vreme);
         notifyLoggers(message);
         //return message;

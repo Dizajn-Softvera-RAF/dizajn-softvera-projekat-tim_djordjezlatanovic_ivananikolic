@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
 
 public class DeleteNode extends AbstractClassyAction{
-    private ClassyTreeItem previous = null;
+    private ClassyTreeItem previous;
     public DeleteNode() {
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F9, ActionEvent.SHIFT_MASK));
         putValue(SMALL_ICON, loadIcon("/images/delete.png"));
@@ -27,16 +27,16 @@ public class DeleteNode extends AbstractClassyAction{
     public void actionPerformed(ActionEvent e) {
         ClassyTreeItem selected = MainFrame.getInstance().getCLassyTree().getSelectedNode();
 
-        if(selected.equals(previous))
+        if(previous != null && selected.equals(previous))
             selected = null;
         ClassyNode node = null;
         if(selected == null){
-            ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati cvor u stablu koji zelite da obrisete", MessageType.WARNING, LocalDateTime.now());
+            ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati cvor u stablu koji zelite da obrisete", MessageType.NODE_NOT_SELECTED, LocalDateTime.now());
         }
         else if(selected != null){
             node = (ClassyNode) selected.getClassyNode();
             if (node instanceof ProjectExplorer) {
-                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Project Explorer ne moze da se obrise", MessageType.WARNING, LocalDateTime.now());
+                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Project Explorer ne moze da se obrise", MessageType.CANNOT_DELETE_PROJECT_EXPLORER, LocalDateTime.now());
             }
             else if(selected instanceof ClassyTreeItem){
 
