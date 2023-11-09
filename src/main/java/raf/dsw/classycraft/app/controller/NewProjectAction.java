@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.controller;
 
 import raf.dsw.classycraft.app.JTree.model.ClassyTreeItem;
+import raf.dsw.classycraft.app.composite.implementation.Diagram;
 import raf.dsw.classycraft.app.composite.implementation.Package;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
@@ -36,8 +37,9 @@ public class NewProjectAction extends AbstractClassyAction{
 
                 String s = selection.toString();
                 MainFrame.getInstance().getCLassyTree().addChild(selected, s);
-            }
-            else{
+            } else if (selected.getClassyNode() instanceof Diagram) {
+                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("", MessageType.CANNOT_ADD_CHILD, LocalDateTime.now());
+            } else{
                 String s = null;
                 MainFrame.getInstance().getCLassyTree().addChild(selected, s);
             }
