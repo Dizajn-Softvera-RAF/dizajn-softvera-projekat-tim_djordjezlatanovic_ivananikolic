@@ -21,7 +21,7 @@ public class MessageGeneratorImplementation implements MessageGenerator {
             text = "Project Explorer se ne moze obrisati";
         }
         if(type.equals(type.CANNOT_ADD_CHILD)){
-            text = "Ne mozete dodati dete na izabrani cvor";
+            text = "Ne mozete dodati dete selektovanom cvoru";
         }
         if(type.equals(type.NODE_NOT_SELECTED)){
             text = "Niste selektovali cvor";
