@@ -18,7 +18,19 @@ public class Diagram extends ClassyNodeLeaf implements Publisher {
 
     @Override
     public void setName(String name) {
-        super.setName(name);
+        Package p = (Package) this.getParent();
+        boolean flag = false;
+        for(ClassyNode d : p.getChildren()){
+            if(d instanceof Diagram){
+                if(d.getName().equals(name)){
+                    flag = true;
+                    break;
+                }
+
+            }
+        }
+        if(!flag)
+            super.setName(name);
         notifySubscriber(name,"");
     }
 
