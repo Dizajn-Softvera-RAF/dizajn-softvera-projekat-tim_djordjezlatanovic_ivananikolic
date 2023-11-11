@@ -107,6 +107,9 @@ public class MainFrame extends JFrame implements Logger {
         if(message.getType() == MessageType.COMPONENT_NOT_SELECTED){
             jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.COMPONENT_NOT_SELECTED),jOptionPane.INFORMATION_MESSAGE);
         }
+        if(message.getType() == MessageType.NAME_ALREADY_TAKEN){
+            jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.NAME_ALREADY_TAKEN),jOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
 }

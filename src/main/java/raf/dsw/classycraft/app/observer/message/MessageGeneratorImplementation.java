@@ -20,24 +20,28 @@ public class MessageGeneratorImplementation implements MessageGenerator {
         if(type.equals(MessageType.CANNOT_DELETE_PROJECT_EXPLORER)){
             text = "Project Explorer se ne moze obrisati";
         }
-        if(type.equals(type.CANNOT_ADD_CHILD)){
+        if(type.equals(MessageType.CANNOT_ADD_CHILD)){
             text = "Ne mozete dodati dete selektovanom cvoru";
         }
-        if(type.equals(type.NODE_NOT_SELECTED)){
+        if(type.equals(MessageType.NODE_NOT_SELECTED)){
             text = "Niste selektovali cvor";
         }
-        if(type.equals(type.MUST_INSERT_NAME)){
+        if(type.equals(MessageType.MUST_INSERT_NAME)){
             text = "Morate uneti ime autora";
         }
-        if(type.equals(type.CANNOT_DELETE_FILE)){
+        if(type.equals(MessageType.CANNOT_DELETE_FILE)){
             text = "Ne mozete obrisati fajl";
         }
-        if(type.equals(type.RESOURCE_NOT_FOUND)){
+        if(type.equals(MessageType.RESOURCE_NOT_FOUND)){
             text = "Resurs nije pronadjen";
         }
-        if (type.equals(type.COMPONENT_NOT_SELECTED)) {
+        if (type.equals(MessageType.COMPONENT_NOT_SELECTED)) {
             text = "Niste selektovali neku od ponudjenih opcija";
         }
+        if(type.equals(MessageType.NAME_ALREADY_TAKEN)){
+            text = "Ime vec postoji";
+        }
+
         message = new Message(text, type, vreme);
         notifyLoggers(message);
         //return message;

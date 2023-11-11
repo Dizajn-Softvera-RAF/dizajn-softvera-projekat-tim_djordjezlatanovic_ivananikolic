@@ -7,10 +7,13 @@ import raf.dsw.classycraft.app.composite.implementation.Diagram;
 import raf.dsw.classycraft.app.composite.implementation.Package;
 import raf.dsw.classycraft.app.composite.implementation.Project;
 import raf.dsw.classycraft.app.composite.implementation.ProjectExplorer;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.observer.Subscriber;
+import raf.dsw.classycraft.app.observer.message.MessageType;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -82,7 +85,18 @@ public class PackageView extends JPanel implements Subscriber {
 //        jTabbedPane.repaint();
     }
     public void promenaImena(String ime, int brojac){
-        jTabbedPane.setTitleAt(brojac, ime);
+        boolean f = false;
+        for(int i = 0; i < jTabbedPane.getTabCount(); i++){
+            String naziv = jTabbedPane.getTitleAt(i);
+            if(naziv.equals(ime)){
+                f = true;
+                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("", MessageType.NAME_ALREADY_TAKEN, LocalDateTime.now());
+                break;
+            }
+        }
+        if(f == false){
+            jTabbedPane.setTitleAt(brojac, ime);
+        }
     }
     public void refreshTabs(Diagram var1){
         for (int i =0; i< jTabbedPane.getTabCount();i++){
