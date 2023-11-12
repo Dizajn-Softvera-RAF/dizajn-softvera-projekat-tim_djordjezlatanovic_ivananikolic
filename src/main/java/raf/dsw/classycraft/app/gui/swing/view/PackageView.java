@@ -26,9 +26,8 @@ public class PackageView extends JPanel implements Subscriber {
     private JLabel imeAutora;
     private JLabel imeProjekta;
     private JTabbedPane jTabbedPane;
-
-    private static int brojac = 0;
     private BoxLayout box;
+    private static int b = 0;
 
     public PackageView(LayoutManager layoutManager){
         super(layoutManager);
@@ -72,10 +71,10 @@ public class PackageView extends JPanel implements Subscriber {
     private void dodajTab() {
         for(ClassyNode c : aPackage.getChildren()){
             if(c instanceof Diagram){
-                DiagramView diagramView = new DiagramView((Diagram) c, brojac, this);
+                DiagramView diagramView = new DiagramView((Diagram) c, this);
 
                 jTabbedPane.addTab(diagramView.getImeTaba(),diagramView);
-                brojac++;
+
             }
         }
 
@@ -83,18 +82,24 @@ public class PackageView extends JPanel implements Subscriber {
 //        jTabbedPane.revalidate();
 //        jTabbedPane.repaint();
     }
-    public void promenaImena(String ime, int brojac){
+    public void promenaImena(String novoIme, String staroIme){
         boolean f = false;
-        for(int i = 0; i < jTabbedPane.getTabCount(); i++){
-            String naziv = jTabbedPane.getTitleAt(i);
-            if(naziv.equals(ime)){
+            if(novoIme == "null"){
                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("fefewfewfew", MessageType.NAME_ALREADY_TAKEN, LocalDateTime.now());
                 f = true;
-                break;
+
             }
-        }
-        if(f == false){
-            jTabbedPane.setTitleAt(brojac, ime);
+
+            if(f == false){
+
+            for(int i = 0; i < jTabbedPane.getTabCount(); i++){
+                if(staroIme.equals(jTabbedPane.getTitleAt(i))){
+                    b = i;
+                    System.out.println("usao");
+                    break;
+                }
+            }
+            jTabbedPane.setTitleAt(b, novoIme);
         }
     }
     public void refreshTabs(Diagram var1){
@@ -117,10 +122,10 @@ public class PackageView extends JPanel implements Subscriber {
         }
         else if(var1 instanceof Diagram && tekst=="add") {
 
-                DiagramView diagramView = new DiagramView((Diagram) var1, brojac, this);
+                DiagramView diagramView = new DiagramView((Diagram) var1, this);
 
                 jTabbedPane.addTab(diagramView.getImeTaba(),diagramView);
-                brojac++;
+
             }
         }
 

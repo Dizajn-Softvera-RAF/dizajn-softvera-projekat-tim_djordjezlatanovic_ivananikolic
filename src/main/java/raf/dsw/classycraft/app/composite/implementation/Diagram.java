@@ -29,9 +29,14 @@ public class Diagram extends ClassyNodeLeaf implements Publisher {
 
             }
         }
-        if(!flag)
+        if(!flag){
             super.setName(name);
-        notifySubscriber(name,"");
+            notifySubscriber(name,"");
+        }
+        else{
+            notifySubscriber("null", "");
+        }
+
     }
 
     @Override

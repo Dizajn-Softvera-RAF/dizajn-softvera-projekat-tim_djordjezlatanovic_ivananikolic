@@ -16,12 +16,11 @@ public class DiagramView extends JPanel implements Subscriber {
     private JPanel panel;
     private String imeTaba;
     private PackageView packageView;
-    private int brojac;
 
-    public DiagramView(Diagram prosledjeniDiagram, int brojac, PackageView prosledjeniPackageView) {
+
+    public DiagramView(Diagram prosledjeniDiagram, PackageView prosledjeniPackageView) {
         this.packageView = prosledjeniPackageView;
         this.imeTaba = prosledjeniDiagram.getName();
-        this.brojac = brojac;
         this.diagram = prosledjeniDiagram;
         this.diagram.addSubscriber(this);
     }
@@ -29,7 +28,13 @@ public class DiagramView extends JPanel implements Subscriber {
 
     @Override
     public void update(Object var1,String tekst) {
-        imeTaba = String.valueOf(var1);
-        packageView.promenaImena(imeTaba, brojac);
+        String staroIme = this.imeTaba;
+        if(var1 == "null"){
+            imeTaba = "null";
+        }else{
+            imeTaba = String.valueOf(var1);
+        }
+
+        packageView.promenaImena(imeTaba, staroIme);
     }
 }
