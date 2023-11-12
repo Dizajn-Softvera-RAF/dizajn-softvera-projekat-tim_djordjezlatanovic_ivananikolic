@@ -29,12 +29,14 @@ public class DiagramView extends JPanel implements Subscriber {
     @Override
     public void update(Object var1,String tekst) {
         String staroIme = this.imeTaba;
+        System.out.println(staroIme);
         if(var1 == "null"){
-            imeTaba = "null";
+            packageView.promenaImena("null", staroIme);
         }else{
             imeTaba = String.valueOf(var1);
+            packageView.promenaImena(imeTaba, staroIme);
         }
 
-        packageView.promenaImena(imeTaba, staroIme);
+
     }
 }
