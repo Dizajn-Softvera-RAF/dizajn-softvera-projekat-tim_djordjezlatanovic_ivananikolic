@@ -1,1 +1,1 @@
-NAME_ALREADY_TAKEN 12-11-2023 00:18:52 Ime vec postoji
+CANNOT_DELETE_PROJECT_EXPLORER 12-11-2023 01:08:18 Project Explorer se ne moze obrisati
