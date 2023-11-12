@@ -27,7 +27,6 @@ public class PackageView extends JPanel implements Subscriber {
     private JLabel imeProjekta;
     private JTabbedPane jTabbedPane;
     private BoxLayout box;
-    private static int b = 0;
 
     public PackageView(LayoutManager layoutManager){
         super(layoutManager);
@@ -87,17 +86,17 @@ public class PackageView extends JPanel implements Subscriber {
             if(novoIme == "null"){
                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("fefewfewfew", MessageType.NAME_ALREADY_TAKEN, LocalDateTime.now());
                 f = true;
-
+                return;
             }
 
             if(f == false){
-
+            int b =0;
             for(int i = 0; i < jTabbedPane.getTabCount(); i++){
                 if(staroIme.equals(jTabbedPane.getTitleAt(i))){
-                    b = i;
-                    System.out.println("usao");
+                    b = i;;
                     break;
                 }
+
             }
             jTabbedPane.setTitleAt(b, novoIme);
         }
