@@ -84,7 +84,6 @@ public class MainFrame extends JFrame implements Logger {
         JFrame f = new JFrame();
         if(message.getType()== MessageType.ERROR){
             jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.ERROR),jOptionPane.ERROR_MESSAGE);
-
         }
         if(message.getType() == MessageType.CANNOT_DELETE_PROJECT_EXPLORER){
             jOptionPane.showMessageDialog(f,message.toString(),String.valueOf(MessageType.CANNOT_DELETE_PROJECT_EXPLORER),jOptionPane.WARNING_MESSAGE);

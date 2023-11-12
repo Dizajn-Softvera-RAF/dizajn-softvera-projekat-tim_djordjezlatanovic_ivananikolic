@@ -35,7 +35,7 @@ public class MessageGeneratorImplementation implements MessageGenerator {
         if(type.equals(MessageType.RESOURCE_NOT_FOUND)){
             text = "Resurs nije pronadjen";
         }
-        if (type.equals(MessageType.COMPONENT_NOT_SELECTED)) {
+        if(type.equals(MessageType.COMPONENT_NOT_SELECTED)) {
             text = "Niste selektovali neku od ponudjenih opcija";
         }
         if(type.equals(MessageType.NAME_ALREADY_TAKEN)){

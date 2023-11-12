@@ -28,7 +28,7 @@ public class PackageView extends JPanel implements Subscriber {
     private JTabbedPane jTabbedPane;
 
     private static int brojac = 0;
-    private JPanel box;
+    private BoxLayout box;
 
     public PackageView(LayoutManager layoutManager){
         super(layoutManager);
@@ -39,20 +39,19 @@ public class PackageView extends JPanel implements Subscriber {
         jTabbedPane.setPreferredSize(new Dimension(500, 300));
         imeAutora = new JLabel();
         imeProjekta = new JLabel();
-        box = new JPanel();
-        box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
-        add(box);
+        box = new BoxLayout(this, BoxLayout.Y_AXIS);
+        setLayout(box);
     }
     public void dodajLabele(String imeAutora, String imeParenta){
         this.imeProjekta.removeAll();
         this.imeAutora.removeAll();
         this.imeProjekta.setText("Ime projekta: "+imeParenta);
         this.imeAutora.setText("Ime autora: "+imeAutora);
-        box.add(this.imeAutora);
-        box.add(this.imeProjekta);
-        box.setPreferredSize(new Dimension(150, 30));
-        box.revalidate();
-        box.repaint();
+        add(this.imeAutora);
+        add(jTabbedPane);
+        add(this.imeProjekta);
+        revalidate();
+        repaint();
     }
 
     public void setaPackage(Package aPackage, Project aProject, ProjectExplorer aProjectExplorer) {
@@ -79,7 +78,7 @@ public class PackageView extends JPanel implements Subscriber {
                 brojac++;
             }
         }
-        add(jTabbedPane);
+
 
 //        jTabbedPane.revalidate();
 //        jTabbedPane.repaint();
@@ -89,8 +88,8 @@ public class PackageView extends JPanel implements Subscriber {
         for(int i = 0; i < jTabbedPane.getTabCount(); i++){
             String naziv = jTabbedPane.getTitleAt(i);
             if(naziv.equals(ime)){
+                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("fefewfewfew", MessageType.NAME_ALREADY_TAKEN, LocalDateTime.now());
                 f = true;
-                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("", MessageType.NAME_ALREADY_TAKEN, LocalDateTime.now());
                 break;
             }
         }
