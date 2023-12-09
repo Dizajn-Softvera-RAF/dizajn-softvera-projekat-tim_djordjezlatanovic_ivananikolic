@@ -36,8 +36,9 @@ public class Package extends ClassyNodeComposite implements Publisher {
 
         if (child instanceof ClassyNodeComposite) {
             deleteSub((ClassyNodeComposite) child);
-        }else {
             notifySubscriber(child,"delete");
+        }else {
+
         }
         child.setParent(null);
 
