@@ -37,8 +37,7 @@ public class NewProjectAction extends AbstractClassyAction{
 
                 String s = selection.toString();
                 MainFrame.getInstance().getCLassyTree().addChild(selected, s);
-            } else if (selected.getClassyNode() instanceof Diagram) {
-                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("", MessageType.CANNOT_ADD_CHILD, LocalDateTime.now());
+
             } else{
                 String s = null;
                 MainFrame.getInstance().getCLassyTree().addChild(selected, s);

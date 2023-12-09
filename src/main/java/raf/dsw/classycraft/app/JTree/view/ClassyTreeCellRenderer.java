@@ -1,10 +1,8 @@
 package raf.dsw.classycraft.app.JTree.view;
 
 import raf.dsw.classycraft.app.JTree.model.ClassyTreeItem;
-import raf.dsw.classycraft.app.composite.implementation.Diagram;
+import raf.dsw.classycraft.app.composite.implementation.*;
 import raf.dsw.classycraft.app.composite.implementation.Package;
-import raf.dsw.classycraft.app.composite.implementation.Project;
-import raf.dsw.classycraft.app.composite.implementation.ProjectExplorer;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeCellRenderer;
@@ -25,6 +23,8 @@ public class ClassyTreeCellRenderer extends DefaultTreeCellRenderer {
             imageURL = getClass().getResource("/images/box.png");
         }
         else if (((ClassyTreeItem)value).getClassyNode() instanceof Diagram) {
+            imageURL = getClass().getResource("/images/diagram.png");
+        } else if (((ClassyTreeItem)value).getClassyNode() instanceof DiagramElements) {
             imageURL = getClass().getResource("/images/diagram.png");
         }
 

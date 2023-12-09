@@ -1,10 +1,8 @@
 package raf.dsw.classycraft.app.composite.factory;
 
 import raf.dsw.classycraft.app.composite.abstraction.ClassyNode;
-import raf.dsw.classycraft.app.composite.implementation.Diagram;
+import raf.dsw.classycraft.app.composite.implementation.*;
 import raf.dsw.classycraft.app.composite.implementation.Package;
-import raf.dsw.classycraft.app.composite.implementation.Project;
-import raf.dsw.classycraft.app.composite.implementation.ProjectExplorer;
 
 public class FactoryUtil{
     private static ProjectExplorerFactory projectExplorer = null;
@@ -24,6 +22,9 @@ public class FactoryUtil{
         }
         else if(tip instanceof Diagram){
             return new DiagramFactory();
+        }
+        else if(tip instanceof DiagramElements){
+            return new DiagramElementsFactory();
         }
         return null;
     }

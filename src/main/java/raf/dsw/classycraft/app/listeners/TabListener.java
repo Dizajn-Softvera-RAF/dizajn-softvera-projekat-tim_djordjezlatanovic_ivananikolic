@@ -5,6 +5,7 @@ import raf.dsw.classycraft.app.JTree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.composite.implementation.Package;
 import raf.dsw.classycraft.app.composite.implementation.Project;
 import raf.dsw.classycraft.app.composite.implementation.ProjectExplorer;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.gui.swing.view.PackageView;
 
@@ -30,6 +31,7 @@ public class TabListener extends MouseAdapter {
                 MainFrame.getInstance().getPackageView().dodajLabele(p1.getImeAutora(), p1.getName());
                 MainFrame.getInstance().getPackageView().setaPackage(p, p1, (ProjectExplorer) p1.getParent());
                 packageList.add(p);
+
                 MainFrame.getInstance().getPackageView().revalidate();
                 MainFrame.getInstance().getPackageView().repaint();
             } else if (packageList.contains(selected.getClassyNode())) {

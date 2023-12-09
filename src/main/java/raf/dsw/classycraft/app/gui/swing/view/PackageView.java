@@ -10,6 +10,7 @@ import raf.dsw.classycraft.app.composite.implementation.ProjectExplorer;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.observer.Subscriber;
 import raf.dsw.classycraft.app.observer.message.MessageType;
+import raf.dsw.classycraft.app.stateSablon.StateManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,6 +28,8 @@ public class PackageView extends JPanel implements Subscriber {
     private JLabel imeProjekta;
     private JTabbedPane jTabbedPane;
     private BoxLayout box;
+    private StateManager stateManager;
+
 
     public PackageView(LayoutManager layoutManager){
         super(layoutManager);
@@ -39,6 +42,10 @@ public class PackageView extends JPanel implements Subscriber {
         imeProjekta = new JLabel();
         box = new BoxLayout(this, BoxLayout.Y_AXIS);
         setLayout(box);
+        ToolBarZaPackageView toolBar = new ToolBarZaPackageView();
+        add(toolBar, BorderLayout.NORTH);
+
+
     }
     public void dodajLabele(String imeAutora, String imeParenta){
         this.imeProjekta.removeAll();
@@ -65,6 +72,7 @@ public class PackageView extends JPanel implements Subscriber {
         aProject.addSubscriber(this);
         aProjectExplorer.addSubscriber(this);
         dodajTab();
+
     }
 
     private void dodajTab() {
@@ -116,6 +124,7 @@ public class PackageView extends JPanel implements Subscriber {
             dodajLabele("","");
         }
         if(var1 instanceof Diagram && tekst=="delete"){
+
             refreshTabs((Diagram)var1);
 
         }
@@ -127,8 +136,41 @@ public class PackageView extends JPanel implements Subscriber {
 
             }
         }
-
+    public void startBrisanje(String s){
+        stateManager = new StateManager(s);
+        this.stateManager.setBrisanje(s);
     }
+    public void startMove(String s){
+        stateManager = new StateManager(s);
+        this.stateManager.setMoveState();
+    }
+    public void startDodavanjeInterclassObjekta(String s){
+        stateManager = new StateManager(s);
+        this.stateManager.setDodavanjeInterclassObjekata(s);
+    }
+    public void startDodavanjeSadrzajaKlase(String s){
+        stateManager = new StateManager(s);
+        this.stateManager.setDodavanjeSadzrajaKlase();
+    }
+    public void startDodavanjeVeze(String s){
+        stateManager = new StateManager(s);
+        this.stateManager.setDodavanjeVeza();
+    }
+    public void startSelekcija(String s){
+        stateManager = new StateManager(s);
+        this.stateManager.setSelekcija();
+    }
+
+    public void misKliknut(int x, int y, DiagramView diagramView){
+    this.stateManager.getCurrentState().misKliknut(x, y, diagramView);
+    }
+    public void misPovucen(int x, int y, DiagramView diagramView){
+        this.stateManager.getCurrentState().misPovucen(x, y, diagramView);
+    }
+    public void misOtpusten(int x, int y, DiagramView diagramView){
+        this.stateManager.getCurrentState().misOtpusten(x, y, diagramView);
+    }
+}
 
 
 

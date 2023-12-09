@@ -35,7 +35,7 @@ public class MainFrame extends JFrame implements Logger {
         Dimension screenSize = kit.getScreenSize();
         int screenHeight = screenSize.height;
         int screenWidth = screenSize.width;
-        setSize(screenWidth / 2, screenHeight / 2);
+        setSize((int) (screenWidth / 1.5), (int) (screenHeight / 1.5));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("ClassyCrafT");
