@@ -20,7 +20,7 @@ public class Diagram extends ClassyNodeComposite implements Publisher {
 
     @Override
     public void addChild(ClassyNode child) {
-        notifySubscriber( "sadsad", "crtanje");
+        notifySubscriber( "", "crtanje");
         if(child instanceof DiagramElements){
             if(!super.getChildren().contains(child)){
                 super.getChildren().add(child);
@@ -37,7 +37,7 @@ public class Diagram extends ClassyNodeComposite implements Publisher {
         if (child instanceof ClassyNodeComposite) {
             deleteSub((ClassyNodeComposite) child);
         }else {
-            notifySubscriber("sadsad", "crtanje");
+            notifySubscriber("", "crtanje");
         }
         child.setParent(null);
     }

@@ -30,7 +30,8 @@ public class DodavanjeSadzrajaKlase implements State{
             }
             if(flag)
                 break;
-        }String novaRec[] = a.split(" ");
+        }
+        String novaRec[] = a.split(" ");
         if(flag){
             if(element.getDiagramElements() instanceof Klasa){
 
@@ -45,17 +46,17 @@ public class DodavanjeSadzrajaKlase implements State{
                     if(novaRec[5].toLowerCase().equals("apstrakt"))
                         flag3 = true;
 
-                    Atributs atributs = new Atributs(novaRec[2], novaRec[3], flag2, flag3);
+                    Atributs atributs = new Atributs(Color.black,novaRec[2], novaRec[3], flag2, flag3);
 
                     if(((Klasa) element.getDiagramElements()).dodaj(atributs)){
-                        System.out.println("dodaj");
-                        element.povecajSumu();
+                        //System.out.println("dodaj");
+
+                        ((Klasa) element.getDiagramElements()).povecajSumu();
                         ((Klasa) element.getDiagramElements()).dodaj(atributs);
                         atributs.addSubscriber(diagramView);
-                        atributs.setVidljivost(novaRec[3]);
-
-
-                        atributPainter = new AtributPainter(Color.black, a, element.getDiagramElements(), x, y,atributs, element);
+                        atributs.setVidljivost(novaRec[3]);;
+                        //System.out.println(atributs.toString());
+                        atributPainter = new AtributPainter(atributs.toString(), element.getDiagramElements(),atributs);
                     }
 
 
@@ -67,14 +68,15 @@ public class DodavanjeSadzrajaKlase implements State{
                     if(novaRec[5].toLowerCase().equals("apstrakt"))
                         flag3 = true;
 
-                    Methods methods = new Methods(novaRec[2], novaRec[3], flag2, flag3);
+                    Methods methods = new Methods(Color.black,novaRec[2], novaRec[3], flag2, flag3);
                 }
                 diagramView.getPainteri().add(atributPainter);
             } else if (element.getDiagramElements() instanceof Interfejs) {
                 ////////////////////////////////////////////////
             } else if (element.getDiagramElements() instanceof Enumm) {
-                EnumPainter enumPainter = new EnumPainter(Color.black, a, element.getDiagramElements(), x, y);
-                EnumElements enumm = new EnumElements(novaRec[2]);
+                EnumElements enumm = new EnumElements(Color.black,novaRec[2]);
+                //EnumPainter enumPainter = new EnumPainter(element.getDiagramElements());
+
             }
         }
     }

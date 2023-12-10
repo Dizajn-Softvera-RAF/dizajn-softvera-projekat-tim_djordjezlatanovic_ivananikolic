@@ -3,6 +3,7 @@ package raf.dsw.classycraft.app.composite.implementation.diagramElementsClass;
 import lombok.Getter;
 import lombok.Setter;
 import raf.dsw.classycraft.app.composite.abstraction.ClassyNode;
+import raf.dsw.classycraft.app.composite.implementation.Diagram;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.Atributs;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.ClassContent;
 import raf.dsw.classycraft.app.observer.Publisher;
@@ -19,6 +20,11 @@ public class Klasa extends Interclass implements Publisher{
     private List<Subscriber> subscribers = new ArrayList<>();
     private static int broj = 20;
 
+    public Klasa(ClassyNode parent, String name, int x, int y, int width, int height,Paint paint) {
+        super(parent, name, x, y, width, height,paint);
+
+    }
+
     public Klasa(ClassyNode parent, String name) {
         super(parent, name);
     }
@@ -32,11 +38,15 @@ public class Klasa extends Interclass implements Publisher{
                 broj+=20;
 
                 atributsList.add(classContent);
+                ((Diagram)getParent()).notifySubscriber("","crtanje");
             }
 
             return true;
         }
         return false;
+    }
+    public void ukloniSadrzaj(ClassContent classContent){
+
     }
 
     @Override

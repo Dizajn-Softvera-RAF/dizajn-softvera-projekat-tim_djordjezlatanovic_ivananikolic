@@ -1,6 +1,7 @@
 package raf.dsw.classycraft.app.painters;
 
 import raf.dsw.classycraft.app.composite.implementation.DiagramElements;
+import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Klasa;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 
 import java.awt.*;
@@ -8,48 +9,48 @@ import java.awt.*;
 public class KlasaPainter extends ElementPainteri {
 
 
-    public KlasaPainter(Paint paint, String name, DiagramElements diagramElements, int x, int y) {
-        super(paint, name, diagramElements, x, y, 250, 130);
+    public KlasaPainter(String name,DiagramElements diagramElements) {
+        super(name, diagramElements);
 
 
     }
 
 
     @Override
-    public void draw(Graphics g, ElementPainteri elementPainter, DiagramView diagramView) {
-
-            g = (Graphics2D) g;
-            if(!(getWidth() == 250)){
-                g.setColor((Color) elementPainter.getPaint());
-                g.drawRect(elementPainter.getX(), elementPainter.getY(), getWidth(), getSuma());
-                g.drawString(elementPainter.getDiagramElements().getName(), (int) ((int)((2 * elementPainter.getX() + getWidth())) / 2.15), (elementPainter.getY() + 10));
+    public void draw(Graphics g, DiagramView diagramView) {
+            Klasa k = ((Klasa)getDiagramElements());
+            Graphics2D g2 = (Graphics2D) g;
+            if(!(k.getWidth() == 250)){
+                g.setColor((Color) k.getPaint());
+                g.drawRect(k.getX(), k.getY(), k.getWidth(), k.getSuma());
+                g.drawString(k.getName(), (int) ((int)((2 * k.getX() + k.getWidth())) / 2.15), (k.getY() + 10));
                 Point p1, p2, p3, p4;
-                p1 = new Point((2 * this.getX() + this.getWidth()) / 2, getY());
-                p2 = new Point(getX(), (2 * getY() + getSuma()) / 2);
-                p3 = new Point(getX() + getWidth(), (2 * getY() + getSuma()) / 2);
-                p4 = new Point((2 * this.getX() + this.getWidth()) / 2, getY() + getSuma());
-                this.getTackeIcrtavanja().get(0).setLocation(p1);
-                this.getTackeIcrtavanja().get(1).setLocation(p2);
-                this.getTackeIcrtavanja().get(2).setLocation(p3);
-                this.getTackeIcrtavanja().get(3).setLocation(p4);
+                p1 = new Point((2 * k.getX() + k.getWidth()) / 2, k.getY());
+                p2 = new Point(k.getX(), (2 * k.getY() + k.getSuma()) / 2);
+                p3 = new Point(k.getX() + k.getWidth(), (2 * k.getY() + k.getSuma()) / 2);
+                p4 = new Point((2 * k.getX() + k.getWidth()) / 2, k.getY() + k.getSuma());
+                k.getTackeIcrtavanja().get(0).setLocation(p1);
+                k.getTackeIcrtavanja().get(1).setLocation(p2);
+                k.getTackeIcrtavanja().get(2).setLocation(p3);
+                k.getTackeIcrtavanja().get(3).setLocation(p4);
                 if(this.getRectangle()!= null)
-                this.setRectangle(getWidth(), getSuma());
+                    this.setRectangle(k.getWidth(), k.getSuma());
 
             }
             else{
-                g.setColor((Color) elementPainter.getPaint());
-                g.drawRect(elementPainter.getX(), elementPainter.getY(), getWidth(), getHeight());
-                g.drawString(elementPainter.getDiagramElements().getName(), (int) ((int)((2 * elementPainter.getX() + getWidth())) / 2.15), (elementPainter.getY() + 10));
+                g.setColor((Color) k.getPaint());
+                g.drawRect(k.getX(), k.getY(), k.getWidth(), k.getHeight());
+                g.drawString(k.getName(), ((2 * k.getX() + k.getWidth())/ 2), (k.getY() + 10));
                 Point p1, p2, p3, p4;
-                p1 = new Point((2 * this.getX() + this.getWidth()) / 2, getY());
-                p2 = new Point(getX(), (2 * getY() + getHeight()) / 2);
-                p3 = new Point(getX() + getWidth(), (2 * getY() + getHeight()) / 2);
-                p4 = new Point((2 * this.getX() + this.getWidth()) / 2, getY() + getHeight());
-                this.getTackeIcrtavanja().clear();
-                this.getTackeIcrtavanja().add(p1);
-                this.getTackeIcrtavanja().add(p2);
-                this.getTackeIcrtavanja().add(p3);
-                this.getTackeIcrtavanja().add(p4);
+                p1 = new Point((2 * k.getX() + k.getWidth()) / 2, k.getY());
+                p2 = new Point(k.getX(), (2 * k.getY() +k.getHeight()) / 2);
+                p3 = new Point(k.getX() + k.getWidth(), (2 * k.getY() + k.getHeight()) / 2);
+                p4 = new Point((2 * k.getX() + k.getWidth()) / 2, k.getY() + k.getHeight());
+                k.getTackeIcrtavanja().clear();
+                k.getTackeIcrtavanja().add(p1);
+                k.getTackeIcrtavanja().add(p2);
+                k.getTackeIcrtavanja().add(p3);
+                k.getTackeIcrtavanja().add(p4);
             }
 
             if(this.getRectangle() != null){
@@ -70,18 +71,19 @@ public class KlasaPainter extends ElementPainteri {
 
     @Override
     public boolean elementAt(Point pos, DiagramView diagramView, String s, ElementPainteri elementPainteri) {
+        Klasa k = ((Klasa)getDiagramElements());
         Rectangle r = new Rectangle();
-        if(!(getHeight() == 130)){
-            r.setSize(getWidth(), getSuma());
+        if(!(k.getHeight() == 130)){
+            r.setSize(k.getWidth(), k.getSuma());
         }
-        else r.setSize(getWidth(), getHeight());
+        else r.setSize(k.getWidth(), k.getHeight());
 
-        r.setLocation(this.getX(), this.getY());
+        r.setLocation(k.getX(), k.getY());
         if(s.equals("selekcija")){
             if(r.contains(pos.x, pos.y))
                 return true;
         }else{
-            if(r.contains(pos.x, pos.y) || r.contains(pos.x + getWidth() , pos.y) || r.contains(pos.x , pos.y + getHeight()) || r.contains(pos.x + getWidth(), pos.y + getHeight())){
+            if(r.contains(pos.x, pos.y) || r.contains(pos.x + k.getWidth() , pos.y) || r.contains(pos.x , pos.y + k.getHeight()) || r.contains(pos.x + k.getWidth(), pos.y + k.getHeight())){
                 return true;
             }
         }

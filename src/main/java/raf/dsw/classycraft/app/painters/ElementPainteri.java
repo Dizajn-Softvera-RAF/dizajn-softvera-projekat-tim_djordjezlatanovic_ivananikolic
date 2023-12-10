@@ -6,49 +6,46 @@ import raf.dsw.classycraft.app.composite.implementation.DiagramElements;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
 
 public abstract class ElementPainteri {
 
-    private Stroke stroke;
+    //private Stroke stroke;
     private Rectangle rectangle;
-    private Paint paint;
+    //private Paint paint;
     private DiagramElements diagramElements;
     private String name;
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private int suma = 20;
-    final static float dash1[] = {10.0f};
+//    private int x;
+//    private int y;
+//    private int width;
+//    private int height;
+//    private int suma = 20;
+  final static float dash1[] = {10.0f};
+//
+//    private List<Point> tackeIcrtavanja = new ArrayList<>(4);
+//
+//    private int najveciWidth = 0;
 
-    private List<Point> tackeIcrtavanja = new ArrayList<>(4);
+    //private List<Integer> duzinaAtributa = new ArrayList<>();
+    //BasicStroke dashed = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash1, 0.0f);
 
-    private int najveciWidth = 0;
-
-    private List<Integer> duzinaAtributa = new ArrayList<>();
-    BasicStroke dashed = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash1, 0.0f);
-
-    public ElementPainteri(Paint paint, String name, DiagramElements diagramElements, int x, int y, int width, int height) {
-        this.stroke = dashed;
-        this.paint = paint;
+    public ElementPainteri(String name,DiagramElements diagramElements) {
+        //this.stroke = dashed;
         this.name = name;
         this.diagramElements = diagramElements;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+//        this.x = x;
+//        this.y = y;
+//        this.width = width;
+//        this.height = height;
     }
-    public void povecajSumu(){
-        suma += 20;
-    }
-    public void umanjiSumu(){
-        suma -= 20;
-    }
+//    public void povecajSumu(){
+//        suma += 20;
+//    }
+//    public void umanjiSumu(){
+//        suma -= 20;
+//    }
     public void napraviRectangle(int x, int y, int width, int height){
         rectangle = new Rectangle(x, y, width + 10, height + 10);
     }
@@ -57,6 +54,6 @@ public abstract class ElementPainteri {
     }
 
 
-    public abstract void draw(Graphics g, ElementPainteri elementPainteri, DiagramView diagramView);
+    public abstract void draw(Graphics g, DiagramView diagramView);
     public abstract boolean elementAt(Point pos, DiagramView diagramView, String s, ElementPainteri elementPainteri);
 }

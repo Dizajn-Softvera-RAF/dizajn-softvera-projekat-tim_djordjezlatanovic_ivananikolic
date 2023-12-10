@@ -2,6 +2,7 @@ package raf.dsw.classycraft.app.stateSablon;
 
 import raf.dsw.classycraft.app.composite.implementation.DiagramElements;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Agregacija;
+import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Connection;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Interclass;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 import raf.dsw.classycraft.app.painters.AgregacijaPainter;
@@ -33,10 +34,10 @@ public class DodavanjeVeza implements State{
         }
 
         if(flag){
-            agregacija = new Agregacija(diagramElements, "agregacija");
+            agregacija = new Agregacija(diagramElements, "agregacija",x,y);
             agregacija.setFrom((Interclass) diagramElements);
 
-            agregacijaPainter = new AgregacijaPainter(Color.black, "agregaciija", diagramElements, x, y);
+            agregacijaPainter = new AgregacijaPainter("agregacija",agregacija);
 
             diagramView.getPainteri().add(agregacijaPainter);
 
@@ -44,13 +45,15 @@ public class DodavanjeVeza implements State{
 
     }
     public void misPovucen(int x, int y, DiagramView diagramView){
-        agregacijaPainter.setEndPoint(new Point(x, y));
+        Connection c = (Connection)agregacijaPainter.getDiagramElements();
+        c.setEndPoint(new Point(x, y));
         diagramView.getDiagram().notifySubscriber("", "crtanje");
 
 
     }
     public void misOtpusten(int x, int y, DiagramView diagramView){
-        agregacijaPainter.setPrvi(e);
+        Connection c = (Connection)agregacijaPainter.getDiagramElements();
+        //c.setFrom((Interclass) e.getDiagramElements());
         boolean flag = false;
         DiagramElements diagramElements2 = null;
         ElementPainteri en = null;
@@ -67,8 +70,8 @@ public class DodavanjeVeza implements State{
         }
         if(flag){
             agregacija.setTo((Interclass) diagramElements2);
-            agregacijaPainter.setPoslednji(en);
-            agregacijaPainter.setEndPoint(new Point(x, y));
+            //agregacijaPainter.setPoslednji(en);
+            agregacija.setEndPoint(new Point(x, y));
             diagramView.getDiagram().notifySubscriber("", "crtanje");
         }
         else {

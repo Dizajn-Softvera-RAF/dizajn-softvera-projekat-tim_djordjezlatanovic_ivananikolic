@@ -5,6 +5,7 @@ import lombok.Setter;
 import raf.dsw.classycraft.app.observer.Publisher;
 import raf.dsw.classycraft.app.observer.Subscriber;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 @Getter
@@ -17,8 +18,8 @@ public class Atributs extends ClassContent implements Publisher {
     private String tip;
     private  int broj = 20;
 
-    public Atributs(String name, String tip, boolean isStatic, boolean isAbstract) {
-        super(name);
+    public Atributs(Paint paint,String name, String tip, boolean isStatic, boolean isAbstract) {
+        super(paint, name);
 
         this.isStatic = isStatic;
         this.isAbstract = isAbstract;
@@ -42,7 +43,7 @@ public class Atributs extends ClassContent implements Publisher {
         else{
             this.vidljivost = "~";
         }
-        notifySubscriber("", "crtanje");
+        //notifySubscriber("", "crtanje");
     }
 
     @Override

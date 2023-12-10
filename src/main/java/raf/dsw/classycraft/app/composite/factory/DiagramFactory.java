@@ -21,18 +21,18 @@ public class DiagramFactory extends ClassyNodeFactory{
     ClassyNode createChild(String ime) {
         ClassyNode classyNode = null;
 
-        if(ime.toLowerCase().equals("klasa")){
-            classyNode = new Klasa(ApplicationFramework.getInstance().getClassyRepository().getRoot(), "Klasa" + String.valueOf(cnt));
-            cnt++;
-        }
-        else if(ime.toLowerCase().equals("interface")){
-            classyNode = new Interfejs(ApplicationFramework.getInstance().getClassyRepository().getRoot(), "Intreface" + String.valueOf(cnt2));
-            cnt2++;
-        }
-        else {
-            classyNode = new Enumm(ApplicationFramework.getInstance().getClassyRepository().getRoot(), "Enum" + String.valueOf(cnt3));
-            cnt3++;
-        }
+//        if(ime.toLowerCase().equals("klasa")){
+//            classyNode = new Klasa(ApplicationFramework.getInstance().getClassyRepository().getRoot(), "Klasa" + String.valueOf(cnt));
+//            cnt++;
+//        }
+//        else if(ime.toLowerCase().equals("interface")){
+//            classyNode = new Interfejs(ApplicationFramework.getInstance().getClassyRepository().getRoot(), "Intreface" + String.valueOf(cnt2));
+//            cnt2++;
+//        }
+//        else {
+//            classyNode = new Enumm(ApplicationFramework.getInstance().getClassyRepository().getRoot(), "Enum" + String.valueOf(cnt3));
+//            cnt3++;
+//        }
 
 
 
