@@ -4,8 +4,8 @@ import raf.dsw.classycraft.app.composite.abstraction.ClassyNode;
 
 public class Agregacija extends Connection{
     private String vidljivost;
-    private int kardinalnost;
-    public Agregacija(ClassyNode parent, String name) {
-        super(parent, name);
+
+    public Agregacija(ClassyNode parent, String name, int x, int y) {
+        super(parent, name, x, y);
     }
 }

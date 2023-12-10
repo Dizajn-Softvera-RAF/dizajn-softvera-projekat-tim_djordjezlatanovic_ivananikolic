@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import raf.dsw.classycraft.app.composite.implementation.DiagramElements;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Connection;
+import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Interclass;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 
 import java.awt.*;
@@ -11,27 +12,29 @@ import java.awt.*;
 @Setter
 @Getter
 public class AgregacijaPainter extends ElementPainteri {
-    private Point endPoint;
-    private ElementPainteri prvi;
-    private ElementPainteri poslednji = null;
+//    private Point endPoint;
+//    private ElementPainteri prvi;
+//    private ElementPainteri poslednji = null;
 
-    public AgregacijaPainter(Paint paint, String name, DiagramElements diagramElements, int x, int y) {
-        super(paint, name, diagramElements, x, y, 75, 90);
+    public AgregacijaPainter(String name,DiagramElements diagramElements) {
+        super(name, diagramElements);
 
 
     }
     @Override
-    public void draw(Graphics g, ElementPainteri elementPainteri, DiagramView diagramView) {
-        if(getPoslednji() == null){
+    public void draw(Graphics g, DiagramView diagramView) {
+        Connection c = (Connection) getDiagramElements();
+
+        if(c.getTo() == null){
             g.setColor(Color.BLACK);
-            g.drawLine(this.getX(), this.getY(), endPoint.x, endPoint.y);
+            g.drawLine(c.getX(), c.getY(), c.getEndPoint().x, c.getEndPoint().y);
         }
         else{
             Point point1 = null;
             Point point2 = null;
             int najkraca = Integer.MAX_VALUE;
-            for(Point p : prvi.getTackeIcrtavanja()){
-                for(Point p2 : poslednji.getTackeIcrtavanja()){
+            for(Point p : c.getFrom().getTackeIcrtavanja()){
+                for(Point p2 :c.getTo().getTackeIcrtavanja()){
                     int broj = (int) Math.sqrt((p2.x - p.x) * (p2.x - p.x) + (p2.y - p.y) * (p2.y - p.y));
                     if(najkraca > broj){
                         najkraca = broj;

@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.stateSablon;
 
+import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Interclass;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 import raf.dsw.classycraft.app.painters.ElementPainteri;
 import raf.dsw.classycraft.app.painters.LasoPainter;
@@ -25,10 +26,11 @@ public class Selekcija implements State{
         if(flag){
             System.out.println("usao u true");
             diagramView.getSelectionModel().add(element);
-            if(element.getSuma() == 20){
-                element.napraviRectangle(element.getX() - 10, element.getY() - 10, element.getWidth() + 30, element.getHeight() + 20);
+            Interclass i = ((Interclass)element.getDiagramElements());
+            if(((Interclass)element.getDiagramElements()).getSuma() == 20){
+                element.napraviRectangle(i.getX() - 10, i.getY() - 10, i.getWidth() + 30, i.getHeight() + 20);
             }else {
-                element.napraviRectangle(element.getX() - 10, element.getY() - 10, element.getWidth() + 30, element.getSuma() + 20);
+                element.napraviRectangle(i.getX() - 10, i.getY() - 10, i.getWidth() + 30, i.getSuma() + 20);
             }
             diagramView.getDiagram().selektovano();
 
@@ -60,11 +62,16 @@ public class Selekcija implements State{
                 lasoPainter.getPainteriList().add(elementPainteri);
                 diagramView.getSelectionModel().add(elementPainteri);
                 element = elementPainteri;
-                if(elementPainteri.getHeight() != 130)
-                    element.napraviRectangle(element.getX() - 10, elementPainteri.getY() - 10, element.getWidth() + 30, elementPainteri.getSuma() + 30);
+                Interclass i = (Interclass)elementPainteri.getDiagramElements();
+                if(i.getHeight() != 130)
+                    element.napraviRectangle(i.getX() - 10, i.getY() - 10, i.getWidth() + 30, i.getSuma() + 30);
                 else
-                    element.napraviRectangle(element.getX() - 10, elementPainteri.getY() - 10, element.getWidth() + 30, elementPainteri.getHeight() + 30);
+                    element.napraviRectangle(i.getX() - 10, i.getY() - 10, i.getWidth() + 30, i.getHeight() + 30);
                 diagramView.getDiagram().notifySubscriber("", "crtanje");
+            }
+            else{
+                elementPainteri.setRectangle(null);
+                diagramView.getDiagram().notifySubscriber("","crtanje");
             }
 
         }
@@ -73,7 +80,7 @@ public class Selekcija implements State{
 
     }
     public void misOtpusten(int x, int y, DiagramView diagramView){
-        System.out.println("usao2");
+
         diagramView.getPainteri().remove(lasoPainter);
         lasoPainter = null;
         diagramView.getDiagram().notifySubscriber("", "crtanje");

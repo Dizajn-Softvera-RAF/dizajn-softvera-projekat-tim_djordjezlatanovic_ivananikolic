@@ -62,7 +62,7 @@ public class DiagramView extends JPanel implements Subscriber {
         super.paintComponent(g);
         g = (Graphics2D)g;
         for(ElementPainteri elementi : this.painteri){
-                elementi.draw(g, elementi, this);
+                elementi.draw(g, this);
         }
     }
 }

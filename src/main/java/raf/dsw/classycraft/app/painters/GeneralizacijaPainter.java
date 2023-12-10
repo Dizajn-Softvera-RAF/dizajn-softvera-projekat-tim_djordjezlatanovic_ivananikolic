@@ -8,14 +8,14 @@ import java.awt.*;
 public class GeneralizacijaPainter extends ElementPainteri {
 
 
-    public GeneralizacijaPainter(Paint paint, String name, DiagramElements diagramElements, int x, int y) {
-        super(paint, name, diagramElements, x, y, 75, 90);
+    public GeneralizacijaPainter(String name,DiagramElements diagramElements) {
+        super(name, diagramElements);
 
 
     }
 
     @Override
-    public void draw(Graphics g, ElementPainteri elementPainteri, DiagramView diagramView) {
+    public void draw(Graphics g, DiagramView diagramView) {
 
     }
 
