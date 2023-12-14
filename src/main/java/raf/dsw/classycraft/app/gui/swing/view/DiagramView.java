@@ -53,6 +53,7 @@ public class DiagramView extends JPanel implements Subscriber {
 
 public void setTr(double scale){
         this.scale = scale;
+        affineTransform.setToIdentity();
         affineTransform.scale(this.scale, this.scale);
         repaint();
 }
