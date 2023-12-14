@@ -2,6 +2,7 @@ package raf.dsw.classycraft.app.gui.swing.view;
 
 import lombok.Getter;
 import lombok.Setter;
+import raf.dsw.classycraft.app.JTree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.composite.abstraction.ClassyNode;
 import raf.dsw.classycraft.app.composite.implementation.Diagram;
 import raf.dsw.classycraft.app.composite.implementation.Package;
@@ -27,8 +28,11 @@ public class PackageView extends JPanel implements Subscriber {
     private JLabel imeAutora;
     private JLabel imeProjekta;
     private JTabbedPane jTabbedPane;
+    private JScrollPane jScrollPane;
+    private JViewport jViewport;
     private BoxLayout box;
     private StateManager stateManager;
+    private ClassyTreeItem classyTreeItem;
 
 
     public PackageView(LayoutManager layoutManager){
@@ -59,6 +63,7 @@ public class PackageView extends JPanel implements Subscriber {
         repaint();
     }
 
+
     public void setaPackage(Package aPackage, Project aProject, ProjectExplorer aProjectExplorer) {
         this.aPackage = aPackage;
         Package p = aPackage;
@@ -78,12 +83,22 @@ public class PackageView extends JPanel implements Subscriber {
     private void dodajTab() {
         for(ClassyNode c : aPackage.getChildren()){
             if(c instanceof Diagram){
-                DiagramView diagramView = new DiagramView((Diagram) c, this);
+                DiagramView diagramView = new DiagramView((Diagram) c, this, classyTreeItem);
 
                 jTabbedPane.addTab(diagramView.getImeTaba(),diagramView);
+                jScrollPane = new JScrollPane(diagramView);
+                jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+                //  jScrollPane.setPreferredSize(new Dimension(50, 70));
+                jViewport=jScrollPane.getViewport();
+                jScrollPane.setViewportView(diagramView);
+                diagramView.setViewport(jViewport);
 
+                jTabbedPane.add(diagramView.getDiagram().getName(), jScrollPane);
             }
         }
+
+
 
 
 //        jTabbedPane.revalidate();
@@ -130,7 +145,7 @@ public class PackageView extends JPanel implements Subscriber {
         }
         else if(var1 instanceof Diagram && tekst=="add") {
 
-                DiagramView diagramView = new DiagramView((Diagram) var1, this);
+                DiagramView diagramView = new DiagramView((Diagram) var1, this, classyTreeItem);
 
                 jTabbedPane.addTab(diagramView.getImeTaba(),diagramView);
 
@@ -152,13 +167,30 @@ public class PackageView extends JPanel implements Subscriber {
         stateManager = new StateManager(s);
         this.stateManager.setDodavanjeSadzrajaKlase();
     }
+    public void startDuplicate(){
+        String s = null;
+        stateManager = new StateManager(s);
+        this.stateManager.setDuplicate();
+    }
     public void startDodavanjeVeze(String s){
         stateManager = new StateManager(s);
-        this.stateManager.setDodavanjeVeza();
+        this.stateManager.setDodavanjeVeza(s);
     }
     public void startSelekcija(String s){
         stateManager = new StateManager(s);
         this.stateManager.setSelekcija();
+    }
+    public void startMenjanje(String s){
+        stateManager = new StateManager(s);
+        this.stateManager.setMenjanjeSadrzaja();
+    }
+    public void startZoomIn(String s){
+        stateManager = new StateManager(s);
+        this.stateManager.setStateZoomIn();
+    }
+    public void startZoomOut(String s){
+        stateManager = new StateManager(s);
+        this.stateManager.setStateZoomOut();
     }
 
     public void misKliknut(int x, int y, DiagramView diagramView){

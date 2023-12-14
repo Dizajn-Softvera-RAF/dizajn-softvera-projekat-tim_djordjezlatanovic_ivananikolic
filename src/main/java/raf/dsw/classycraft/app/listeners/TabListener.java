@@ -27,6 +27,7 @@ public class TabListener extends MouseAdapter {
                 while(!(pNova.getParent() instanceof Project)){
                     pNova = (Package) pNova.getParent();
                 }
+                MainFrame.getInstance().getPackageView().setClassyTreeItem(selected);
                 Project p1 = (Project) pNova.getParent();
                 MainFrame.getInstance().getPackageView().dodajLabele(p1.getImeAutora(), p1.getName());
                 MainFrame.getInstance().getPackageView().setaPackage(p, p1, (ProjectExplorer) p1.getParent());

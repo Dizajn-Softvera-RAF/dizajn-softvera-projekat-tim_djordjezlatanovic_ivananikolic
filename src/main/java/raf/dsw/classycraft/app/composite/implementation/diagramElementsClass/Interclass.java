@@ -13,9 +13,12 @@ import java.util.List;
 @Setter
 
 public abstract class Interclass extends DiagramElements {
+    private List<Connection> konekcije= new ArrayList<>();
     //private String vidljivost;
     //private List<Integer> tacke;
     private List<ClassContent> classContentList = new ArrayList<>();
+    private int staroX;
+    private int staroY;
     private int x;
     private int y;
     private int width;
@@ -31,7 +34,7 @@ public abstract class Interclass extends DiagramElements {
 
     private int najveciWidth = 0;
     private List<Integer> duzinaAtributa = new ArrayList<>();
-    private BasicStroke stroke = new BasicStroke(1.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f, dash1, 0.0f);
+    private BasicStroke stroke = new BasicStroke(1.0f);
 
     public Interclass(ClassyNode parent, String name, int x, int y, int width, int height,Paint paint) {
         super(parent, name);
@@ -41,6 +44,8 @@ public abstract class Interclass extends DiagramElements {
         this.width = width;
         this.height = height;
         this.paint = paint;
+        this.staroY = y;
+        this.staroX = x;
     }
 
     public Interclass(ClassyNode parent, String name) {
@@ -52,4 +57,5 @@ public abstract class Interclass extends DiagramElements {
     public void umanjiSumu(){
         suma -= 20;
     }
+
 }

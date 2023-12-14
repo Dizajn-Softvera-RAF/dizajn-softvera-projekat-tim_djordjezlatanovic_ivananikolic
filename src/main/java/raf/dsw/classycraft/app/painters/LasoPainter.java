@@ -3,6 +3,7 @@ package raf.dsw.classycraft.app.painters;
 import lombok.Getter;
 import lombok.Setter;
 import raf.dsw.classycraft.app.composite.implementation.DiagramElements;
+import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Connection;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Interclass;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 
@@ -44,7 +45,7 @@ public class LasoPainter extends ElementPainteri {
     @Override
     public boolean elementAt(Point pos, DiagramView diagramView, String s, ElementPainteri elementPainteri) {
         Rectangle r = new Rectangle(firstPoint.x, firstPoint.y, endPoint.x - firstPoint.x, endPoint.y - firstPoint.y);
-        if(elementPainteri instanceof KlasaPainter){
+        if(elementPainteri.getDiagramElements() instanceof Interclass){
             Interclass i = (Interclass)elementPainteri.getDiagramElements();
             if(((Interclass)elementPainteri.getDiagramElements()).getWidth() != 250){
                 if (r.contains(i.getX(), i.getY()) || r.contains(i.getX() + i.getWidth(), i.getY()) || r.contains(i.getX(), i.getY() + i.getSuma()) || r.contains(i.getX() + i.getWidth(), i.getY() + i.getSuma())) {
@@ -56,6 +57,11 @@ public class LasoPainter extends ElementPainteri {
                     return true;
                 }
             }
+        }
+        else if(elementPainteri.getDiagramElements() instanceof Connection){
+            Connection c = (Connection) elementPainteri.getDiagramElements();
+            if(r.contains(c.getPocetnaTacka().x, c.getPocetnaTacka().y) || r.contains(c.getKrajnjaTacka().x, c.getKrajnjaTacka().y))
+                return true;
         }
         return false;
     }

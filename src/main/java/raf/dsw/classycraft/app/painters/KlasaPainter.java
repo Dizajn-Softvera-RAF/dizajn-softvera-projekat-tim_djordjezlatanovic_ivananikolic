@@ -1,17 +1,17 @@
 package raf.dsw.classycraft.app.painters;
 
 import raf.dsw.classycraft.app.composite.implementation.DiagramElements;
+import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Interclass;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Klasa;
+import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.ClassContent;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 
 import java.awt.*;
 
 public class KlasaPainter extends ElementPainteri {
 
-
     public KlasaPainter(String name,DiagramElements diagramElements) {
         super(name, diagramElements);
-
 
     }
 
@@ -20,19 +20,49 @@ public class KlasaPainter extends ElementPainteri {
     public void draw(Graphics g, DiagramView diagramView) {
             Klasa k = ((Klasa)getDiagramElements());
             Graphics2D g2 = (Graphics2D) g;
+            ((Graphics2D)g).setStroke(k.getStroke());
+            for(ClassContent atribut : k.getAtributsList()){
+                Font font2 = new Font(atribut.toString(), Font.PLAIN, 13);
+                FontMetrics fm = g.getFontMetrics(font2);
+                int width = fm.stringWidth(atribut.toString());
+                if(!((Interclass)getDiagramElements()).getDuzinaAtributa().contains(width)){
+                    ((Interclass)getDiagramElements()).getDuzinaAtributa().add(width);
+                }
+                if(((Interclass)getDiagramElements()).getNajveciWidth() == 0){
+                    ((Interclass)getDiagramElements()).setNajveciWidth(width);
+                    ((Interclass)getDiagramElements()).setWidth(width + 10);
+                }
+                if(((Interclass)getDiagramElements()).getNajveciWidth() <= width){
+                    ((Interclass)getDiagramElements()).setNajveciWidth(width);
+                    ((Interclass)getDiagramElements()).setWidth(width + 10);
+                }
+            }
+
             if(!(k.getWidth() == 250)){
                 g.setColor((Color) k.getPaint());
-                g.drawRect(k.getX(), k.getY(), k.getWidth(), k.getSuma());
-                g.drawString(k.getName(), (int) ((int)((2 * k.getX() + k.getWidth())) / 2.15), (k.getY() + 10));
+                g.drawRect(k.getX() , k.getY(), k.getWidth(), k.getSuma());
+                Font font2 = new Font(getName(), Font.PLAIN, 15);
+                FontMetrics fm = g.getFontMetrics(font2);
+                int width = fm.stringWidth(getName());
+                g.drawString(k.getName(), (((2 * k.getX() + k.getWidth())) / 2) - width / 2, (k.getY() + 10));
                 Point p1, p2, p3, p4;
                 p1 = new Point((2 * k.getX() + k.getWidth()) / 2, k.getY());
                 p2 = new Point(k.getX(), (2 * k.getY() + k.getSuma()) / 2);
                 p3 = new Point(k.getX() + k.getWidth(), (2 * k.getY() + k.getSuma()) / 2);
                 p4 = new Point((2 * k.getX() + k.getWidth()) / 2, k.getY() + k.getSuma());
-                k.getTackeIcrtavanja().get(0).setLocation(p1);
-                k.getTackeIcrtavanja().get(1).setLocation(p2);
-                k.getTackeIcrtavanja().get(2).setLocation(p3);
-                k.getTackeIcrtavanja().get(3).setLocation(p4);
+                if(k.getTackeIcrtavanja().isEmpty()){
+                    k.getTackeIcrtavanja().add(p1);
+                    k.getTackeIcrtavanja().add(p2);
+                    k.getTackeIcrtavanja().add(p3);
+                    k.getTackeIcrtavanja().add(p4);
+                }
+                else{
+                    k.getTackeIcrtavanja().get(0).setLocation(p1);
+                    k.getTackeIcrtavanja().get(1).setLocation(p2);
+                    k.getTackeIcrtavanja().get(2).setLocation(p3);
+                    k.getTackeIcrtavanja().get(3).setLocation(p4);
+                }
+
                 if(this.getRectangle()!= null)
                     this.setRectangle(k.getWidth(), k.getSuma());
 
@@ -40,7 +70,10 @@ public class KlasaPainter extends ElementPainteri {
             else{
                 g.setColor((Color) k.getPaint());
                 g.drawRect(k.getX(), k.getY(), k.getWidth(), k.getHeight());
-                g.drawString(k.getName(), ((2 * k.getX() + k.getWidth())/ 2), (k.getY() + 10));
+                Font font2 = new Font(getName(), Font.PLAIN, 15);
+                FontMetrics fm = g.getFontMetrics(font2);
+                int width = fm.stringWidth(getName());
+                g.drawString(k.getName(), (int) (((2 * k.getX() + k.getWidth())/ 2) - width / 2), (int) ((k.getY() + 10)));
                 Point p1, p2, p3, p4;
                 p1 = new Point((2 * k.getX() + k.getWidth()) / 2, k.getY());
                 p2 = new Point(k.getX(), (2 * k.getY() +k.getHeight()) / 2);
@@ -73,18 +106,66 @@ public class KlasaPainter extends ElementPainteri {
     public boolean elementAt(Point pos, DiagramView diagramView, String s, ElementPainteri elementPainteri) {
         Klasa k = ((Klasa)getDiagramElements());
         Rectangle r = new Rectangle();
-        if(!(k.getHeight() == 130)){
+        if(!(k.getWidth() == 250)){
             r.setSize(k.getWidth(), k.getSuma());
         }
         else r.setSize(k.getWidth(), k.getHeight());
 
         r.setLocation(k.getX(), k.getY());
+
         if(s.equals("selekcija")){
-            if(r.contains(pos.x, pos.y))
+            if(r.contains(pos.x, pos.y) || r.contains(pos.x + 10, pos.y) || r.contains(pos.x, pos.y + 10) || r.contains(pos.x + 10, pos.y + 10))
                 return true;
-        }else{
-            if(r.contains(pos.x, pos.y) || r.contains(pos.x + k.getWidth() , pos.y) || r.contains(pos.x , pos.y + k.getHeight()) || r.contains(pos.x + k.getWidth(), pos.y + k.getHeight())){
-                return true;
+        }else if(s.equals("move")){
+            for(ElementPainteri e: diagramView.getPainteri()){
+                if(e.getDiagramElements() instanceof Interclass){
+                    Interclass interclass = (Interclass) e.getDiagramElements();
+                    if(!(e.getDiagramElements().equals(this.getDiagramElements()))){
+                        if(!(k.getWidth() == 250)){
+                            Rectangle r2 = new Rectangle();
+                            if(!(interclass.getWidth() == 250)){
+                                r2.setSize(interclass.getWidth(), interclass.getSuma());
+                                r2.setLocation(interclass.getX(), interclass.getY());
+                            }
+                            else{
+                                r2.setSize(interclass.getWidth(), interclass.getHeight());
+                                r2.setLocation(interclass.getX(), interclass.getY());
+                            }
+                            if(r2.contains(k.getX(), k.getY()) || r2.contains(k.getX() + k.getWidth() , k.getY()) || r2.contains(k.getX(), k.getY() + k.getSuma()) || r2.contains(k.getX() + k.getWidth(), k.getY()+ k.getSuma())){
+                                return true;
+                            }
+                        }
+                        else{
+                            if(interclass.getWidth() != 250){
+                                if(r.contains(interclass.getX(), interclass.getY()) || r.contains(interclass.getX() + interclass.getWidth() , interclass.getY()) || r.contains(interclass.getX(), interclass.getY() + interclass.getSuma()) || r.contains(interclass.getX() + interclass.getWidth(), interclass.getY()+ interclass.getSuma())){
+                                    return true;
+                                }
+                            }
+                            else{
+                                if(r.contains(interclass.getX(), interclass.getY()) || r.contains(interclass.getX() + interclass.getWidth() , interclass.getY()) || r.contains(interclass.getX(), interclass.getY() + interclass.getHeight()) || r.contains(interclass.getX() + interclass.getWidth(), interclass.getY()+ interclass.getHeight())){
+                                    return true;
+                                }
+                            }
+                        }
+                        }
+
+
+
+                }
+
+
+            }
+        }
+        else{
+            if(!(k.getWidth() == 250)){
+                if(r.contains(pos.x, pos.y) || r.contains(pos.x + k.getWidth() , pos.y) || r.contains(pos.x , pos.y + k.getSuma()) || r.contains(pos.x + k.getWidth(), pos.y + k.getSuma())){
+                    return true;
+                }
+            }
+            else {
+                if(r.contains(pos.x, pos.y) || r.contains(pos.x + k.getWidth() , pos.y) || r.contains(pos.x , pos.y + k.getHeight()) || r.contains(pos.x + k.getWidth(), pos.y + k.getHeight())){
+                    return true;
+                }
             }
         }
 

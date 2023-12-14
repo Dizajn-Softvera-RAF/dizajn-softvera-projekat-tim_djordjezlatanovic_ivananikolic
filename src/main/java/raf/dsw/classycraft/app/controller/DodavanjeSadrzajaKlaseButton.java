@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DodavanjeSadrzajaKlaseButton extends AbstractClassyAction{
     public DodavanjeSadrzajaKlaseButton(){
@@ -66,7 +68,26 @@ public class DodavanjeSadrzajaKlaseButton extends AbstractClassyAction{
                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
                 name = JOptionPane.showInputDialog(f, "Enter the name: ");
             }
-            kraj += name + " ";
+            kraj += name + " (";
+
+            JDialog.setDefaultLookAndFeelDecorated(true);
+            Object[] selectionValues9 = {"int", "String", "boolean", "float", "double", "Object", "nista"};
+            String basicSelection9 = "int";
+            Object selection9 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
+            while(selection9 == null || selection9 != "nista"){
+                if(selection9 != null){
+                    ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Nastavite da birate tip argumenta", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
+                    kraj += selection9.toString() + ",";
+                    selection9 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
+                }
+                else{
+                    ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
+                    selection9 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
+                }
+                }
+
+            kraj += ") ";
+
         }else {
             JFrame f = new JFrame();
             String name = JOptionPane.showInputDialog(f, "Enter the name: ");
@@ -79,48 +100,51 @@ public class DodavanjeSadrzajaKlaseButton extends AbstractClassyAction{
 
 
         ///////////////////////////////////////////////
-        JDialog.setDefaultLookAndFeelDecorated(true);
-        Object[] selectionValues2 = {"public", "private", "protected", "default"};
-        String basicSelection2 = "public";
-        Object selection2 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
-        while(selection2 == null){
-            ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-            selection2 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
-        }
-        String s2 = selection2.toString();
-        kraj += s2 + " ";
-        //////////////////////////////////////////////
+        if(!(s.toLowerCase().equals("enum element"))){
+            JDialog.setDefaultLookAndFeelDecorated(true);
+            Object[] selectionValues2 = {"public", "private", "protected", "default"};
+            String basicSelection2 = "public";
+            Object selection2 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
+            while(selection2 == null){
+                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
+                selection2 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
+            }
+            String s2 = selection2.toString();
+            kraj += s2 + " ";
+            //////////////////////////////////////////////
 
-        /////////////////////////////////////////////
-        JDialog.setDefaultLookAndFeelDecorated(true);
-        Object[] selectionValues3 = {"static", "nista"};
-        String basicSelection3 = "nista";
-        Object selection3 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
-        while(selection3 == null){
-            ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-            selection3 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
-        }
-        String s3 = selection3.toString();
+            /////////////////////////////////////////////
+            JDialog.setDefaultLookAndFeelDecorated(true);
+            Object[] selectionValues3 = {"static", "nista"};
+            String basicSelection3 = "nista";
+            Object selection3 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
+            while(selection3 == null){
+                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
+                selection3 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
+            }
+            String s3 = selection3.toString();
 
 
             kraj += s3 + " ";
 
 
-        ////////////////////////////////////////////
+            ////////////////////////////////////////////
 
-        JDialog.setDefaultLookAndFeelDecorated(true);
-        Object[] selectionValues4 = {"apstrakt", "nista"};
-        String basicSelection4 = "nista";
-        Object selection4 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
-        while(selection4 == null){
-            ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-            selection4 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
-        }
-        String s4 = selection4.toString();
+            JDialog.setDefaultLookAndFeelDecorated(true);
+            Object[] selectionValues4 = {"apstrakt", "nista"};
+            String basicSelection4 = "nista";
+            Object selection4 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
+            while(selection4 == null){
+                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
+                selection4 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
+            }
+            String s4 = selection4.toString();
 
             kraj += s4 + " ";
+        }
 
 
+        //System.out.println(kraj);
 
         MainFrame.getInstance().getPackageView().startDodavanjeSadrzajaKlase(kraj);
     }

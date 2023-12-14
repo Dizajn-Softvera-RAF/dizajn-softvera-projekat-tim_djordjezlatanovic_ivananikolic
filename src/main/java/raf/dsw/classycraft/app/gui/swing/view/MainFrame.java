@@ -21,6 +21,7 @@ public class MainFrame extends JFrame implements Logger {
     private static MainFrame insance;
     private ActionManager actionManager;
     private CLassyTree cLassyTree;
+    private JTree jTree;
 
     //buduca polja za sve komponente view-a na glavnom prozoru
     private MainFrame(){
@@ -50,7 +51,7 @@ public class MainFrame extends JFrame implements Logger {
 
 
 
-        JTree jTree = cLassyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getRoot());
+        jTree = cLassyTree.generateTree(ApplicationFramework.getInstance().getClassyRepository().getRoot());
 
         packageView = new PackageView(new FlowLayout());
 

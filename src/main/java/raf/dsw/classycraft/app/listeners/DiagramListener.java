@@ -17,19 +17,16 @@ public class DiagramListener implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("pressed");
         MainFrame.getInstance().getPackageView().misKliknut(e.getX(), e.getY(), this.diagramView);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("released");
         MainFrame.getInstance().getPackageView().misOtpusten(e.getX(), e.getY(), this.diagramView);
 
     }
     @Override
     public void mouseDragged(MouseEvent e) {
-        System.out.println("aa");
         MainFrame.getInstance().getPackageView().misPovucen(e.getX(), e.getY(), this.diagramView);
 
     }
