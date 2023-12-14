@@ -2,6 +2,7 @@ package raf.dsw.classycraft.app.controller;
 
 import lombok.Getter;
 import lombok.Setter;
+import raf.dsw.classycraft.app.stateSablon.Duplicate;
 
 @Getter
 @Setter
@@ -16,8 +17,16 @@ public class ActionManager{
     private DodavanjeInterclassObjektaButton dodavanjeInterclassObjektaButton;
     private DodavanjeVezaButton dodavanjeVezaButton;
     private SelekcijaButton selekcijaButton;
+    private DuplicateButton duplicateButton;
+    private MenjanjeSadrzajaButton menjanjeSadrzajaButton;
+    private ZoomInButton zoomInButton;
+    private ZoomOutButton zoomOutButton;
 
     public ActionManager() {
+        zoomInButton = new ZoomInButton();
+        zoomOutButton = new ZoomOutButton();
+        menjanjeSadrzajaButton = new MenjanjeSadrzajaButton();
+        duplicateButton = new DuplicateButton();
         move = new Move();
         newProjectAction = new NewProjectAction();
         exitAction = new ExitAction();

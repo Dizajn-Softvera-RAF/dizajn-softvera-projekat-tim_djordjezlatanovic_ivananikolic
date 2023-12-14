@@ -12,6 +12,9 @@ import java.awt.*;
 
 public abstract class Connection extends DiagramElements {
     private Interclass from;
+    private Stroke stroke;
+    private Point pocetnaTacka;
+    private Point krajnjaTacka;
     private Interclass to;
     //private Point point;
     private Point endPoint;

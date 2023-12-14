@@ -4,6 +4,7 @@ import raf.dsw.classycraft.app.composite.abstraction.ClassyNode;
 import raf.dsw.classycraft.app.composite.abstraction.ClassyNodeLeaf;
 
 public abstract class DiagramElements extends ClassyNodeLeaf {
+
     private int Stroke;
     private String color;
 

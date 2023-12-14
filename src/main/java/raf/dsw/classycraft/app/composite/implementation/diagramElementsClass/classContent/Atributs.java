@@ -2,6 +2,7 @@ package raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.cl
 
 import lombok.Getter;
 import lombok.Setter;
+import raf.dsw.classycraft.app.composite.abstraction.ClassyNodeLeaf;
 import raf.dsw.classycraft.app.observer.Publisher;
 import raf.dsw.classycraft.app.observer.Subscriber;
 
@@ -18,8 +19,8 @@ public class Atributs extends ClassContent implements Publisher {
     private String tip;
     private  int broj = 20;
 
-    public Atributs(Paint paint,String name, String tip, boolean isStatic, boolean isAbstract) {
-        super(paint, name);
+    public Atributs(ClassyNodeLeaf classyNodeLeaf, Paint paint, String name, String tip, boolean isStatic, boolean isAbstract) {
+        super(classyNodeLeaf, paint, name);
 
         this.isStatic = isStatic;
         this.isAbstract = isAbstract;
@@ -43,7 +44,7 @@ public class Atributs extends ClassContent implements Publisher {
         else{
             this.vidljivost = "~";
         }
-        //notifySubscriber("", "crtanje");
+
     }
 
     @Override
@@ -53,7 +54,6 @@ public class Atributs extends ClassContent implements Publisher {
                 this.subscribers.add(var1);
             }
         }
-        System.out.println("dodao sam");
     }
 
     @Override
@@ -69,24 +69,21 @@ public class Atributs extends ClassContent implements Publisher {
             return;
         for (Subscriber s : this.subscribers)
             s.update(var1,tekst);
-        System.out.println("Usao sam");
     }
 
     @Override
     public boolean equals(Object obj) {
-        Atributs atributs = (Atributs) obj;
-        return super.getName().equals(atributs.getName()) && this.tip.equals(atributs.getTip());
-    }
+        if(obj instanceof Atributs){
+            Atributs atributs = (Atributs) obj;
+            return super.getName().equals(atributs.getName()) && this.tip.equals(atributs.getTip());
+        }
+        return false;
 
-    public  int getBroj() {
-        return broj;
-    }
-    public void povecaj(){
-        broj+=20;
     }
 
 
     public void setBroj(int broj) {
         this.broj = broj;
     }
+
 }

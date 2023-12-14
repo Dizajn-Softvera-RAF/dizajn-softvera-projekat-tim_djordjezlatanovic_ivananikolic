@@ -2,6 +2,7 @@ package raf.dsw.classycraft.app.painters;
 
 import lombok.Getter;
 import lombok.Setter;
+import raf.dsw.classycraft.app.JTree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.composite.implementation.DiagramElements;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 
@@ -16,6 +17,7 @@ public abstract class ElementPainteri {
     private Rectangle rectangle;
     //private Paint paint;
     private DiagramElements diagramElements;
+    private ClassyTreeItem classyTreeItem;
     private String name;
 //    private int x;
 //    private int y;

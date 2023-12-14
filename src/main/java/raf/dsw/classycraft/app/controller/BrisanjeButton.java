@@ -18,16 +18,7 @@ public class BrisanjeButton extends AbstractClassyAction{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        JDialog.setDefaultLookAndFeelDecorated(true);
-        Object[] selectionValues = {"Element", "Diagram element"};
-        String basicSelection = "Element";
-        Object selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
-        while(selection == null){
-            ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-            selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
-        }
-        String s = selection.toString();
-
+        String s = null;
         MainFrame.getInstance().getPackageView().startBrisanje(s);
     }
 }

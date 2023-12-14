@@ -15,5 +15,9 @@ public class ToolBarZaPackageView extends JToolBar {
         add(MainFrame.getInstance().getActionManager().getDodavanjeInterclassObjektaButton());
         add(MainFrame.getInstance().getActionManager().getDodavanjeSadrzajaKlaseButton());
         add(MainFrame.getInstance().getActionManager().getMove());
+        add(MainFrame.getInstance().getActionManager().getDuplicateButton());
+        add(MainFrame.getInstance().getActionManager().getMenjanjeSadrzajaButton());
+        add(MainFrame.getInstance().getActionManager().getZoomInButton());
+        add(MainFrame.getInstance().getActionManager().getZoomOutButton());
     }
 }

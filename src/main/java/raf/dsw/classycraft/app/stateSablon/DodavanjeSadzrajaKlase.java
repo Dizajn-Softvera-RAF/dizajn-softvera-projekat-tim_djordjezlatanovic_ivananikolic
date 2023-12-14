@@ -1,16 +1,18 @@
 package raf.dsw.classycraft.app.stateSablon;
 
+import raf.dsw.classycraft.app.JTree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Enumm;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Interfejs;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Klasa;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.Atributs;
+import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.ClassContent;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.EnumElements;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.Methods;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
-import raf.dsw.classycraft.app.painters.AtributPainter;
-import raf.dsw.classycraft.app.painters.ElementPainteri;
-import raf.dsw.classycraft.app.painters.EnumPainter;
+import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
+import raf.dsw.classycraft.app.painters.*;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class DodavanjeSadzrajaKlase implements State{
@@ -20,6 +22,7 @@ public class DodavanjeSadzrajaKlase implements State{
     }
 
     public void misKliknut(int x, int y, DiagramView diagramView){
+        ClassContent classContent = null;
         Point point = new Point(x, y);
         boolean flag =false;
         ElementPainteri element = null;
@@ -46,36 +49,117 @@ public class DodavanjeSadzrajaKlase implements State{
                     if(novaRec[5].toLowerCase().equals("apstrakt"))
                         flag3 = true;
 
-                    Atributs atributs = new Atributs(Color.black,novaRec[2], novaRec[3], flag2, flag3);
-
-                    if(((Klasa) element.getDiagramElements()).dodaj(atributs)){
-                        //System.out.println("dodaj");
-
+                    classContent = new Atributs(element.getDiagramElements(), Color.black, novaRec[2], novaRec[1], flag2, flag3);
+                    if(!(((Klasa) element.getDiagramElements()).getAtributsList().contains(classContent))){
                         ((Klasa) element.getDiagramElements()).povecajSumu();
-                        ((Klasa) element.getDiagramElements()).dodaj(atributs);
-                        atributs.addSubscriber(diagramView);
-                        atributs.setVidljivost(novaRec[3]);;
-                        //System.out.println(atributs.toString());
-                        atributPainter = new AtributPainter(atributs.toString(), element.getDiagramElements(),atributs);
+                        ((Klasa) element.getDiagramElements()).setBroj(5);
+                        ((Atributs) classContent).setVidljivost(novaRec[3]);
+                        atributPainter = new AtributPainter(classContent.toString(), element.getDiagramElements(), (Atributs) classContent);
+                        diagramView.getPainteri().add(atributPainter);
+                        ((Klasa) element.getDiagramElements()).dodaj(classContent);
+                        diagramView.getDiagram().notifySubscriber("", "crtanje");
                     }
+
+
 
 
 
                 }
                 else if (novaRec[0].toLowerCase().equals("metoda")){
-                    if(novaRec[4].toLowerCase().equals("static"))
+                    MetodaPainter metodaPainter = null;
+                    String novaRec2[] = a.split(" ");
+                    for(int i = 0; i < novaRec2.length; i++){
+                        System.out.println(novaRec2[i] + " prvi");
+                        //((Methods) classContent).getUlazniElementi().add(rec[i]);
+                    }
+                    if(novaRec2[5].toLowerCase().equals("static"))
                         flag2 = true;
-                    if(novaRec[5].toLowerCase().equals("apstrakt"))
+                    if(novaRec2[6].toLowerCase().equals("apstrakt"))
                         flag3 = true;
 
-                    Methods methods = new Methods(Color.black,novaRec[2], novaRec[3], flag2, flag3);
+                     classContent = new Methods(element.getDiagramElements(),Color.black,novaRec2[2], novaRec2[1], flag2, flag3);
+                     ((Methods) classContent).setVidljivost(novaRec2[4]);
+                     String rec[] = novaRec2[3].split(",");
+                     for(int i = 0; i < rec.length - 1; i++){
+                         if(i == 0){
+                             String r[] = rec[i].split("\\(");
+                             ((Methods) classContent).getUlazniElementi().add(r[1]);
+                         }
+                         else
+                         ((Methods) classContent).getUlazniElementi().add(rec[i]);
+                     }
+                    if(!(((Klasa) element.getDiagramElements()).getAtributsList().contains(classContent))){
+                        ((Klasa) element.getDiagramElements()).povecajSumu();
+                        ((Klasa) element.getDiagramElements()).setBroj(5);
+                        metodaPainter = new MetodaPainter(classContent.toString(), element.getDiagramElements(), (Methods) classContent);
+                        diagramView.getPainteri().add(metodaPainter);
+                        ((Klasa) element.getDiagramElements()).dodaj(classContent);
+                        diagramView.getDiagram().notifySubscriber("", "crtanje");
+                    }
                 }
-                diagramView.getPainteri().add(atributPainter);
+                else{
+                    EnumElementsPainter enumPainter = null;
+                    classContent = new EnumElements(element.getDiagramElements(), Color.black, novaRec[2].toUpperCase());
+                    if(!(((Klasa) element.getDiagramElements()).getAtributsList().contains(classContent))){
+                        ((Klasa) element.getDiagramElements()).povecajSumu();
+                        ((Klasa) element.getDiagramElements()).setBroj(5);
+                        enumPainter = new EnumElementsPainter(classContent.toString(), element.getDiagramElements(), (EnumElements) classContent);
+                        diagramView.getPainteri().add(enumPainter);
+                        ((Klasa) element.getDiagramElements()).dodaj(classContent);
+                        diagramView.getDiagram().notifySubscriber("", "crtanje");
+                    }
+                }
+
             } else if (element.getDiagramElements() instanceof Interfejs) {
-                ////////////////////////////////////////////////
+                boolean flag2 = false;
+                boolean flag3 = false;
+                if (novaRec[0].toLowerCase().equals("metoda")){
+                    MetodaPainter metodaPainter = null;
+                    String novaRec2[] = a.split(" ");
+                    for(int i = 0; i < novaRec2.length; i++){
+                        System.out.println(novaRec2[i] + " prvi");
+                        //((Methods) classContent).getUlazniElementi().add(rec[i]);
+                    }
+                    if(novaRec2[5].toLowerCase().equals("static"))
+                        flag2 = true;
+                    if(novaRec2[6].toLowerCase().equals("apstrakt"))
+                        flag3 = true;
+
+                    classContent = new Methods(element.getDiagramElements(),Color.black,novaRec2[2], novaRec2[1], flag2, flag3);
+                    ((Methods) classContent).setVidljivost(novaRec2[4]);
+                    String rec[] = novaRec2[3].split(",");
+                    for(int i = 0; i < rec.length - 1; i++){
+                        if(i == 0){
+                            String r[] = rec[i].split("\\(");
+                            ((Methods) classContent).getUlazniElementi().add(r[1]);
+                        }
+                        else
+                            ((Methods) classContent).getUlazniElementi().add(rec[i]);
+                    }
+                    if(!(((Interfejs) element.getDiagramElements()).getAtributsList().contains(classContent))){
+                        ((Interfejs) element.getDiagramElements()).povecajSumu();
+                        //System.out.println(((Interfejs) element.getDiagramElements()).getSuma());
+                        ((Interfejs) element.getDiagramElements()).setBroj(5);
+                        metodaPainter = new MetodaPainter(classContent.toString(), element.getDiagramElements(), (Methods) classContent);
+                        diagramView.getPainteri().add(metodaPainter);
+                        ((Interfejs) element.getDiagramElements()).dodaj(classContent);
+                        diagramView.getDiagram().notifySubscriber("", "crtanje");
+                    }
+                }
+
             } else if (element.getDiagramElements() instanceof Enumm) {
-                EnumElements enumm = new EnumElements(Color.black,novaRec[2]);
-                //EnumPainter enumPainter = new EnumPainter(element.getDiagramElements());
+                if(novaRec[0].toLowerCase().equals("enum")){
+                    EnumElementsPainter enumPainter = null;
+                    classContent = new EnumElements(element.getDiagramElements(), Color.black, novaRec[2].toUpperCase());
+                    if(!(((Enumm) element.getDiagramElements()).getAtributsList().contains(classContent))){
+                        ((Enumm) element.getDiagramElements()).povecajSumu();
+                        ((Enumm) element.getDiagramElements()).setBroj(5);
+                        enumPainter = new EnumElementsPainter(classContent.toString(), element.getDiagramElements(), (EnumElements) classContent);
+                        diagramView.getPainteri().add(enumPainter);
+                        ((Enumm) element.getDiagramElements()).dodaj(classContent);
+                        diagramView.getDiagram().notifySubscriber("", "crtanje");
+                    }
+                }
 
             }
         }
