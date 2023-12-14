@@ -73,7 +73,7 @@ public class KlasaPainter extends ElementPainteri {
                 Font font2 = new Font(getName(), Font.PLAIN, 15);
                 FontMetrics fm = g.getFontMetrics(font2);
                 int width = fm.stringWidth(getName());
-                g.drawString(k.getName(), (int) (((2 * k.getX() + k.getWidth())/ 2) - width / 2), (int) ((k.getY() + 10)));
+                g.drawString(k.getName(),  (((2 * k.getX() + k.getWidth())/ 2) - width / 2), ((k.getY() + 10)));
                 Point p1, p2, p3, p4;
                 p1 = new Point((2 * k.getX() + k.getWidth()) / 2, k.getY());
                 p2 = new Point(k.getX(), (2 * k.getY() +k.getHeight()) / 2);

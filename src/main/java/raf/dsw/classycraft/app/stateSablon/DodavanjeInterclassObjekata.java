@@ -48,7 +48,7 @@ public class DodavanjeInterclassObjekata implements State{
 
         if(!flag){
             if(s.toLowerCase().equals("klasa")){
-                diagramElements = new Klasa(d, "Klasa" + String.valueOf(cnt), (int) (x * diagramView.getScale()), (int) (y * diagramView.getScale()),250,130,Color.black);
+                diagramElements = new Klasa(d, "Klasa" + String.valueOf(cnt), x,y ,250,130,Color.black);
                 cnt++;
                 elementPainteri = new KlasaPainter(s,diagramElements);
                 diagramView.getPainteri().add(elementPainteri);
