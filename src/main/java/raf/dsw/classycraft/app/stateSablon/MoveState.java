@@ -13,8 +13,15 @@ public class MoveState implements State{
     private ElementPainteri painter;
     private List<Point> point2 = new ArrayList<>();
     @Override
-    public void misKliknut(int x, int y, DiagramView diagramView) {
-        Point point = new Point(x, y);
+    public void misKliknut(int x1, int y1, DiagramView diagramView) {
+        Point point = new Point(x1,y1);
+        if(diagramView.getScale()!=1){
+            point = diagramView.getOriginalCoordinates(new Point(x1, y1));
+
+        }
+        else point = new Point(x1, y1);
+        int x = point.x;
+        int y = point.y;
         boolean flag = false;
         for(ElementPainteri e : diagramView.getSelectionModel()){
             if(e.getDiagramElements() instanceof Interclass)
@@ -39,9 +46,17 @@ public class MoveState implements State{
     }
 
     @Override
-    public void misPovucen(int x, int y, DiagramView diagramView) {
+    public void misPovucen(int x1, int y1, DiagramView diagramView) {
+        Point point = new Point(x1,y1);
+        if(diagramView.getScale()!=1){
+            point = diagramView.getOriginalCoordinates(new Point(x1, y1));
+
+        }
+        else point = new Point(x1, y1);
+        int x = point.x;
+        int y = point.y;
         int index = 0;
-        System.out.println(point2.size());
+        //System.out.println(point2.size());
         if(!(diagramView.getSelectionModel().isEmpty())){
             for (ElementPainteri e : diagramView.getSelectionModel()){
                 if(e.getDiagramElements() instanceof Interclass){

@@ -22,12 +22,19 @@ public class Duplicate implements State {
     private ElementPainteri element;
 
     @Override
-    public void misKliknut(int x, int y, DiagramView diagramView) {
-        Point point = new Point(x, y);
+    public void misKliknut(int x1, int y1, DiagramView diagramView) {
+        Point point = new Point(x1,y1);
+        if(diagramView.getScale()!=1){
+            point = diagramView.getOriginalCoordinates(new Point(x1, y1));
+
+        }
+        else point = new Point(x1, y1);
+        int x = point.x;
+        int y = point.y;
         boolean flag =false;
        // ElementPainteri element = null;
         for(ElementPainteri elementPainteri : diagramView.getPainteri()){
-            if(elementPainteri.elementAt(point, diagramView, "selekcija", elementPainteri)){
+            if(elementPainteri.elementAt(point, diagramView, "", elementPainteri)){
                 flag = true;
                 element = elementPainteri;
             }
@@ -64,8 +71,7 @@ public class Duplicate implements State {
             }
         }
         else if(!flag){
-            System.out.println("usao");
-            System.out.println(diagramElements);
+
             if(diagramElements != null){
                 flag = false;
                 for(ElementPainteri element2 : diagramView.getPainteri()){
@@ -87,7 +93,7 @@ public class Duplicate implements State {
                         diagramView.getPainteri().add(painter);
                         for(ClassContent c : ((Klasa)element.getDiagramElements()).getAtributsList()){
                             if(c instanceof Atributs){
-                                Atributs atributs = new Atributs(diagramElements, Color.black, c.getName() + " ", ((Atributs) c).getTip(), ((Atributs) c).isStatic(), ((Atributs) c).isAbstract());
+                                Atributs atributs = new Atributs(diagramElements, Color.black, c.getName(), ((Atributs) c).getTip(), ((Atributs) c).isStatic(), ((Atributs) c).isAbstract());
                                 AtributPainter atributPainter = new AtributPainter(atributs.toString(), diagramElements, atributs);
                                 diagramView.getPainteri().add(atributPainter);
                                 atributs.setVidljivost(((Atributs) c).getVidljivost());
@@ -95,7 +101,7 @@ public class Duplicate implements State {
                                 ((Klasa) diagramElements).dodaj(atributs);
                             }
                             else if(c instanceof Methods){
-                                Methods atributs = new Methods(diagramElements, Color.black, c.getName(), ((Methods) c).getTip() + " ", ((Methods) c).isStatic(), ((Methods) c).isAbstract());
+                                Methods atributs = new Methods(diagramElements, Color.black, c.getName(), ((Methods) c).getTip(), ((Methods) c).isStatic(), ((Methods) c).isAbstract());
                                 MetodaPainter atributPainter = new MetodaPainter(atributs.toString(), diagramElements, atributs);
                                 diagramView.getPainteri().add(atributPainter);
                                 atributs.setUlazniElementi(((Methods) c).getUlazniElementi());
@@ -104,7 +110,7 @@ public class Duplicate implements State {
                                 ((Klasa) diagramElements).dodaj(atributs);
                             }
                             else if(c instanceof EnumElements){
-                                EnumElements atributs = new EnumElements(diagramElements, Color.black, c.getName() + " ");
+                                EnumElements atributs = new EnumElements(diagramElements, Color.black, c.getName());
                                 EnumElementsPainter atributPainter = new EnumElementsPainter(atributs.toString(), diagramElements, atributs);
                                 diagramView.getPainteri().add(atributPainter);
                                 ((Interclass) diagramElements).povecajSumu();

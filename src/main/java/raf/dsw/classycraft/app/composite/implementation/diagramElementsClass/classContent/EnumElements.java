@@ -10,10 +10,13 @@ public class EnumElements extends ClassContent{
         super(classyNodeLeaf, paint, name);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return this.getName().equals(obj.toString());
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Methods)) return false;
+//        EnumElements e = (EnumElements) o;
+//        return this.getName().equals(e.getName());
+//    }
 
     @Override
     public String toString() {

@@ -12,12 +12,21 @@ import java.awt.*;
 public class Selekcija implements State{
     private LasoPainter lasoPainter = null;
     private Point point;
-    public void misKliknut(int x, int y, DiagramView diagramView){
+    public void misKliknut(int x2, int y2, DiagramView diagramView){
         boolean flag = false;
         ElementPainteri element = null;
         String s = "selekcija";
+        point = new Point(x2,y2);
+        if(diagramView.getScale()!=1){
+            point = diagramView.getOriginalCoordinates(new Point(x2, y2));
+
+        }
+        else
+            point = new Point(x2, y2);
+        int x = point.x;
+        int y = point.y;
         for(ElementPainteri elementPainteri : diagramView.getPainteri()){
-            Point point = new Point(x, y);
+            //Point point = new Point(x, y);
             if(elementPainteri.elementAt(point, diagramView, s, elementPainteri)){
                 flag = true;
                 element = elementPainteri;
@@ -60,7 +69,15 @@ public class Selekcija implements State{
         point = new Point(x, y);
 
     }
-    public void misPovucen(int x, int y, DiagramView diagramView){
+    public void misPovucen(int x3, int y3, DiagramView diagramView){
+        Point point = new Point(x3,y3);
+        if(diagramView.getScale()!=1){
+            point = diagramView.getOriginalCoordinates(new Point(x3, y3));
+
+        }
+        else point = new Point(x3, y3);
+        int x = point.x;
+        int y = point.y;
         if(lasoPainter == null){
             lasoPainter = new LasoPainter(Color.BLUE, "laso", null, x, y, 0, 0);
             lasoPainter.setFirstPoint(point);
@@ -71,7 +88,7 @@ public class Selekcija implements State{
         ElementPainteri element = null;
         String s = "laso";
         for(ElementPainteri elementPainteri : diagramView.getPainteri()){
-            Point point = new Point(x, y);// ovo nam je sad nebitno
+            //Point point = new Point(x, y);// ovo nam je sad nebitno
             if(lasoPainter.elementAt(point, diagramView, s, elementPainteri)){
                 lasoPainter.getPainteriList().add(elementPainteri);
                 if(!(diagramView.getSelectionModel().contains(elementPainteri)))

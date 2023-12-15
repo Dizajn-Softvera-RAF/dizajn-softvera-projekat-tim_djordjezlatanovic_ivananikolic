@@ -24,7 +24,19 @@ public class Brisanje implements State{
         this.a = s;
     }
 
-    public void misKliknut(int x, int y, DiagramView diagramView){
+    public void misKliknut(int x1, int y1, DiagramView diagramView){
+        System.out.println(diagramView.getPainteri());
+        Point point = new Point(x1,y1);
+        if(diagramView.getScale()!=1){
+            point = diagramView.getOriginalCoordinates(new Point(x1, y1));
+
+        }
+        else{
+            System.out.println("prva");
+            point = new Point(x1, y1);
+        }
+        int x = point.x;
+        int y = point.y;
         if(diagramView.getSelectionModel().isEmpty()) {
             JDialog.setDefaultLookAndFeelDecorated(true);
             Object[] selectionValue = {"Element", "Diagram element"};
@@ -37,79 +49,94 @@ public class Brisanje implements State{
             String a = selectio.toString();
 
             if (a.toLowerCase().equals("diagram element")) {
-                boolean flag = false;
+                boolean flag1 = false;
                 ElementPainteri elements = null;
                 for (ElementPainteri element : diagramView.getPainteri()) {
 
-                    Point point = new Point(x, y);
+                    point = new Point(x, y);
                     if (element.elementAt(point, diagramView, "", element)) {
+                        elements = element;
+                        flag1 = true;
+                        if (flag1) {
+                            break;
+                        }
+                    }
+                }
+                if(flag1){
 
-                        if (element.getDiagramElements() instanceof Klasa) {
-                            for (int i = 0; i < ((Klasa) element.getDiagramElements()).getAtributsList().size(); i++) {
-                                ClassContent k = ((Klasa) element.getDiagramElements()).getAtributsList().get(i);
-                                Iterator e = diagramView.getPainteri().iterator();
-                                while (e.hasNext()) {
-                                    ElementPainteri next = (ElementPainteri) e.next();
-
-                                    String novarec[] = null;
-                                    if (next instanceof AtributPainter) {
+                if (elements.getDiagramElements() instanceof Klasa) {
+                    for (int i = 0; i < ((Klasa) elements.getDiagramElements()).getAtributsList().size(); i++) {
+                        ClassContent k = ((Klasa) elements.getDiagramElements()).getAtributsList().get(i);
+                        Iterator e = diagramView.getPainteri().iterator();
+                        while (e.hasNext()) {
+                            ElementPainteri next = (ElementPainteri) e.next();
+                            String novarec[] = null;
+                            if (next instanceof AtributPainter) {
                                         //novarec = next.getDiagramElements().getName().split(" ");
                                         //System.out.println(novarec[2]);
-                                        if (((AtributPainter) next).getAtribut().equals(k)) {
+                                if (((AtributPainter) next).getAtribut().equals(k)) {
                                             e.remove();
-                                        }
-                                    } else if (next instanceof MetodaPainter) {
-                                        if (((MetodaPainter) next).getMethods().equals(k)) {
-                                            e.remove();
-                                        }
-                                    } else if (next instanceof EnumElementsPainter) {
-                                        if (((EnumElementsPainter) next).getEnumElements().equals(k)) {
-                                            e.remove();
-                                        }
-                                    }
+                                }
+                            } else if (next instanceof MetodaPainter) {
+                                if (((MetodaPainter) next).getMethods().equals(k)) {
+                                        e.remove();
+                                }
+                            } else if (next instanceof EnumElementsPainter) {
+                                if (((EnumElementsPainter) next).getEnumElements().equals(k)) {
+                                        e.remove();
                                 }
                             }
-                            for (int i = 0; i < ((Klasa) element.getDiagramElements()).getKonekcije().size(); i++) {
-                                System.out.println("usao");
-                                Connection k = ((Klasa) element.getDiagramElements()).getKonekcije().get(i);
-                                Iterator e = diagramView.getPainteri().iterator();
-                                while (e.hasNext()) {
-                                    ElementPainteri next = (ElementPainteri) e.next();
-                                    System.out.println(next.toString() + " next");
-                                    if (next instanceof AgregacijaPainter) {
-                                        next.getClassyTreeItem().removeFromParent();
-                                        if (((AgregacijaPainter) next).getDiagramElements().equals(k)) {
-                                            e.remove();
-                                        }
-                                    }
-                                    else if (next instanceof ZavisnostPainter) {
-                                        next.getClassyTreeItem().removeFromParent();
-                                        if (((ZavisnostPainter) next).getDiagramElements().equals(k)) {
-                                            e.remove();
-                                        }
-                                    }
-                                    else if (next instanceof GeneralizacijaPainter) {
-                                        next.getClassyTreeItem().removeFromParent();
-                                        if (((GeneralizacijaPainter) next).getDiagramElements().equals(k)) {
-                                            e.remove();
-                                        }
-                                    }
-                                    else if (next instanceof KompozicijaPainter) {
-                                        next.getClassyTreeItem().removeFromParent();
-                                        if (((KompozicijaPainter) next).getDiagramElements().equals(k)) {
-                                            e.remove();
-                                        }
-                                    }
+                        }
+                    }
+                    for (int i = 0; i < ((Klasa) elements.getDiagramElements()).getKonekcije().size(); i++) {
+
+                        Connection k = ((Klasa) elements.getDiagramElements()).getKonekcije().get(i);
+                        Iterator e = diagramView.getPainteri().iterator();
+                        while (e.hasNext()) {
+                            ElementPainteri next = (ElementPainteri) e.next();
+                            System.out.println(next.toString() + " next");
+                            if (next instanceof AgregacijaPainter) {
+                                next.getClassyTreeItem().removeFromParent();
+                                if (((AgregacijaPainter) next).getDiagramElements().equals(k)) {
+                                    e.remove();
+                                    next.getClassyTreeItem().removeFromParent();
+
                                 }
                             }
-                            ((Klasa) element.getDiagramElements()).getKonekcije().clear();
-                            ((Klasa) element.getDiagramElements()).getAtributsList().clear();
-                            diagramView.getPainteri().remove(element);
-                            diagramView.getDiagram().deleteChild(element.getDiagramElements());
-                            flag = true;
-                        } else if (element.getDiagramElements() instanceof Interfejs) {
-                            for (int i = 0; i < ((Interfejs) element.getDiagramElements()).getAtributsList().size(); i++) {
-                                ClassContent k = ((Interfejs) element.getDiagramElements()).getAtributsList().get(i);
+                            else if (next instanceof ZavisnostPainter) {
+                                next.getClassyTreeItem().removeFromParent();
+                                if (((ZavisnostPainter) next).getDiagramElements().equals(k)) {
+                                            e.remove();
+                                    next.getClassyTreeItem().removeFromParent();
+
+                                }
+                            }
+                            else if (next instanceof GeneralizacijaPainter) {
+                                next.getClassyTreeItem().removeFromParent();
+                                if (((GeneralizacijaPainter) next).getDiagramElements().equals(k)) {
+                                    e.remove();
+                                    next.getClassyTreeItem().removeFromParent();
+
+                                }
+                            }
+                            else if (next instanceof KompozicijaPainter) {
+                                next.getClassyTreeItem().removeFromParent();
+                                if (((KompozicijaPainter) next).getDiagramElements().equals(k)) {
+                                    e.remove();
+                                    next.getClassyTreeItem().removeFromParent();
+
+                                }
+                            }
+                        }
+                    }
+                            ((Klasa) elements.getDiagramElements()).getKonekcije().clear();
+                            ((Klasa) elements.getDiagramElements()).getAtributsList().clear();
+                            diagramView.getPainteri().remove(elements);
+                            diagramView.getDiagram().deleteChild(elements.getDiagramElements());
+                            //flag1 = true;
+                        } else if (elements.getDiagramElements() instanceof Interfejs) {
+                            for (int i = 0; i < ((Interfejs) elements.getDiagramElements()).getAtributsList().size(); i++) {
+                                ClassContent k = ((Interfejs) elements.getDiagramElements()).getAtributsList().get(i);
                                 Iterator e = diagramView.getPainteri().iterator();
                                 while (e.hasNext()) {
                                     ElementPainteri next = (ElementPainteri) e.next();
@@ -122,8 +149,8 @@ public class Brisanje implements State{
                                     }
                                 }
                             }
-                            for (int i = 0; i < ((Interfejs) element.getDiagramElements()).getKonekcije().size(); i++) {
-                                Connection k = ((Interfejs) element.getDiagramElements()).getKonekcije().get(i);
+                            for (int i = 0; i < ((Interfejs) elements.getDiagramElements()).getKonekcije().size(); i++) {
+                                Connection k = ((Interfejs) elements.getDiagramElements()).getKonekcije().get(i);
                                 Iterator e = diagramView.getPainteri().iterator();
                                 while (e.hasNext()) {
                                     ElementPainteri next = (ElementPainteri) e.next();
@@ -132,36 +159,44 @@ public class Brisanje implements State{
                                         next.getClassyTreeItem().removeFromParent();
                                         if (((AgregacijaPainter) next).getDiagramElements().equals(k)) {
                                             e.remove();
+                                            next.getClassyTreeItem().removeFromParent();
+
                                         }
                                     }
                                     else if (next instanceof ZavisnostPainter) {
                                         next.getClassyTreeItem().removeFromParent();
                                         if (((ZavisnostPainter) next).getDiagramElements().equals(k)) {
                                             e.remove();
+                                            next.getClassyTreeItem().removeFromParent();
+
                                         }
                                     }
                                     else if (next instanceof GeneralizacijaPainter) {
                                         next.getClassyTreeItem().removeFromParent();
                                         if (((GeneralizacijaPainter) next).getDiagramElements().equals(k)) {
                                             e.remove();
+                                            next.getClassyTreeItem().removeFromParent();
+
                                         }
                                     }
                                     else if (next instanceof KompozicijaPainter) {
                                         next.getClassyTreeItem().removeFromParent();
                                         if (((KompozicijaPainter) next).getDiagramElements().equals(k)) {
                                             e.remove();
+                                            next.getClassyTreeItem().removeFromParent();
+
                                         }
                                     }
                                 }
                             }
-                            ((Interfejs) element.getDiagramElements()).getKonekcije().clear();
-                            ((Interfejs) element.getDiagramElements()).getAtributsList().clear();
-                            diagramView.getPainteri().remove(element);
-                            diagramView.getDiagram().deleteChild(element.getDiagramElements());
-                            flag = true;
-                        } else if (element.getDiagramElements() instanceof Enumm) {
-                            for (int i = 0; i < ((Enumm) element.getDiagramElements()).getAtributsList().size(); i++) {
-                                ClassContent k = ((Enumm) element.getDiagramElements()).getAtributsList().get(i);
+                            ((Interfejs) elements.getDiagramElements()).getKonekcije().clear();
+                            ((Interfejs) elements.getDiagramElements()).getAtributsList().clear();
+                            diagramView.getPainteri().remove(elements);
+                            diagramView.getDiagram().deleteChild(elements.getDiagramElements());
+                            //flag = true;
+                        } else if (elements.getDiagramElements() instanceof Enumm) {
+                            for (int i = 0; i < ((Enumm) elements.getDiagramElements()).getAtributsList().size(); i++) {
+                                ClassContent k = ((Enumm) elements.getDiagramElements()).getAtributsList().get(i);
                                 Iterator e = diagramView.getPainteri().iterator();
                                 while (e.hasNext()) {
                                     ElementPainteri next = (ElementPainteri) e.next();
@@ -174,8 +209,8 @@ public class Brisanje implements State{
                                     }
                                 }
                             }
-                            for (int i = 0; i < ((Enumm) element.getDiagramElements()).getKonekcije().size(); i++) {
-                                Connection k = ((Enumm) element.getDiagramElements()).getKonekcije().get(i);
+                            for (int i = 0; i < ((Enumm) elements.getDiagramElements()).getKonekcije().size(); i++) {
+                                Connection k = ((Enumm) elements.getDiagramElements()).getKonekcije().get(i);
                                 Iterator e = diagramView.getPainteri().iterator();
                                 while (e.hasNext()) {
                                     ElementPainteri next = (ElementPainteri) e.next();
@@ -184,54 +219,70 @@ public class Brisanje implements State{
                                         next.getClassyTreeItem().removeFromParent();
                                         if (((AgregacijaPainter) next).getDiagramElements().equals(k)) {
                                             e.remove();
+                                            next.getClassyTreeItem().removeFromParent();
+
                                         }
                                     }
                                     else if (next instanceof ZavisnostPainter) {
                                         next.getClassyTreeItem().removeFromParent();
                                         if (((ZavisnostPainter) next).getDiagramElements().equals(k)) {
                                             e.remove();
+                                            next.getClassyTreeItem().removeFromParent();
+
                                         }
                                     }
                                     else if (next instanceof GeneralizacijaPainter) {
                                         next.getClassyTreeItem().removeFromParent();
                                         if (((GeneralizacijaPainter) next).getDiagramElements().equals(k)) {
                                             e.remove();
+                                            next.getClassyTreeItem().removeFromParent();
+
                                         }
                                     }
                                     else if (next instanceof KompozicijaPainter) {
                                         next.getClassyTreeItem().removeFromParent();
                                         if (((KompozicijaPainter) next).getDiagramElements().equals(k)) {
                                             e.remove();
+                                            next.getClassyTreeItem().removeFromParent();
+
                                         }
                                     }
                                 }
                             }
-                            ((Enumm) element.getDiagramElements()).getKonekcije().clear();
-                            ((Enumm) element.getDiagramElements()).getAtributsList().clear();
-                            diagramView.getPainteri().remove(element);
-                            diagramView.getDiagram().deleteChild(element.getDiagramElements());
-                            flag = true;
+                            ((Enumm) elements.getDiagramElements()).getKonekcije().clear();
+                            ((Enumm) elements.getDiagramElements()).getAtributsList().clear();
+                            diagramView.getPainteri().remove(elements);
+                            diagramView.getDiagram().deleteChild(elements.getDiagramElements());
+                            //flag = true;
 
 
-                        } else if (element.getDiagramElements() instanceof Connection) {
-                            diagramView.getPainteri().remove(element);
+                        } else if (elements.getDiagramElements() instanceof Connection) {
+                            diagramView.getPainteri().remove(elements);
                             diagramView.getDiagram().notifySubscriber("", "crtanje");
                         }
 
-                    }
-                    if (flag) {
-                        element.getClassyTreeItem().removeFromParent();
-                        SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getJTree());
-                        break;
+                    elements.getClassyTreeItem().removeFromParent();
+                    SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getJTree());
                     }
 
+
                 }
-            } else {
-                boolean flag = false;
-                ElementPainteri element = null;
-                for (ElementPainteri e : diagramView.getPainteri()) {
-                    Point point = new Point(x, y);
-                    if (e.elementAt(point, diagramView, "selekcija", element)) {
+             else {
+                boolean flag1 = false;
+                ElementPainteri e = null;
+                for (ElementPainteri element : diagramView.getPainteri()) {
+
+                    point = new Point(x, y);
+                    if (element.elementAt(point, diagramView, "", element)) {
+                        e = element;
+                        flag1 = true;
+                        if (flag1) {
+                            break;
+                        }
+                    }
+                }
+                if(flag1){
+                    if (e.elementAt(point, diagramView, "selekcija", e)) {
                         if (e.getDiagramElements() instanceof Klasa) {
                             JDialog.setDefaultLookAndFeelDecorated(true);
                             Object[] selectionValues = new Object[100];
@@ -359,7 +410,7 @@ public class Brisanje implements State{
                          }*/
 
 
-                            flag = true;
+                            //flag = true;
                         } else if (e.getDiagramElements() instanceof Interfejs) {
                             JDialog.setDefaultLookAndFeelDecorated(true);
                             Object[] selectionValues = new Object[100];
@@ -426,7 +477,7 @@ public class Brisanje implements State{
 
 
                             }
-                            flag = true;
+                            //flag = true;
                         } else if (e.getDiagramElements() instanceof Enumm) {
                             JDialog.setDefaultLookAndFeelDecorated(true);
                             Object[] selectionValues = new Object[100];
@@ -492,10 +543,9 @@ public class Brisanje implements State{
 
 
                             }
-                            flag = true;
+                            //flag = true;
                         }
-                        if (flag)
-                            break;
+
                     }
                 }
             }
@@ -539,21 +589,45 @@ public class Brisanje implements State{
                                 }
                             }
                             else if (next instanceof ZavisnostPainter) {
-                                next.getClassyTreeItem().removeFromParent();
+
                                 if (((ZavisnostPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
                                 }
+                                try{
+                                    element.getClassyTreeItem().removeFromParent();
+                                }
+                                catch (NullPointerException er){
+                                    System.out.print("");
+                                }
                             }
                             else if (next instanceof GeneralizacijaPainter) {
-                                next.getClassyTreeItem().removeFromParent();
+
                                 if (((GeneralizacijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
                                 }
+                                try{
+                                    element.getClassyTreeItem().removeFromParent();
+                                }
+                                catch (NullPointerException er){
+                                    System.out.print("");
+                                }
                             }
                             else if (next instanceof KompozicijaPainter) {
-                                next.getClassyTreeItem().removeFromParent();
+
                                 if (((KompozicijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
+                                    try{
+                                        element.getClassyTreeItem().removeFromParent();
+                                    }
+                                    catch (NullPointerException er){
+                                        System.out.print("");
+                                    }
+                                }
+                                try{
+                                    element.getClassyTreeItem().removeFromParent();
+                                }
+                                catch (NullPointerException er){
+                                    System.out.print("");
                                 }
                             }
                         }
@@ -595,24 +669,48 @@ public class Brisanje implements State{
                             if (next instanceof AgregacijaPainter) {
                                 if (((AgregacijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
+                                    try{
+                                        element.getClassyTreeItem().removeFromParent();
+                                    }
+                                    catch (NullPointerException er){
+                                        System.out.print("");
+                                    }
                                 }
                             }
                             else if (next instanceof ZavisnostPainter) {
                                 next.getClassyTreeItem().removeFromParent();
                                 if (((ZavisnostPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
+                                    try{
+                                        element.getClassyTreeItem().removeFromParent();
+                                    }
+                                    catch (NullPointerException er){
+                                        System.out.print("");
+                                    }
                                 }
                             }
                             else if (next instanceof GeneralizacijaPainter) {
                                 next.getClassyTreeItem().removeFromParent();
                                 if (((GeneralizacijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
+                                    try{
+                                        element.getClassyTreeItem().removeFromParent();
+                                    }
+                                    catch (NullPointerException er){
+                                        System.out.print("");
+                                    }
                                 }
                             }
                             else if (next instanceof KompozicijaPainter) {
                                 next.getClassyTreeItem().removeFromParent();
                                 if (((KompozicijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
+                                    try{
+                                        element.getClassyTreeItem().removeFromParent();
+                                    }
+                                    catch (NullPointerException er){
+                                        System.out.print("");
+                                    }
                                 }
                             }
                         }
@@ -692,7 +790,12 @@ public class Brisanje implements State{
                 }
 
                 else if(element.getDiagramElements() instanceof Connection){
+                    try{
                         element.getClassyTreeItem().removeFromParent();
+                    }
+                    catch (NullPointerException e){
+                        System.out.print("");
+                    }
                         diagramView.getPainteri().remove(element);
                         diagramView.getDiagram().notifySubscriber("", "crtanje");
 

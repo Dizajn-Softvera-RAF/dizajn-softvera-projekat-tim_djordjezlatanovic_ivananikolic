@@ -8,7 +8,7 @@ public class StateZoomOut implements State{
     public void misKliknut(int x, int y, DiagramView diagramView) {
         double newScaling = diagramView.getScale() * 0.8;
         if(newScaling <= 0.2) newScaling = 0.2;
-        diagramView.setTr(newScaling);
+        diagramView.setTr(newScaling,x,y);
     }
 
     @Override
