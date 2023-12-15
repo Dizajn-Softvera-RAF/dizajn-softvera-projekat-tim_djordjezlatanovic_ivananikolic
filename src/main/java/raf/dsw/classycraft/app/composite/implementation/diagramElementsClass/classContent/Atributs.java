@@ -34,6 +34,7 @@ public class Atributs extends ClassContent implements Publisher {
     }
 
     public void setVidljivost(String vidljivost) {
+
         if(vidljivost.toLowerCase().equals("private"))
              this.vidljivost = "-";
         else if (vidljivost.toLowerCase().equals("public")) {
@@ -46,6 +47,7 @@ public class Atributs extends ClassContent implements Publisher {
         }
 
     }
+
 
     @Override
     public void addSubscriber(Subscriber var1) {
