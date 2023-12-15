@@ -26,10 +26,10 @@ public class DodavanjeInterclassObjektaButton extends AbstractClassyAction{
             JDialog.setDefaultLookAndFeelDecorated(true);
             Object[] selectionValues = {"Klasa", "Interface", "Enum"};
             String basicSelection = "Klasa";
-            Object selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+            Object selection = JOptionPane.showInputDialog(null, "Koji diagram element zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
             while(selection == null){
                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+                selection = JOptionPane.showInputDialog(null, "Koji diagram element zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
             }
             String s = selection.toString();
 

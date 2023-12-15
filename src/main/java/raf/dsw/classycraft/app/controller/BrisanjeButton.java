@@ -19,6 +19,7 @@ public class BrisanjeButton extends AbstractClassyAction{
     @Override
     public void actionPerformed(ActionEvent e) {
         String s = null;
+
         MainFrame.getInstance().getPackageView().startBrisanje(s);
     }
 }

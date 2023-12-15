@@ -147,14 +147,15 @@ public class DodavanjeVeza implements State{
             ElementPainteri en = null;
             for (ElementPainteri element : diagramView.getPainteri()) {
 
-                //Point point = new Point(x, y);
-                if (element.elementAt(point, diagramView, "selekcija", element)) {
-                    flag = true;
-                    en = element;
-                    diagramElements2 = element.getDiagramElements();
+                if(element.getDiagramElements() instanceof Interclass){
+                    if (element.elementAt(point, diagramView, "selekcija", element)) {
+                        flag = true;
+                        en = element;
+                        diagramElements2 = element.getDiagramElements();
+                    }
+                    if (flag)
+                        break;
                 }
-                if (flag)
-                    break;
             }
             if (flag) {
                 this.s = null;
@@ -171,24 +172,28 @@ public class DodavanjeVeza implements State{
                         nova = childNode;
                         flag1 = true;
                     }
-                    agregacijaPainter = null;
-                    kompozicijaPainter = null;
-                    zavisnostPainter = null;
-                    generalizacijaPainter = null;
+//                    agregacijaPainter = null;
+//                    kompozicijaPainter = null;
+//                    zavisnostPainter = null;
+//                    generalizacijaPainter = null;
 
                 }
                 if (flag1 == true) {
                     ClassyTreeItem c2 = new ClassyTreeItem(connection);
-                    diagramView.getClassyTreeItem().add(c2);
+                    nova.add(c2);
                     Connection c = null;
-                    if (agregacijaPainter != null)
+                    if (agregacijaPainter != null) {
                         agregacijaPainter.setClassyTreeItem(c2);
-                    else if (zavisnostPainter != null)
+                    }
+                    else if (zavisnostPainter != null) {
                         zavisnostPainter.setClassyTreeItem(c2);
-                    else if (kompozicijaPainter != null)
+                    }
+                    else if (kompozicijaPainter != null) {
                         kompozicijaPainter.setClassyTreeItem(c2);
-                    else if (generalizacijaPainter != null)
+                    }
+                    else if (generalizacijaPainter != null) {
                         generalizacijaPainter.setClassyTreeItem(c2);
+                    }
 
                     SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getJTree());
                 }

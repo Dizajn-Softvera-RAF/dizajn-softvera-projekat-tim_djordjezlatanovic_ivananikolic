@@ -24,24 +24,27 @@ public class NewProjectAction extends AbstractClassyAction{
     public void actionPerformed(ActionEvent e) {
         ClassyTreeItem selected = MainFrame.getInstance().getCLassyTree().getSelectedNode();
         if(selected instanceof ClassyTreeItem){
-            if(selected.getClassyNode() instanceof Package){
-                JDialog.setDefaultLookAndFeelDecorated(true);
-                Object[] selectionValues = {"Package", "Diagram"};
-                String basicSelection = "Diagram";
-                Object selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+            if(!(selected.getClassyNode() instanceof Diagram)){
+                if(selected.getClassyNode() instanceof Package){
+                    JDialog.setDefaultLookAndFeelDecorated(true);
+                    Object[] selectionValues = {"Package", "Diagram"};
+                    String basicSelection = "Diagram";
+                    Object selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
                     while(selection == null){
                         ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
                         selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
                     }
 
 
-                String s = selection.toString();
-                MainFrame.getInstance().getCLassyTree().addChild(selected, s);
+                    String s = selection.toString();
+                    MainFrame.getInstance().getCLassyTree().addChild(selected, s);
 
-            } else{
-                String s = null;
-                MainFrame.getInstance().getCLassyTree().addChild(selected, s);
+                } else{
+                    String s = null;
+                    MainFrame.getInstance().getCLassyTree().addChild(selected, s);
+                }
             }
+
 
         }
 

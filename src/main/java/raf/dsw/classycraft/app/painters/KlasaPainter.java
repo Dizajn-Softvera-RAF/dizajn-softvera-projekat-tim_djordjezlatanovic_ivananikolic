@@ -112,11 +112,34 @@ public class KlasaPainter extends ElementPainteri {
         else r.setSize(k.getWidth(), k.getHeight());
 
         r.setLocation(k.getX(), k.getY());
+        if(s.equals("duplicate")){
+            Klasa k1 = ((Klasa)getDiagramElements());
+            Rectangle r2 = new Rectangle();
+            if(!(k1.getWidth() == 250)){
+                r2.setSize(k1.getWidth(), k1.getSuma());
+            }
+            else r2.setSize(k1.getWidth(), k1.getHeight());
 
-        if(s.equals("selekcija")){
+            r2.setLocation(k1.getX(), k1.getY());
+            if(!(k1.getWidth() == 250)){;
+                if(r2.contains(pos.x, pos.y) || r2.contains(pos.x + k1.getWidth() , pos.y) || r2.contains(pos.x, pos.y + k1.getSuma()) || r2.contains(pos.x + k1.getWidth(), pos.y + k1.getSuma())){
+                    return true;
+                }
+            }
+            else {
+                if(r2.contains(pos.x, pos.y) || r2.contains(pos.x + k1.getWidth() , pos.y) || r2.contains(pos.x, pos.y + k1.getHeight()) || r2.contains(pos.x + k1.getWidth(), pos.y + k1.getHeight())){
+                    return true;
+                }
+            }
+        }
+
+
+
+        else if(s.equals("selekcija")){
             if(r.contains(pos.x, pos.y) || r.contains(pos.x + 10, pos.y) || r.contains(pos.x, pos.y + 10) || r.contains(pos.x + 10, pos.y + 10))
                 return true;
-        }else if(s.equals("move")){
+        }
+        else if(s.equals("move")){
             for(ElementPainteri e: diagramView.getPainteri()){
                 if(e.getDiagramElements() instanceof Interclass){
                     Interclass interclass = (Interclass) e.getDiagramElements();
@@ -157,19 +180,25 @@ public class KlasaPainter extends ElementPainteri {
             }
         }
         else{
-            if(!(k.getWidth() == 250)){
-                if(r.contains(pos.x, pos.y) || r.contains(pos.x + k.getWidth() , pos.y) || r.contains(pos.x , pos.y + k.getSuma()) || r.contains(pos.x + k.getWidth(), pos.y + k.getSuma())){
+            Klasa k1 = ((Klasa)getDiagramElements());
+            Rectangle r2 = new Rectangle();
+
+            r2.setSize(250,130);
+
+            r2.setLocation(k1.getX(), k1.getY());
+            if(!(k1.getWidth() == 250)){
+                if(r2.contains(pos.x, pos.y) || r2.contains(pos.x + k1.getWidth() , pos.y) || r2.contains(pos.x , pos.y + k1.getSuma()) || r2.contains(pos.x + k1.getWidth(), pos.y + k1.getSuma())){
                     return true;
                 }
             }
             else {
-                if(r.contains(pos.x, pos.y) || r.contains(pos.x + k.getWidth() , pos.y) || r.contains(pos.x , pos.y + k.getHeight()) || r.contains(pos.x + k.getWidth(), pos.y + k.getHeight())){
+                if(r2.contains(pos.x, pos.y) || r2.contains(pos.x + k1.getWidth() , pos.y) || r2.contains(pos.x , pos.y + k1.getHeight()) || r2.contains(pos.x + k1.getWidth(), pos.y + k1.getHeight())){
                     return true;
                 }
             }
         }
-
         return false;
+
     }
 
 }

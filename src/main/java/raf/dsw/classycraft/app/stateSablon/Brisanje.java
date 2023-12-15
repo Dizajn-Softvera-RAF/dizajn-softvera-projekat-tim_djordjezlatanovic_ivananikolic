@@ -25,14 +25,11 @@ public class Brisanje implements State{
     }
 
     public void misKliknut(int x1, int y1, DiagramView diagramView){
-        System.out.println(diagramView.getPainteri());
         Point point = new Point(x1,y1);
         if(diagramView.getScale()!=1){
             point = diagramView.getOriginalCoordinates(new Point(x1, y1));
-
         }
         else{
-            System.out.println("prva");
             point = new Point(x1, y1);
         }
         int x = point.x;
@@ -41,10 +38,10 @@ public class Brisanje implements State{
             JDialog.setDefaultLookAndFeelDecorated(true);
             Object[] selectionValue = {"Element", "Diagram element"};
             String basicSelectio = "Element";
-            Object selectio = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValue, basicSelectio);
+            Object selectio = JOptionPane.showInputDialog(null, "Sta zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValue, basicSelectio);
             while (selectio == null) {
                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                selectio = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValue, basicSelectio);
+                selectio = JOptionPane.showInputDialog(null, "Sta zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValue, basicSelectio);
             }
             String a = selectio.toString();
 
@@ -52,9 +49,9 @@ public class Brisanje implements State{
                 boolean flag1 = false;
                 ElementPainteri elements = null;
                 for (ElementPainteri element : diagramView.getPainteri()) {
-
-                    point = new Point(x, y);
-                    if (element.elementAt(point, diagramView, "", element)) {
+                    System.out.println(element);
+                    point = new Point(x1, y1);
+                    if (element.elementAt(point, diagramView, "selekcija", element)) {
                         elements = element;
                         flag1 = true;
                         if (flag1) {
@@ -94,7 +91,6 @@ public class Brisanje implements State{
                         Iterator e = diagramView.getPainteri().iterator();
                         while (e.hasNext()) {
                             ElementPainteri next = (ElementPainteri) e.next();
-                            System.out.println(next.toString() + " next");
                             if (next instanceof AgregacijaPainter) {
                                 next.getClassyTreeItem().removeFromParent();
                                 if (((AgregacijaPainter) next).getDiagramElements().equals(k)) {
@@ -127,6 +123,7 @@ public class Brisanje implements State{
 
                                 }
                             }
+                           SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getJTree());
                         }
                     }
                             ((Klasa) elements.getDiagramElements()).getKonekcije().clear();
@@ -154,7 +151,6 @@ public class Brisanje implements State{
                                 Iterator e = diagramView.getPainteri().iterator();
                                 while (e.hasNext()) {
                                     ElementPainteri next = (ElementPainteri) e.next();
-                                    System.out.println(next.toString() + " next");
                                     if (next instanceof AgregacijaPainter) {
                                         next.getClassyTreeItem().removeFromParent();
                                         if (((AgregacijaPainter) next).getDiagramElements().equals(k)) {
@@ -187,6 +183,7 @@ public class Brisanje implements State{
 
                                         }
                                     }
+                                    SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getJTree());
                                 }
                             }
                             ((Interfejs) elements.getDiagramElements()).getKonekcije().clear();
@@ -247,6 +244,7 @@ public class Brisanje implements State{
 
                                         }
                                     }
+                                    SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getJTree());
                                 }
                             }
                             ((Enumm) elements.getDiagramElements()).getKonekcije().clear();
@@ -256,9 +254,14 @@ public class Brisanje implements State{
                             //flag = true;
 
 
-                        } else if (elements.getDiagramElements() instanceof Connection) {
-                            diagramView.getPainteri().remove(elements);
-                            diagramView.getDiagram().notifySubscriber("", "crtanje");
+                } else if (elements.getDiagramElements() instanceof Connection) {
+                    System.out.println("usao");
+                    (((Connection) elements.getDiagramElements()).getFrom()).getKonekcije().remove(elements.getDiagramElements());
+                    (((Connection) elements.getDiagramElements()).getTo()).getKonekcije().remove(elements.getDiagramElements());
+                    elements.getClassyTreeItem().removeFromParent();
+                    diagramView.getPainteri().remove(elements);
+                    diagramView.getDiagram().notifySubscriber("", "crtanje");
+
                         }
 
                     elements.getClassyTreeItem().removeFromParent();
@@ -283,273 +286,280 @@ public class Brisanje implements State{
                 }
                 if(flag1){
                     if (e.elementAt(point, diagramView, "selekcija", e)) {
-                        if (e.getDiagramElements() instanceof Klasa) {
-                            JDialog.setDefaultLookAndFeelDecorated(true);
-                            Object[] selectionValues = new Object[100];
-                            for (int i = 0; i < ((Klasa) e.getDiagramElements()).getAtributsList().size(); i++) {
-                                String rec = ((Klasa) e.getDiagramElements()).getAtributsList().get(i).toString();
-                                selectionValues[i] = rec;
-                            }
-                            Object basicSelection = selectionValues[0];
+                        if(e.getDiagramElements() instanceof Klasa){
+                            if (!((Klasa)e.getDiagramElements()).getAtributsList().isEmpty()) {
+                                JDialog.setDefaultLookAndFeelDecorated(true);
+                                Object[] selectionValues = new Object[100];
+                                for (int i = 0; i < ((Klasa) e.getDiagramElements()).getAtributsList().size(); i++) {
+                                    String rec = ((Klasa) e.getDiagramElements()).getAtributsList().get(i).toString();
+                                    selectionValues[i] = rec;
+                                }
+                                Object basicSelection = selectionValues[0];
 
-                            Object selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
-                            System.out.println(basicSelection);
-                            while (selection == null) {
-                                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                                selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
-                            }
-                            int cnt = 0;
-                            Iterator iterator = diagramView.getPainteri().iterator();
-                            while (iterator.hasNext()) {
-                                ElementPainteri elementPainteri = (ElementPainteri) iterator.next();
-                                if (elementPainteri instanceof AtributPainter) {
-                                    cnt++;
-                                    if (((AtributPainter) elementPainteri).getAtribut().toString().equals(selection)) {
-                                        if (((Interclass) e.getDiagramElements()).getDuzinaAtributa().size() == 1)
-                                            ((Interclass) e.getDiagramElements()).getDuzinaAtributa().clear();
-                                        else
-                                            ((Interclass) e.getDiagramElements()).getDuzinaAtributa().remove(cnt - 1);
-                                        iterator.remove();
-                                        break;
-                                    }
-                                } else if (elementPainteri instanceof MetodaPainter) {
-                                    cnt++;
-                                    if (((MetodaPainter) elementPainteri).getMethods().toString().equals(selection)) {
-                                        if (((Interclass) e.getDiagramElements()).getDuzinaAtributa().size() == 1)
-                                            ((Interclass) e.getDiagramElements()).getDuzinaAtributa().clear();
-                                        else
-                                            ((Interclass) e.getDiagramElements()).getDuzinaAtributa().remove(cnt - 1);
-                                        iterator.remove();
-                                        break;
-                                    }
-                                } else if (elementPainteri instanceof EnumElementsPainter) {
-                                    cnt++;
-                                    if (((EnumElementsPainter) elementPainteri).getEnumElements().toString().equals(selection)) {
-                                        if (((Interclass) e.getDiagramElements()).getDuzinaAtributa().size() == 1)
-                                            ((Interclass) e.getDiagramElements()).getDuzinaAtributa().clear();
-                                        else
-                                            ((Interclass) e.getDiagramElements()).getDuzinaAtributa().remove(cnt - 1);
-                                        iterator.remove();
-                                        break;
+                                Object selection = JOptionPane.showInputDialog(null, "Koji element zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+                                System.out.println(basicSelection);
+                                while (selection == null) {
+                                    ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
+                                    selection = JOptionPane.showInputDialog(null, "Koji element zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+                                }
+                                int cnt = 0;
+                                Iterator iterator = diagramView.getPainteri().iterator();
+                                while (iterator.hasNext()) {
+                                    ElementPainteri elementPainteri = (ElementPainteri) iterator.next();
+                                    if (elementPainteri instanceof AtributPainter) {
+                                        cnt++;
+                                        if (((AtributPainter) elementPainteri).getAtribut().toString().equals(selection)) {
+                                            if (((Interclass) e.getDiagramElements()).getDuzinaAtributa().size() == 1)
+                                                ((Interclass) e.getDiagramElements()).getDuzinaAtributa().clear();
+                                            else
+                                                ((Interclass) e.getDiagramElements()).getDuzinaAtributa().remove(cnt - 1);
+                                            iterator.remove();
+                                            break;
+                                        }
+                                    } else if (elementPainteri instanceof MetodaPainter) {
+                                        cnt++;
+                                        if (((MetodaPainter) elementPainteri).getMethods().toString().equals(selection)) {
+                                            if (((Interclass) e.getDiagramElements()).getDuzinaAtributa().size() == 1)
+                                                ((Interclass) e.getDiagramElements()).getDuzinaAtributa().clear();
+                                            else
+                                                ((Interclass) e.getDiagramElements()).getDuzinaAtributa().remove(cnt - 1);
+                                            iterator.remove();
+                                            break;
+                                        }
+                                    } else if (elementPainteri instanceof EnumElementsPainter) {
+                                        cnt++;
+                                        if (((EnumElementsPainter) elementPainteri).getEnumElements().toString().equals(selection)) {
+                                            if (((Interclass) e.getDiagramElements()).getDuzinaAtributa().size() == 1)
+                                                ((Interclass) e.getDiagramElements()).getDuzinaAtributa().clear();
+                                            else
+                                                ((Interclass) e.getDiagramElements()).getDuzinaAtributa().remove(cnt - 1);
+                                            iterator.remove();
+                                            break;
+                                        }
                                     }
                                 }
-                            }
-                            int max = -1;
-                            for (int i = 0; i < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().size(); i++) {
-                                if (max < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i))
-                                    max = ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i);
-                            }
-                            ((Interclass) e.getDiagramElements()).setNajveciWidth(max);
-                            Iterator iterator2 = ((Klasa) e.getDiagramElements()).getAtributsList().iterator();
-                            while (iterator2.hasNext()) {
-                                cnt++;
-                                ClassContent ele = (ClassContent) iterator2.next();
-                                String rec2 = null;
-                                if (ele instanceof Atributs) {
-                                    Atributs at = (Atributs) ele;
-                                    rec2 = ele.toString();
-                                    String s = selection.toString();
-                                    if (rec2.equals(s)) {
-                                        ((Klasa) e.getDiagramElements()).umanjiSumu();
-                                        ((Klasa) e.getDiagramElements()).setBroj(5);
-                                        ((Klasa) e.getDiagramElements()).getAtributsList().remove(ele);
-                                        try {
-                                            iterator2.remove();
-                                        } catch (ConcurrentModificationException e1) {
-                                            System.out.println("");
+                                int max = -1;
+                                for (int i = 0; i < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().size(); i++) {
+                                    if (max < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i))
+                                        max = ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i);
+                                }
+                                ((Interclass) e.getDiagramElements()).setNajveciWidth(max);
+                                Iterator iterator2 = ((Klasa) e.getDiagramElements()).getAtributsList().iterator();
+                                while (iterator2.hasNext()) {
+                                    cnt++;
+                                    ClassContent ele = (ClassContent) iterator2.next();
+                                    String rec2 = null;
+                                    if (ele instanceof Atributs) {
+                                        Atributs at = (Atributs) ele;
+                                        rec2 = ele.toString();
+                                        String s = selection.toString();
+                                        if (rec2.equals(s)) {
+                                            ((Klasa) e.getDiagramElements()).umanjiSumu();
+                                            ((Klasa) e.getDiagramElements()).setBroj(5);
+                                            ((Klasa) e.getDiagramElements()).getAtributsList().remove(ele);
+                                            try {
+                                                iterator2.remove();
+                                            } catch (ConcurrentModificationException e1) {
+                                                System.out.println("");
 
+                                            }
+
+                                            diagramView.getDiagram().notifySubscriber("", "crtanje");
+
+                                            break;
                                         }
+                                    } else if (ele instanceof Methods) {
+                                        Methods at = (Methods) ele;
+                                        rec2 = ele.toString();
+                                        String s = selection.toString();
+                                        if (rec2.equals(s)) {
+                                            System.out.println("jdksada");
+                                            ((Klasa) e.getDiagramElements()).umanjiSumu();
+                                            ((Klasa) e.getDiagramElements()).setBroj(5);
+                                            ((Klasa) e.getDiagramElements()).getAtributsList().remove(ele);
+                                            try {
+                                                iterator2.remove();
+                                            } catch (ConcurrentModificationException e1) {
+                                                System.out.println("");
 
-                                        diagramView.getDiagram().notifySubscriber("", "crtanje");
+                                            }
 
-                                        break;
-                                    }
-                                } else if (ele instanceof Methods) {
-                                    Methods at = (Methods) ele;
-                                    rec2 = ele.toString();
-                                    String s = selection.toString();
-                                    if (rec2.equals(s)) {
-                                        System.out.println("jdksada");
-                                        ((Klasa) e.getDiagramElements()).umanjiSumu();
-                                        ((Klasa) e.getDiagramElements()).setBroj(5);
-                                        ((Klasa) e.getDiagramElements()).getAtributsList().remove(ele);
-                                        try {
-                                            iterator2.remove();
-                                        } catch (ConcurrentModificationException e1) {
-                                            System.out.println("");
+                                            diagramView.getDiagram().notifySubscriber("", "crtanje");
 
+                                            break;
                                         }
+                                    } else if (ele instanceof EnumElements) {
+                                        EnumElements at = (EnumElements) ele;
+                                        rec2 = ele.toString();
+                                        String s = selection.toString();
+                                        if (rec2.equals(s)) {
+                                            ((Klasa) e.getDiagramElements()).umanjiSumu();
+                                            ((Klasa) e.getDiagramElements()).setBroj(5);
+                                            ((Klasa) e.getDiagramElements()).getAtributsList().remove(ele);
+                                            try {
+                                                iterator2.remove();
+                                            } catch (ConcurrentModificationException e1) {
+                                                System.out.println("");
 
-                                        diagramView.getDiagram().notifySubscriber("", "crtanje");
+                                            }
 
-                                        break;
-                                    }
-                                } else if (ele instanceof EnumElements) {
-                                    EnumElements at = (EnumElements) ele;
-                                    rec2 = ele.toString();
-                                    String s = selection.toString();
-                                    if (rec2.equals(s)) {
-                                        ((Klasa) e.getDiagramElements()).umanjiSumu();
-                                        ((Klasa) e.getDiagramElements()).setBroj(5);
-                                        ((Klasa) e.getDiagramElements()).getAtributsList().remove(ele);
-                                        try {
-                                            iterator2.remove();
-                                        } catch (ConcurrentModificationException e1) {
-                                            System.out.println("");
+                                            diagramView.getDiagram().notifySubscriber("", "crtanje");
 
+                                            break;
                                         }
-
-                                        diagramView.getDiagram().notifySubscriber("", "crtanje");
-
-                                        break;
                                     }
                                 }
-                            }
                          /*if(cnt == ((Klasa)element.getDiagramElements()).getAtributsList().size() + 1){
                              element.umanjiSumu();
                          }*/
 
 
-                            //flag = true;
-                        } else if (e.getDiagramElements() instanceof Interfejs) {
-                            JDialog.setDefaultLookAndFeelDecorated(true);
-                            Object[] selectionValues = new Object[100];
-                            for (int i = 0; i < ((Interfejs) e.getDiagramElements()).getAtributsList().size(); i++) {
-                                String rec = ((Interfejs) e.getDiagramElements()).getAtributsList().get(i).toString();
-                                selectionValues[i] = rec;
+                                //flag = true;
                             }
-                            Object basicSelection = selectionValues[0];
-
-                            Object selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
-                            System.out.println(basicSelection);
-                            while (selection == null) {
-                                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                                selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
-                            }
-                            int cnt = 0;
-                            Iterator iterator = diagramView.getPainteri().iterator();
-                            while (iterator.hasNext()) {
-                                ElementPainteri elementPainteri = (ElementPainteri) iterator.next();
-                                if (elementPainteri instanceof MetodaPainter) {
-                                    cnt++;
-                                    if (((MetodaPainter) elementPainteri).getMethods().toString().equals(selection)) {
-                                        if (((Interclass) e.getDiagramElements()).getDuzinaAtributa().size() == 1)
-                                            ((Interclass) e.getDiagramElements()).getDuzinaAtributa().clear();
-                                        else
-                                            ((Interclass) e.getDiagramElements()).getDuzinaAtributa().remove(cnt - 1);
-                                        iterator.remove();
-                                        break;
-                                    }
+                        }
+                        else if(e.getDiagramElements() instanceof Interfejs){
+                            if (!((Interfejs)e.getDiagramElements()).getAtributsList().isEmpty()) {
+                                JDialog.setDefaultLookAndFeelDecorated(true);
+                                Object[] selectionValues = new Object[100];
+                                for (int i = 0; i < ((Interfejs) e.getDiagramElements()).getAtributsList().size(); i++) {
+                                    String rec = ((Interfejs) e.getDiagramElements()).getAtributsList().get(i).toString();
+                                    selectionValues[i] = rec;
                                 }
-                            }
-                            int max = -1;
-                            for (int i = 0; i < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().size(); i++) {
-                                if (max < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i))
-                                    max = ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i);
-                            }
-                            ((Interclass) e.getDiagramElements()).setNajveciWidth(max);
-                            Iterator iterator2 = ((Interfejs) e.getDiagramElements()).getAtributsList().iterator();
-                            while (iterator2.hasNext()) {
-                                cnt++;
-                                ClassContent ele = (ClassContent) iterator2.next();
-                                String rec2 = null;
-                                if (ele instanceof Methods) {
-                                    Methods at = (Methods) ele;
-                                    rec2 = ele.toString();
-                                    String s = selection.toString();
-                                    if (rec2.equals(s)) {
-                                        System.out.println("jdksada");
-                                        ((Interfejs) e.getDiagramElements()).umanjiSumu();
-                                        ((Interfejs) e.getDiagramElements()).setBroj(5);
-                                        ((Interfejs) e.getDiagramElements()).getAtributsList().remove(ele);
-                                        try {
-                                            iterator2.remove();
-                                        } catch (ConcurrentModificationException e1) {
-                                            System.out.println("");
+                                Object basicSelection = selectionValues[0];
 
+                                Object selection = JOptionPane.showInputDialog(null, "Koji element zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+                                System.out.println(basicSelection);
+                                while (selection == null) {
+                                    ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
+                                    selection = JOptionPane.showInputDialog(null, "Koji element zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+                                }
+                                int cnt = 0;
+                                Iterator iterator = diagramView.getPainteri().iterator();
+                                while (iterator.hasNext()) {
+                                    ElementPainteri elementPainteri = (ElementPainteri) iterator.next();
+                                    if (elementPainteri instanceof MetodaPainter) {
+                                        cnt++;
+                                        if (((MetodaPainter) elementPainteri).getMethods().toString().equals(selection)) {
+                                            if (((Interclass) e.getDiagramElements()).getDuzinaAtributa().size() == 1)
+                                                ((Interclass) e.getDiagramElements()).getDuzinaAtributa().clear();
+                                            else
+                                                ((Interclass) e.getDiagramElements()).getDuzinaAtributa().remove(cnt - 1);
+                                            iterator.remove();
+                                            break;
                                         }
-
-                                        diagramView.getDiagram().notifySubscriber("", "crtanje");
-
-                                        break;
                                     }
                                 }
-
-
-                            }
-                            //flag = true;
-                        } else if (e.getDiagramElements() instanceof Enumm) {
-                            JDialog.setDefaultLookAndFeelDecorated(true);
-                            Object[] selectionValues = new Object[100];
-                            for (int i = 0; i < ((Enumm) e.getDiagramElements()).getAtributsList().size(); i++) {
-                                String rec = ((Enumm) e.getDiagramElements()).getAtributsList().get(i).toString();
-                                selectionValues[i] = rec;
-                            }
-                            Object basicSelection = selectionValues[0];
-
-                            Object selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
-                            System.out.println(basicSelection);
-                            while (selection == null) {
-                                ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                                selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
-                            }
-                            int cnt = 0;
-                            Iterator iterator = diagramView.getPainteri().iterator();
-                            while (iterator.hasNext()) {
-                                ElementPainteri elementPainteri = (ElementPainteri) iterator.next();
-                                if (elementPainteri instanceof EnumElementsPainter) {
+                                int max = -1;
+                                for (int i = 0; i < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().size(); i++) {
+                                    if (max < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i))
+                                        max = ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i);
+                                }
+                                ((Interclass) e.getDiagramElements()).setNajveciWidth(max);
+                                Iterator iterator2 = ((Interfejs) e.getDiagramElements()).getAtributsList().iterator();
+                                while (iterator2.hasNext()) {
                                     cnt++;
-                                    if (((EnumElementsPainter) elementPainteri).getEnumElements().toString().equals(selection)) {
-                                        if (((Interclass) e.getDiagramElements()).getDuzinaAtributa().size() == 1)
-                                            ((Interclass) e.getDiagramElements()).getDuzinaAtributa().clear();
-                                        else
-                                            ((Interclass) e.getDiagramElements()).getDuzinaAtributa().remove(cnt - 1);
-                                        iterator.remove();
-                                        break;
-                                    }
-                                }
-                            }
-                            int max = -1;
-                            for (int i = 0; i < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().size(); i++) {
-                                if (max < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i))
-                                    max = ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i);
-                            }
-                            ((Interclass) e.getDiagramElements()).setNajveciWidth(max);
-                            Iterator iterator2 = ((Enumm) e.getDiagramElements()).getAtributsList().iterator();
-                            while (iterator2.hasNext()) {
-                                cnt++;
-                                ClassContent ele = (ClassContent) iterator2.next();
-                                String rec2 = null;
-                                if (ele instanceof EnumElements) {
-                                    EnumElements at = (EnumElements) ele;
-                                    rec2 = ele.toString();
-                                    String s = selection.toString();
-                                    if (rec2.equals(s)) {
-                                        ((Enumm) e.getDiagramElements()).umanjiSumu();
-                                        ((Enumm) e.getDiagramElements()).setBroj(5);
-                                        ((Enumm) e.getDiagramElements()).getAtributsList().remove(ele);
-                                        try {
-                                            iterator2.remove();
-                                        } catch (ConcurrentModificationException e1) {
-                                            System.out.println("");
+                                    ClassContent ele = (ClassContent) iterator2.next();
+                                    String rec2 = null;
+                                    if (ele instanceof Methods) {
+                                        Methods at = (Methods) ele;
+                                        rec2 = ele.toString();
+                                        String s = selection.toString();
+                                        if (rec2.equals(s)) {
+                                            System.out.println("jdksada");
+                                            ((Interfejs) e.getDiagramElements()).umanjiSumu();
+                                            ((Interfejs) e.getDiagramElements()).setBroj(5);
+                                            ((Interfejs) e.getDiagramElements()).getAtributsList().remove(ele);
+                                            try {
+                                                iterator2.remove();
+                                            } catch (ConcurrentModificationException e1) {
+                                                System.out.println("");
 
+                                            }
+
+                                            diagramView.getDiagram().notifySubscriber("", "crtanje");
+
+                                            break;
                                         }
+                                    }
 
-                                        diagramView.getDiagram().notifySubscriber("", "crtanje");
 
-                                        break;
+                                }
+                                //flag = true;
+                            }
+                        }
+                        else if(e.getDiagramElements() instanceof Enumm){
+                            if (!((Enumm)e.getDiagramElements()).getAtributsList().isEmpty()) {
+                                JDialog.setDefaultLookAndFeelDecorated(true);
+                                Object[] selectionValues = new Object[100];
+                                for (int i = 0; i < ((Enumm) e.getDiagramElements()).getAtributsList().size(); i++) {
+                                    String rec = ((Enumm) e.getDiagramElements()).getAtributsList().get(i).toString();
+                                    selectionValues[i] = rec;
+                                }
+                                Object basicSelection = selectionValues[0];
+
+                                Object selection = JOptionPane.showInputDialog(null, "Koji element zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+                                System.out.println(basicSelection);
+                                while (selection == null) {
+                                    ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
+                                    selection = JOptionPane.showInputDialog(null, "Koji element zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+                                }
+                                int cnt = 0;
+                                Iterator iterator = diagramView.getPainteri().iterator();
+                                while (iterator.hasNext()) {
+                                    ElementPainteri elementPainteri = (ElementPainteri) iterator.next();
+                                    if (elementPainteri instanceof EnumElementsPainter) {
+                                        cnt++;
+                                        if (((EnumElementsPainter) elementPainteri).getEnumElements().toString().equals(selection)) {
+                                            if (((Interclass) e.getDiagramElements()).getDuzinaAtributa().size() == 1)
+                                                ((Interclass) e.getDiagramElements()).getDuzinaAtributa().clear();
+                                            else
+                                                ((Interclass) e.getDiagramElements()).getDuzinaAtributa().remove(cnt - 1);
+                                            iterator.remove();
+                                            break;
+                                        }
                                     }
                                 }
+                                int max = -1;
+                                for (int i = 0; i < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().size(); i++) {
+                                    if (max < ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i))
+                                        max = ((Interclass) e.getDiagramElements()).getDuzinaAtributa().get(i);
+                                }
+                                ((Interclass) e.getDiagramElements()).setNajveciWidth(max);
+                                Iterator iterator2 = ((Enumm) e.getDiagramElements()).getAtributsList().iterator();
+                                while (iterator2.hasNext()) {
+                                    cnt++;
+                                    ClassContent ele = (ClassContent) iterator2.next();
+                                    String rec2 = null;
+                                    if (ele instanceof EnumElements) {
+                                        EnumElements at = (EnumElements) ele;
+                                        rec2 = ele.toString();
+                                        String s = selection.toString();
+                                        if (rec2.equals(s)) {
+                                            ((Enumm) e.getDiagramElements()).umanjiSumu();
+                                            ((Enumm) e.getDiagramElements()).setBroj(5);
+                                            ((Enumm) e.getDiagramElements()).getAtributsList().remove(ele);
+                                            try {
+                                                iterator2.remove();
+                                            } catch (ConcurrentModificationException e1) {
+                                                System.out.println("");
+
+                                            }
+
+                                            diagramView.getDiagram().notifySubscriber("", "crtanje");
+
+                                            break;
+                                        }
+                                    }
 
 
+                                }
+                                //flag = true;
                             }
-                            //flag = true;
                         }
 
                     }
                 }
-            }
-        }else{
+            }}else{
             boolean flag = false;
             ElementPainteri elements = null;
             for(ElementPainteri element : diagramView.getSelectionModel()){
@@ -586,6 +596,12 @@ public class Brisanje implements State{
                             if (next instanceof AgregacijaPainter) {
                                 if (((AgregacijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
+                                }
+                                try{
+                                    element.getClassyTreeItem().removeFromParent();
+                                }
+                                catch (NullPointerException er){
+                                    System.out.print("");
                                 }
                             }
                             else if (next instanceof ZavisnostPainter) {
@@ -629,6 +645,12 @@ public class Brisanje implements State{
                                 catch (NullPointerException er){
                                     System.out.print("");
                                 }
+                            }
+                            try{
+                                element.getClassyTreeItem().removeFromParent();
+                            }
+                            catch (NullPointerException ej){
+                                System.out.print("");
                             }
                         }
                     }
@@ -712,6 +734,12 @@ public class Brisanje implements State{
                                         System.out.print("");
                                     }
                                 }
+                            }
+                            try{
+                                element.getClassyTreeItem().removeFromParent();
+                            }
+                            catch (NullPointerException el){
+                                System.out.print("");
                             }
                         }
                     }

@@ -68,10 +68,10 @@ public class MenjanjeSadrzaja implements State{
                     }
                     if (classContent instanceof Klasa) {
                         JFrame f = new JFrame();
-                        String name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                        String name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         while (name == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                            name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         }
                         ((Klasa) classContent).setName(name);
                         diagramView.getDiagram().selektovano();
@@ -79,36 +79,36 @@ public class MenjanjeSadrzaja implements State{
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues5 = {"String", "int", "double", "float", "boolean"};
                         String basicSelection5 = "String";
-                        Object selection5 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues5, basicSelection5);
+                        Object selection5 = JOptionPane.showInputDialog(null, "Koji tip atributa zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues5, basicSelection5);
                         while (selection5 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection5 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues5, basicSelection5);
+                            selection5 = JOptionPane.showInputDialog(null, "Koji tip atributa zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues5, basicSelection5);
                         }
                         ((Atributs) classContent).setTip((String) selection5);
                         JFrame f = new JFrame();
-                        String name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                        String name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         while (name == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                            name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         }
                         ((Atributs) classContent).setName(name);
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues2 = {"public", "private", "protected", "default"};
                         String basicSelection2 = "public";
-                        Object selection2 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
+                        Object selection2 = JOptionPane.showInputDialog(null, "Koju vidljivost zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
                         while (selection2 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection2 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
+                            selection2 = JOptionPane.showInputDialog(null, "Koju vidljivost zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
                         }
                         ((Atributs) classContent).setVidljivost(selection2.toString());
 
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues3 = {"static", "nista"};
                         String basicSelection3 = "nista";
-                        Object selection3 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
+                        Object selection3 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete static?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
                         while (selection3 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection3 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
+                            selection3 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete static?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
                         }
                         if (!(selection3.toString().equals("nista")))
                             ((Atributs) classContent).setStatic(true);
@@ -116,10 +116,10 @@ public class MenjanjeSadrzaja implements State{
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues4 = {"apstrakt", "nista"};
                         String basicSelection4 = "nista";
-                        Object selection4 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
+                        Object selection4 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete abstrakt?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
                         while (selection4 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection4 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
+                            selection4 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete abstrakt?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
                         }
                         if (!(selection4.toString().equals("nista")))
                             ((Atributs) classContent).setAbstract(true);
@@ -129,32 +129,32 @@ public class MenjanjeSadrzaja implements State{
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues6 = {"void", "int", "String", "boolean", "float", "double"};
                         String basicSelection6 = "void";
-                        Object selection6 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues6, basicSelection6);
+                        Object selection6 = JOptionPane.showInputDialog(null, "Koji povratni ti metode zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues6, basicSelection6);
                         while (selection6 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection6 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues6, basicSelection6);
+                            selection6 = JOptionPane.showInputDialog(null, "Koji povratni ti metode zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues6, basicSelection6);
                         }
                         ((Methods) classContent).setTip(selection6.toString());
                         JFrame f = new JFrame();
-                        String name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                        String name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         while (name == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                            name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         }
                         ((Methods) classContent).setName(name);
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         String kraj = null;
                         Object[] selectionValues9 = {"int", "String", "boolean", "float", "double", "Object", "nista"};
                         String basicSelection9 = "int";
-                        Object selection9 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
+                        Object selection9 = JOptionPane.showInputDialog(null, "Koji tip ulaznog argumenta zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
                         while (selection9 == null || selection9 != "nista") {
                             if (selection9 != null) {
                                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Nastavite da birate tip argumenta", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
                                 kraj += selection9.toString() + ",";
-                                selection9 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
+                                selection9 = JOptionPane.showInputDialog(null, "Koji tip ulaznog argumenta zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
                             } else {
                                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                                selection9 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
+                                selection9 = JOptionPane.showInputDialog(null, "Koji tip ulaznog argumenta zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
                             }
                         }
                         ((Methods) classContent).getUlazniElementi().clear();
@@ -165,19 +165,19 @@ public class MenjanjeSadrzaja implements State{
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues2 = {"public", "private", "protected", "default"};
                         String basicSelection2 = "public";
-                        Object selection2 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
+                        Object selection2 = JOptionPane.showInputDialog(null, "Koju vidljivost zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
                         while (selection2 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection2 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
+                            selection2 = JOptionPane.showInputDialog(null, "Koju vidljivost zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
                         }
                         ((Methods) classContent).setVidljivost(selection2.toString());
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues3 = {"static", "nista"};
                         String basicSelection3 = "nista";
-                        Object selection3 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
+                        Object selection3 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete static?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
                         while (selection3 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection3 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
+                            selection3 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete static?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
                         }
                         if (!(selection3.toString().equals("nista")))
                             ((Methods) classContent).setStatic(true);
@@ -185,10 +185,10 @@ public class MenjanjeSadrzaja implements State{
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues4 = {"apstrakt", "nista"};
                         String basicSelection4 = "nista";
-                        Object selection4 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
+                        Object selection4 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete abstrakt?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
                         while (selection4 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection4 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
+                            selection4 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete abstrakt?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
                         }
                         if (!(selection4.toString().equals("nista")))
                             ((Methods) classContent).setAbstract(true);
@@ -196,10 +196,10 @@ public class MenjanjeSadrzaja implements State{
                         diagramView.getDiagram().selektovano();
                     } else if (classContent instanceof EnumElements) {
                         JFrame f = new JFrame();
-                        String name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                        String name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         while (name == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                            name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         }
                         //System.out.println(name);
                         ((EnumElements) classContent).setName(name);
@@ -235,10 +235,10 @@ public class MenjanjeSadrzaja implements State{
                     }
                     if (classContent instanceof Interfejs) {
                         JFrame f = new JFrame();
-                        String name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                        String name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         while (name == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                            name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         }
                         ((Interfejs) classContent).setName(name);
                         diagramView.getDiagram().selektovano();
@@ -246,32 +246,32 @@ public class MenjanjeSadrzaja implements State{
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues6 = {"void", "int", "String", "boolean", "float", "double"};
                         String basicSelection6 = "void";
-                        Object selection6 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues6, basicSelection6);
+                        Object selection6 = JOptionPane.showInputDialog(null, "Koji povratni ti metode zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues6, basicSelection6);
                         while (selection6 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection6 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues6, basicSelection6);
+                            selection6 = JOptionPane.showInputDialog(null, "Koji povratni ti metode zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues6, basicSelection6);
                         }
                         ((Methods) classContent).setTip(selection6.toString());
                         JFrame f = new JFrame();
-                        String name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                        String name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         while (name == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                            name = JOptionPane.showInputDialog(f, "Unesite ime: ");
                         }
                         ((Methods) classContent).setName(name);
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         String kraj = null;
                         Object[] selectionValues9 = {"int", "String", "boolean", "float", "double", "Object", "nista"};
                         String basicSelection9 = "int";
-                        Object selection9 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
+                        Object selection9 = JOptionPane.showInputDialog(null, "Koji tip ulaznog argumenta zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
                         while (selection9 == null || selection9 != "nista") {
                             if (selection9 != null) {
                                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Nastavite da birate tip argumenta", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
                                 kraj += selection9.toString() + ",";
-                                selection9 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
+                                selection9 = JOptionPane.showInputDialog(null, "Koji tip ulaznog argumenta zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
                             } else {
                                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                                selection9 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
+                                selection9 = JOptionPane.showInputDialog(null, "Koji tip ulaznog argumenta zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues9, basicSelection9);
                             }
                         }
                         ((Methods) classContent).getUlazniElementi().clear();
@@ -282,19 +282,19 @@ public class MenjanjeSadrzaja implements State{
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues2 = {"public", "private", "protected", "default"};
                         String basicSelection2 = "public";
-                        Object selection2 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
+                        Object selection2 = JOptionPane.showInputDialog(null, "Koju vidljivost zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
                         while (selection2 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection2 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
+                            selection2 = JOptionPane.showInputDialog(null, "Koju vidljivost zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues2, basicSelection2);
                         }
                         ((Methods) classContent).setVidljivost(selection2.toString());
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues3 = {"static", "nista"};
                         String basicSelection3 = "nista";
-                        Object selection3 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
+                        Object selection3 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete static?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
                         while (selection3 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection3 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
+                            selection3 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete static?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues3, basicSelection3);
                         }
                         if (!(selection3.toString().equals("nista")))
                             ((Methods) classContent).setStatic(true);
@@ -302,10 +302,10 @@ public class MenjanjeSadrzaja implements State{
                         JDialog.setDefaultLookAndFeelDecorated(true);
                         Object[] selectionValues4 = {"apstrakt", "nista"};
                         String basicSelection4 = "nista";
-                        Object selection4 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
+                        Object selection4 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete abstrakt?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
                         while (selection4 == null) {
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                            selection4 = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
+                            selection4 = JOptionPane.showInputDialog(null, "Da li zelite da izaberete abstrakt?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues4, basicSelection4);
                         }
                         if (!(selection4.toString().equals("nista")))
                             ((Methods) classContent).setAbstract(true);
@@ -344,20 +344,20 @@ public class MenjanjeSadrzaja implements State{
                     }
                          if (classContent instanceof Enumm) {
                              JFrame f = new JFrame();
-                             String name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                             String name = JOptionPane.showInputDialog(f, "Unesite ime enuma: ");
                              while (name == null) {
                                  ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                                 name = JOptionPane.showInputDialog(f, "Enter the name: ");
+                                 name = JOptionPane.showInputDialog(f, "Unesite ime enuma: ");
                              }
                              ((Enumm) classContent).setName(name);
                              diagramView.getDiagram().selektovano();
                          }
                         else if (classContent instanceof EnumElements) {
                             JFrame f2 = new JFrame();
-                            String name2 = JOptionPane.showInputDialog(f2, "Enter the name: ");
+                            String name2 = JOptionPane.showInputDialog(f2, "Unesite ime emun elementa: ");
                             while (name2 == null) {
                                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                                name2 = JOptionPane.showInputDialog(f2, "Enter the name: ");
+                                name2 = JOptionPane.showInputDialog(f2, "Unesite ime enum elementa: ");
                             }
                             ((EnumElements) classContent).setName(name2);
                             diagramView.getDiagram().selektovano();
@@ -381,10 +381,10 @@ public class MenjanjeSadrzaja implements State{
                     }
                     ((Agregacija)element.getDiagramElements()).setKardinalnost(selection2.toString());
                     JFrame f = new JFrame();
-                    String name = JOptionPane.showInputDialog(f, "Enter the name of variable: ");
+                    String name = JOptionPane.showInputDialog(f, "Unesite ime promenljive: ");
                     while (name == null) {
                         ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                        name = JOptionPane.showInputDialog(f, "Enter the name of variable: ");
+                        name = JOptionPane.showInputDialog(f, "Unesite ime promenljive: ");
                     }
                     ((Agregacija)element.getDiagramElements()).setImePromenljive(name);
                 }
@@ -399,10 +399,10 @@ public class MenjanjeSadrzaja implements State{
                     }
                     ((Kompozicija)element.getDiagramElements()).setKardinalnost(selection2.toString());
                     JFrame f = new JFrame();
-                    String name = JOptionPane.showInputDialog(f, "Enter the name of variable: ");
+                    String name = JOptionPane.showInputDialog(f, "Unesite ime promenljive: ");
                     while (name == null) {
                         ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                        name = JOptionPane.showInputDialog(f, "Enter the name of variable: ");
+                        name = JOptionPane.showInputDialog(f, "Unesite ime promenljive: ");
                     }
                     ((Kompozicija)element.getDiagramElements()).setImePromeljive(name);
                 }
