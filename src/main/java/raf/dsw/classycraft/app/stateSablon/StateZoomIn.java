@@ -6,8 +6,10 @@ public class StateZoomIn implements State{
     @Override
     public void misKliknut(int x, int y, DiagramView diagramView) {
         double newScaling = diagramView.getScale() * 1.08;
-        if(newScaling >= 5) newScaling = 5;
-        diagramView.setTr(newScaling);
+        if(newScaling >= 3)
+            newScaling = 3;
+        System.out.println(diagramView.getScale());
+        diagramView.setTr(newScaling,x,y);
     }
 
     @Override

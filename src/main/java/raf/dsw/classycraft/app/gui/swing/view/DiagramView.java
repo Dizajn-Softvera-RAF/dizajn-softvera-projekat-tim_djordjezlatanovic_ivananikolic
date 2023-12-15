@@ -16,6 +16,7 @@ import raf.dsw.classycraft.app.painters.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,10 +52,16 @@ public class DiagramView extends JPanel implements Subscriber {
         this.setPreferredSize(new Dimension(5000, 5000));
     }
 
-public void setTr(double scale){
+public void setTr(double scale, int x, int y){
         this.scale = scale;
-        affineTransform.setToIdentity();
-        affineTransform.scale(this.scale, this.scale);
+        //JViewport j = packageView.getJViewport();
+        //j.setViewPosition(new Point((int) (x*scale), (int) (y*scale)));
+
+        //j.setLocation((int) (x*scale), (int) (y*scale));
+        //packageView.getJScrollPane().setViewportView(this);
+    affineTransform.setToIdentity();
+    affineTransform.scale(this.scale, this.scale);
+
         repaint();
 }
     @Override
@@ -70,6 +77,7 @@ public void setTr(double scale){
             packageView.promenaImena(imeTaba, staroIme);
         }
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -108,6 +116,17 @@ public void setTr(double scale){
                 elementi.draw(g, this);
             }
 
+        }
+    }
+    public Point getOriginalCoordinates(Point scaledPoint) {
+        try {
+            AffineTransform inverseTransform = affineTransform.createInverse();
+            Point originalPoint = new Point();
+            inverseTransform.transform(scaledPoint, originalPoint);
+            return originalPoint;
+        } catch (NoninvertibleTransformException ex) {
+            ex.printStackTrace();
+            return null;
         }
     }
 }

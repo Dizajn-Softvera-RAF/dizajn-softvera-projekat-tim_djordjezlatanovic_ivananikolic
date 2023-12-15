@@ -16,12 +16,20 @@ import java.time.LocalDateTime;
 
 public class MenjanjeSadrzaja implements State{
     @Override
-    public void misKliknut(int x, int y, DiagramView diagramView) {
+    public void misKliknut(int x1, int y1, DiagramView diagramView) {
         boolean flag = false;
         ElementPainteri element = null;
         String s = "selekcija";
+        Point point = new Point(x1,y1);
+        if(diagramView.getScale()!=1){
+            point = diagramView.getOriginalCoordinates(new Point(x1, y1));
+
+        }
+        else point = new Point(x1, y1);
+        int x = point.x;
+        int y = point.y;
         for(ElementPainteri elementPainteri : diagramView.getPainteri()){
-            Point point = new Point(x, y);
+            //Point point = new Point(x, y);
             if(elementPainteri.elementAt(point, diagramView, s, elementPainteri)){
                 flag = true;
                 element = elementPainteri;
@@ -193,7 +201,7 @@ public class MenjanjeSadrzaja implements State{
                             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
                             name = JOptionPane.showInputDialog(f, "Enter the name: ");
                         }
-                        System.out.println(name);
+                        //System.out.println(name);
                         ((EnumElements) classContent).setName(name);
                         diagramView.getDiagram().selektovano();
                     }

@@ -44,7 +44,7 @@ public class GeneralizacijaPainter extends ElementPainteri {
             ((Graphics2D)g).setStroke(c.getStroke());
             g.drawLine(point1.x, point1.y, point2.x, point2.y);
 
-            g.drawLine(point1.x, point1.y, point2.x, point2.y);
+            //g.drawLine(point1.x, point1.y, point2.x, point2.y);
             Path2D.Double path = new Path2D.Double ();
             path.moveTo (point2.x, point2.y) ;
             double x = point2.x - 10;
@@ -98,7 +98,7 @@ public class GeneralizacijaPainter extends ElementPainteri {
             width = Math.abs(c.getPocetnaTacka().x - c.getKrajnjaTacka().x);
             height = Math.abs(c.getPocetnaTacka().y - c.getKrajnjaTacka().y);
             Rectangle r = new Rectangle(x1, y1, width, height);
-            Rectangle r2 = new Rectangle(pos.x, pos.y, pos.x + 10, pos.y + 10);
+            Rectangle r2 = new Rectangle(pos.x, pos.y, pos.x + 2 ,pos.y + 1);
             if(r.intersects(r2))
                 return true;
         }

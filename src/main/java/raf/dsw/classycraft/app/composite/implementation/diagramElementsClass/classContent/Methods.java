@@ -43,13 +43,13 @@ public class Methods extends ClassContent{
         return this.getVidljivost() + this.getName()+ this.getUlazniElementi() + ": "+this.getTip() ;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Methods)) return false;
-        Methods methods = (Methods) o;
-        return Objects.equals(vidljivost, methods.vidljivost) && Objects.equals(tip, methods.tip);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (!(o instanceof Methods)) return false;
+//        Methods methods = (Methods) o;
+//        return Objects.equals(vidljivost, methods.vidljivost) && Objects.equals(tip, methods.tip);
+//    }
 
     @Override
     public int hashCode() {

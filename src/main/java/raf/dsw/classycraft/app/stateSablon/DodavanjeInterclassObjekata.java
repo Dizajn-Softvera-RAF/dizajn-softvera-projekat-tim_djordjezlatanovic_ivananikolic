@@ -30,15 +30,22 @@ public class DodavanjeInterclassObjekata implements State{
         this.s = s;
     }
 
-    public void misKliknut(int x, int y, DiagramView diagramView){
+    public void misKliknut(int x1, int y1, DiagramView diagramView){
         DiagramElements diagramElements = null;
         Diagram d = diagramView.getDiagram();
         ElementPainteri elementPainteri = null;
+        Point point = new Point(x1,y1);
+        if(diagramView.getScale()!=1){
+            point = diagramView.getOriginalCoordinates(new Point(x1, y1));
 
+        }
+        else point = new Point(x1, y1);
+        int x = point.x;
+        int y = point.y;
         boolean flag = false;
         for(ElementPainteri element : diagramView.getPainteri()){
 
-            Point point = new Point(x, y);
+           // point = new Point(x, y);
             if(element.elementAt(point, diagramView, "", element)){
                 flag = true;
             }
@@ -48,7 +55,7 @@ public class DodavanjeInterclassObjekata implements State{
 
         if(!flag){
             if(s.toLowerCase().equals("klasa")){
-                diagramElements = new Klasa(d, "Klasa" + String.valueOf(cnt), x,y ,250,130,Color.black);
+               diagramElements = new Klasa(d, "Klasa" + String.valueOf(cnt), x,y ,250,130,Color.black);
                 cnt++;
                 elementPainteri = new KlasaPainter(s,diagramElements);
                 diagramView.getPainteri().add(elementPainteri);

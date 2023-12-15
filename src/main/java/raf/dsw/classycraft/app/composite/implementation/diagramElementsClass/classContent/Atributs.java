@@ -71,15 +71,15 @@ public class Atributs extends ClassContent implements Publisher {
             s.update(var1,tekst);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof Atributs){
-            Atributs atributs = (Atributs) obj;
-            return super.getName().equals(atributs.getName()) && this.tip.equals(atributs.getTip());
-        }
-        return false;
-
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if(obj instanceof Atributs){
+//            Atributs atributs = (Atributs) obj;
+//            return super.getName().equals(atributs.getName()) && this.tip.equals(atributs.getTip());
+//        }
+//        return false;
+//
+//    }
 
 
     public void setBroj(int broj) {

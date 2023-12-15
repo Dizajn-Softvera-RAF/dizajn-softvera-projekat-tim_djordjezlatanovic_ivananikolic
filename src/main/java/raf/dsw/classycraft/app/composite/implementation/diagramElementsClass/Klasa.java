@@ -6,6 +6,7 @@ import raf.dsw.classycraft.app.composite.abstraction.ClassyNode;
 import raf.dsw.classycraft.app.composite.implementation.Diagram;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.Atributs;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.ClassContent;
+import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.EnumElements;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.Methods;
 import raf.dsw.classycraft.app.observer.Publisher;
 import raf.dsw.classycraft.app.observer.Subscriber;
@@ -46,7 +47,7 @@ public class Klasa extends Interclass implements Publisher{
                 atributsList.add(classContent);
             }
             else
-                atributsList.add(classContent);
+                atributsList.add((EnumElements)classContent);
 
         }
 
