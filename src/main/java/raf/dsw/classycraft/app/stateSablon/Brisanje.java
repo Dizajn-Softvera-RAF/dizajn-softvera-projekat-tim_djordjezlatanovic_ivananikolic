@@ -559,7 +559,8 @@ public class Brisanje implements State{
 
                     }
                 }
-            }}else{
+            }
+        }else{
             boolean flag = false;
             ElementPainteri elements = null;
             for(ElementPainteri element : diagramView.getSelectionModel()){
@@ -597,23 +598,12 @@ public class Brisanje implements State{
                                 if (((AgregacijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
                                 }
-                                try{
-                                    element.getClassyTreeItem().removeFromParent();
-                                }
-                                catch (NullPointerException er){
-                                    System.out.print("");
-                                }
+
                             }
                             else if (next instanceof ZavisnostPainter) {
 
                                 if (((ZavisnostPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
-                                }
-                                try{
-                                    element.getClassyTreeItem().removeFromParent();
-                                }
-                                catch (NullPointerException er){
-                                    System.out.print("");
                                 }
                             }
                             else if (next instanceof GeneralizacijaPainter) {
@@ -621,33 +611,16 @@ public class Brisanje implements State{
                                 if (((GeneralizacijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
                                 }
-                                try{
-                                    element.getClassyTreeItem().removeFromParent();
-                                }
-                                catch (NullPointerException er){
-                                    System.out.print("");
-                                }
+
                             }
                             else if (next instanceof KompozicijaPainter) {
 
                                 if (((KompozicijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
-                                    try{
-                                        element.getClassyTreeItem().removeFromParent();
-                                    }
-                                    catch (NullPointerException er){
-                                        System.out.print("");
-                                    }
-                                }
-                                try{
-                                    element.getClassyTreeItem().removeFromParent();
-                                }
-                                catch (NullPointerException er){
-                                    System.out.print("");
                                 }
                             }
                             try{
-                                element.getClassyTreeItem().removeFromParent();
+                                next.getClassyTreeItem().removeFromParent();
                             }
                             catch (NullPointerException ej){
                                 System.out.print("");
@@ -691,52 +664,32 @@ public class Brisanje implements State{
                             if (next instanceof AgregacijaPainter) {
                                 if (((AgregacijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
-                                    try{
-                                        element.getClassyTreeItem().removeFromParent();
-                                    }
-                                    catch (NullPointerException er){
-                                        System.out.print("");
-                                    }
+
                                 }
                             }
                             else if (next instanceof ZavisnostPainter) {
                                 next.getClassyTreeItem().removeFromParent();
                                 if (((ZavisnostPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
-                                    try{
-                                        element.getClassyTreeItem().removeFromParent();
-                                    }
-                                    catch (NullPointerException er){
-                                        System.out.print("");
-                                    }
+
                                 }
                             }
                             else if (next instanceof GeneralizacijaPainter) {
                                 next.getClassyTreeItem().removeFromParent();
                                 if (((GeneralizacijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
-                                    try{
-                                        element.getClassyTreeItem().removeFromParent();
-                                    }
-                                    catch (NullPointerException er){
-                                        System.out.print("");
-                                    }
+
                                 }
                             }
                             else if (next instanceof KompozicijaPainter) {
                                 next.getClassyTreeItem().removeFromParent();
                                 if (((KompozicijaPainter) next).getDiagramElements().equals(k)) {
                                     e.remove();
-                                    try{
-                                        element.getClassyTreeItem().removeFromParent();
-                                    }
-                                    catch (NullPointerException er){
-                                        System.out.print("");
-                                    }
+
                                 }
                             }
                             try{
-                                element.getClassyTreeItem().removeFromParent();
+                                next.getClassyTreeItem().removeFromParent();
                             }
                             catch (NullPointerException el){
                                 System.out.print("");
@@ -820,6 +773,7 @@ public class Brisanje implements State{
                 else if(element.getDiagramElements() instanceof Connection){
                     try{
                         element.getClassyTreeItem().removeFromParent();
+                        SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getJTree());
                     }
                     catch (NullPointerException e){
                         System.out.print("");
