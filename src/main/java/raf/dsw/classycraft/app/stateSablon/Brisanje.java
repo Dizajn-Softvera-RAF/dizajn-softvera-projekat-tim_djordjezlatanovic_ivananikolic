@@ -1,6 +1,5 @@
 package raf.dsw.classycraft.app.stateSablon;
 
-import raf.dsw.classycraft.app.JTree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.*;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.Atributs;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.ClassContent;
@@ -34,7 +33,19 @@ public class Brisanje implements State{
         }
         int x = point.x;
         int y = point.y;
-        if(diagramView.getSelectionModel().isEmpty()) {
+        boolean flag1 = false;
+        ElementPainteri elements = null;
+        for (ElementPainteri element : diagramView.getPainteri()) {
+            point = new Point(x1, y1);
+            if (element.elementAt(point, diagramView, "selekcija", element)) {
+                elements = element;
+                flag1 = true;
+                if (flag1) {
+                    break;
+                }
+            }
+        }
+        if(diagramView.getSelectionModel().isEmpty() && flag1 == true) {
             JDialog.setDefaultLookAndFeelDecorated(true);
             Object[] selectionValue = {"Element", "Diagram element"};
             String basicSelectio = "Element";
@@ -46,19 +57,6 @@ public class Brisanje implements State{
             String a = selectio.toString();
 
             if (a.toLowerCase().equals("diagram element")) {
-                boolean flag1 = false;
-                ElementPainteri elements = null;
-                for (ElementPainteri element : diagramView.getPainteri()) {
-                    System.out.println(element);
-                    point = new Point(x1, y1);
-                    if (element.elementAt(point, diagramView, "selekcija", element)) {
-                        elements = element;
-                        flag1 = true;
-                        if (flag1) {
-                            break;
-                        }
-                    }
-                }
                 if(flag1){
 
                 if (elements.getDiagramElements() instanceof Klasa) {
@@ -271,21 +269,22 @@ public class Brisanje implements State{
 
                 }
              else {
-                boolean flag1 = false;
+                boolean flag12 = false;
                 ElementPainteri e = null;
                 for (ElementPainteri element : diagramView.getPainteri()) {
 
                     point = new Point(x, y);
-                    if (element.elementAt(point, diagramView, "", element)) {
+                    if (element.elementAt(point, diagramView, "selekcija", element)) {
                         e = element;
-                        flag1 = true;
-                        if (flag1) {
+                        flag12 = true;
+                        if (flag12) {
                             break;
                         }
                     }
                 }
-                if(flag1){
+                if(flag12){
                     if (e.elementAt(point, diagramView, "selekcija", e)) {
+                        System.out.println("duplikat");
                         if(e.getDiagramElements() instanceof Klasa){
                             if (!((Klasa)e.getDiagramElements()).getAtributsList().isEmpty()) {
                                 JDialog.setDefaultLookAndFeelDecorated(true);
@@ -294,10 +293,10 @@ public class Brisanje implements State{
                                     String rec = ((Klasa) e.getDiagramElements()).getAtributsList().get(i).toString();
                                     selectionValues[i] = rec;
                                 }
+                                System.out.println("usooo2");
                                 Object basicSelection = selectionValues[0];
 
                                 Object selection = JOptionPane.showInputDialog(null, "Koji element zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
-                                System.out.println(basicSelection);
                                 while (selection == null) {
                                     ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
                                     selection = JOptionPane.showInputDialog(null, "Koji element zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
@@ -561,10 +560,9 @@ public class Brisanje implements State{
                 }
             }
         }else{
-            boolean flag = false;
-            ElementPainteri elements = null;
             for(ElementPainteri element : diagramView.getSelectionModel()){
                 if(element.getDiagramElements() instanceof Klasa){
+                    System.out.println();
                     for(int i = 0; i < ((Klasa) element.getDiagramElements()).getAtributsList().size(); i++){
                         ClassContent k = ((Klasa)element.getDiagramElements()).getAtributsList().get(i);
                         Iterator e = diagramView.getPainteri().iterator();

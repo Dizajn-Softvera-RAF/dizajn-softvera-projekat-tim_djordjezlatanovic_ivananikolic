@@ -101,15 +101,24 @@ public class Duplicate implements State {
                         diagramView.getPainteri().add(painter);
                         for(ClassContent c : ((Klasa)element.getDiagramElements()).getAtributsList()){
                             if(c instanceof Atributs){
-                                Atributs atributs = new Atributs(diagramElements, Color.black, c.getName(), ((Atributs) c).getTip(), ((Atributs) c).isStatic(), ((Atributs) c).isAbstract());
+                                Atributs atributs = new Atributs(diagramElements, Color.black, c.getName() + " ", ((Atributs) c).getTip(), ((Atributs) c).isStatic(), ((Atributs) c).isAbstract());
                                 AtributPainter atributPainter = new AtributPainter(atributs.toString(), diagramElements, atributs);
                                 diagramView.getPainteri().add(atributPainter);
-                                atributs.setVidljivost(((Atributs) c).getVidljivost());
+                                String rec = ((Atributs) c).getVidljivost();
+                                if(rec.equals("+")){
+                                    rec = "public";
+                                }
+                                else if(rec.equals("-"))
+                                    rec = "private";
+                                else if (rec.equals("#")) {
+                                    rec = "protected";
+                                }
+                                atributs.setVidljivost(rec);
                                 ((Interclass) diagramElements).povecajSumu();
                                 ((Klasa) diagramElements).dodaj(atributs);
                             }
                             else if(c instanceof Methods){
-                                Methods atributs = new Methods(diagramElements, Color.black, c.getName(), ((Methods) c).getTip(), ((Methods) c).isStatic(), ((Methods) c).isAbstract());
+                                Methods atributs = new Methods(diagramElements, Color.black, c.getName()+ " ", ((Methods) c).getTip(), ((Methods) c).isStatic(), ((Methods) c).isAbstract());
                                 MetodaPainter atributPainter = new MetodaPainter(atributs.toString(), diagramElements, atributs);
                                 diagramView.getPainteri().add(atributPainter);
                                 atributs.setUlazniElementi(((Methods) c).getUlazniElementi());
@@ -119,7 +128,7 @@ public class Duplicate implements State {
                             }
                             else if(c instanceof EnumElements){
                                 EnumElements atributs = new EnumElements(diagramElements, Color.black, c.getName());
-                                EnumElementsPainter atributPainter = new EnumElementsPainter(atributs.toString(), diagramElements, atributs);
+                                EnumElementsPainter atributPainter = new EnumElementsPainter(atributs.toString() + " ", diagramElements, atributs);
                                 diagramView.getPainteri().add(atributPainter);
                                 ((Interclass) diagramElements).povecajSumu();
                                 ((Klasa) diagramElements).dodaj(atributs);
@@ -137,7 +146,16 @@ public class Duplicate implements State {
                                 atributs.setUlazniElementi(((Methods) c).getUlazniElementi());
                                 MetodaPainter atributPainter = new MetodaPainter(atributs.toString(), diagramElements, atributs);
                                 diagramView.getPainteri().add(atributPainter);
-                                atributs.setVidljivost(((Methods) c).getVidljivost());
+                                String rec = ((Atributs) c).getVidljivost();
+                                if(rec.equals("+")){
+                                    rec = "public";
+                                }
+                                else if(rec.equals("-"))
+                                    rec = "private";
+                                else if (rec.equals("#")) {
+                                    rec = "protected";
+                                }
+                                atributs.setVidljivost(rec);
                                 ((Interclass) diagramElements).povecajSumu();
                                 ((Interfejs) diagramElements).dodaj(atributs);
                             }
