@@ -18,6 +18,7 @@ public abstract class ElementPainteri {
     //private Paint paint;
     private DiagramElements diagramElements;
     private ClassyTreeItem classyTreeItem;
+    private Shape shape;
     private String name;
 //    private int x;
 //    private int y;

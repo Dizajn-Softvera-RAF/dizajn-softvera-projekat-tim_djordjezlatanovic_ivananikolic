@@ -22,10 +22,10 @@ public class DodavanjeVezaButton extends AbstractClassyAction{
         JDialog.setDefaultLookAndFeelDecorated(true);
         Object[] selectionValues = {"Agregacija", "Kompozicija", "Zavisnost", "Generalizacija"};
         String basicSelection = "Agregacija";
-        Object selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+        Object selection = JOptionPane.showInputDialog(null, "Koji tip veze zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
         while(selection == null){
             ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-            selection = JOptionPane.showInputDialog(null, "Koji cvor zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
+            selection = JOptionPane.showInputDialog(null, "Koji tip veze zelite da izaberete?", "Pitanje", JOptionPane.QUESTION_MESSAGE, null, selectionValues, basicSelection);
         }
         kraj += selection.toString() + " ";
         String s = selection.toString();
@@ -40,10 +40,10 @@ public class DodavanjeVezaButton extends AbstractClassyAction{
             }
             kraj += selection2 + " ";
             JFrame f = new JFrame();
-            String name = JOptionPane.showInputDialog(f, "Enter the name of variable: ");
-            while (name == null) {
+            String name = JOptionPane.showInputDialog(f, "Unosite ime promenljive: ");
+            while (name.isEmpty()|| name == null) {
                 ApplicationFramework.getInstance().getMessageGenerator().generateMessage("Morate selektovati neku od ponudjenih opcija", MessageType.COMPONENT_NOT_SELECTED, LocalDateTime.now());
-                name = JOptionPane.showInputDialog(f, "Enter the name of variable: ");
+                name = JOptionPane.showInputDialog(f, "Unosite ime promenljive: ");
             }
             kraj += name;
         } else if (s.equals("Zavisnost")) {

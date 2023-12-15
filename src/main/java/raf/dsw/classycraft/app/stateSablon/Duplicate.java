@@ -32,56 +32,64 @@ public class Duplicate implements State {
         int x = point.x;
         int y = point.y;
         boolean flag =false;
-       // ElementPainteri element = null;
-        for(ElementPainteri elementPainteri : diagramView.getPainteri()){
-            if(elementPainteri.elementAt(point, diagramView, "", elementPainteri)){
-                flag = true;
-                element = elementPainteri;
+        if(element == null){
+            for(ElementPainteri elementPainteri : diagramView.getPainteri()){
+                if(elementPainteri.elementAt(point, diagramView, "selekcija", elementPainteri)){
+                    if(elementPainteri.getDiagramElements() instanceof Interclass){
+                        flag = true;
+                        element = elementPainteri;
+                    }
+
+                }
+                if(flag)
+                    break;
             }
-            if(flag)
-                break;
+        }
+        else{
+            for(ElementPainteri elementPainteri : diagramView.getPainteri()){
+                if(elementPainteri.elementAt(point, diagramView, "duplicate", elementPainteri)){
+                    if(elementPainteri.getDiagramElements() instanceof Interclass){
+                        flag = true;
+                        element = elementPainteri;
+                    }
+
+                }
+                if(flag)
+                    break;
+            }
+            System.out.println(flag);
         }
         if(flag){
 
             if(element.getDiagramElements() instanceof Klasa){
                 Klasa k = (Klasa) element.getDiagramElements();
                 if(k.getWidth() != 250)
-                    diagramElements = new Klasa(diagramView.getDiagram(), k.getName(), x, y, k.getWidth(), k.getSuma(), Color.black);
+                    diagramElements = new Klasa(diagramView.getDiagram(), k.getName() + " ", x, y, k.getWidth(), k.getSuma(), Color.black);
 
                 else
-                    diagramElements = new Klasa(diagramView.getDiagram(), k.getName(), x, y, k.getWidth(), k.getHeight(), Color.black);
+                    diagramElements = new Klasa(diagramView.getDiagram(), k.getName() + " ", x, y, k.getWidth(), k.getHeight(), Color.black);
             }
             else if (element.getDiagramElements() instanceof Interfejs) {
                 Interfejs k = (Interfejs) element.getDiagramElements();
                 if(k.getWidth() != 250)
-                    diagramElements = new Interfejs(diagramView.getDiagram(), k.getName(), x, y, k.getWidth(), k.getSuma(), Color.black);
+                    diagramElements = new Interfejs(diagramView.getDiagram(), k.getName() + " ", x, y, k.getWidth(), k.getSuma(), Color.black);
 
                 else
-                    diagramElements = new Interfejs(diagramView.getDiagram(), k.getName(), x, y, k.getWidth(), k.getHeight(), Color.black);
+                    diagramElements = new Interfejs(diagramView.getDiagram(), k.getName() + " ", x, y, k.getWidth(), k.getHeight(), Color.black);
 
             }
             else if(element.getDiagramElements() instanceof Enumm){
                 Enumm k = (Enumm) element.getDiagramElements();
                 if(k.getWidth() != 250)
-                    diagramElements = new Enumm(diagramView.getDiagram(), k.getName(), x, y, k.getWidth(), k.getSuma(), Color.black);
+                    diagramElements = new Enumm(diagramView.getDiagram(), k.getName() + " ", x, y, k.getWidth(), k.getSuma(), Color.black);
 
                 else
-                    diagramElements = new Enumm(diagramView.getDiagram(), k.getName(), x, y, k.getWidth(), k.getHeight(), Color.black);
+                    diagramElements = new Enumm(diagramView.getDiagram(), k.getName() + " ", x, y, k.getWidth(), k.getHeight(), Color.black);
 
             }
         }
-        else if(!flag){
-
+        else{
             if(diagramElements != null){
-                flag = false;
-                for(ElementPainteri element2 : diagramView.getPainteri()){
-                    Point point2 = new Point(x, y);
-                    if(element2.elementAt(point2, diagramView, "", element2)){
-                        flag = true;
-                    }
-                    if (flag)
-                        break;
-                }
                 if(!flag){
                     KlasaPainter painter = null;
                     EnumPainter enumPainter = null;
@@ -179,7 +187,7 @@ public class Duplicate implements State {
                     diagramView.getDiagram().addChild(diagramElements);
                 }
 
-
+                element = null;
                 diagramElements = null;
             }
         }

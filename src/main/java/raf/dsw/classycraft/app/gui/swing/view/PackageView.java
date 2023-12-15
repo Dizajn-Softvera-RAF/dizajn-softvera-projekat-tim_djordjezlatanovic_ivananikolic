@@ -148,6 +148,15 @@ public class PackageView extends JPanel implements Subscriber {
                 DiagramView diagramView = new DiagramView((Diagram) var1, this, classyTreeItem);
 
                 jTabbedPane.addTab(diagramView.getImeTaba(),diagramView);
+            jScrollPane = new JScrollPane(diagramView);
+            jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+            //  jScrollPane.setPreferredSize(new Dimension(50, 70));
+            jViewport=jScrollPane.getViewport();
+            jScrollPane.setViewportView(diagramView);
+            diagramView.setViewport(jViewport);
+
+            jTabbedPane.add(diagramView.getDiagram().getName(), jScrollPane);
 
             }
         }

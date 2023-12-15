@@ -6,6 +6,7 @@ import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 
 public class GeneralizacijaPainter extends ElementPainteri {
@@ -42,6 +43,8 @@ public class GeneralizacijaPainter extends ElementPainteri {
             c.setPocetnaTacka(point1);
             c.setKrajnjaTacka(point2);
             ((Graphics2D)g).setStroke(c.getStroke());
+            Line2D line2D = new Line2D.Double(point1.x, point1.y, point2.x, point2.y);
+            setShape(line2D);
             g.drawLine(point1.x, point1.y, point2.x, point2.y);
 
             //g.drawLine(point1.x, point1.y, point2.x, point2.y);
@@ -87,21 +90,28 @@ public class GeneralizacijaPainter extends ElementPainteri {
 
     @Override
     public boolean elementAt(Point pos, DiagramView diagramView, String s, ElementPainteri elementPainteri) {
-        int x1;
-        int y1;
-        int width;
-        int height;
-        Connection c = (Connection) elementPainteri.getDiagramElements();
-        if(c.getKrajnjaTacka() != null){
-            x1 = Math.min(c.getPocetnaTacka().x, c.getKrajnjaTacka().x);
-            y1 = Math.min(c.getPocetnaTacka().y, c.getKrajnjaTacka().y);
-            width = Math.abs(c.getPocetnaTacka().x - c.getKrajnjaTacka().x);
-            height = Math.abs(c.getPocetnaTacka().y - c.getKrajnjaTacka().y);
-            Rectangle r = new Rectangle(x1, y1, width, height);
-            Rectangle r2 = new Rectangle(pos.x, pos.y, pos.x + 2 ,pos.y + 1);
-            if(r.intersects(r2))
-                return true;
+        if(s.equals("selekcija")){
+            Connection c = (Connection) elementPainteri.getDiagramElements();
+            double distance = ((Line2D)getShape()).ptSegDist(pos.x, pos.y);
+            return distance <= 5;
         }
-        return false;
+        else{
+            int x1;
+            int y1;
+            int width;
+            int height;
+            Connection c = (Connection) elementPainteri.getDiagramElements();
+            if(c.getKrajnjaTacka() != null){
+                x1 = Math.min(c.getPocetnaTacka().x, c.getKrajnjaTacka().x);
+                y1 = Math.min(c.getPocetnaTacka().y, c.getKrajnjaTacka().y);
+                width = Math.abs(c.getPocetnaTacka().x - c.getKrajnjaTacka().x);
+                height = Math.abs(c.getPocetnaTacka().y - c.getKrajnjaTacka().y);
+                Rectangle r = new Rectangle(x1, y1, width, height);
+                Rectangle r2 = new Rectangle(pos.x, pos.y, pos.x + 10, pos.y + 10);
+                if(r.intersects(r2))
+                    return true;
+            }
+            return false;
+        }
     }
 }
