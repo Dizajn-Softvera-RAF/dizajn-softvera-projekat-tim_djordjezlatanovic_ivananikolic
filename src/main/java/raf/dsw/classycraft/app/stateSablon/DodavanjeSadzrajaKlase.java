@@ -63,6 +63,7 @@ public class DodavanjeSadzrajaKlase implements State{
 
                         classContent = new Atributs(element.getDiagramElements(), Color.black, novaRec[2], novaRec[1], flag2, flag3);
                         if (!(((Klasa) element.getDiagramElements()).getAtributsList().contains(classContent))) {
+                            int sirinaPre = ((Klasa) element.getDiagramElements()).getWidth();
                             ((Klasa) element.getDiagramElements()).povecajSumu();
                             ((Klasa) element.getDiagramElements()).setBroj(5);
                             ((Atributs) classContent).setVidljivost(novaRec[3]);
@@ -73,6 +74,7 @@ public class DodavanjeSadzrajaKlase implements State{
 
 
                             AddElementsCommnad command = new AddElementsCommnad(classContent, atributPainter, (Interclass) element.getDiagramElements(), diagramView);
+                            command.setSirinaPre(sirinaPre);
                             ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                         }
 
@@ -100,6 +102,7 @@ public class DodavanjeSadzrajaKlase implements State{
                                 ((Methods) classContent).getUlazniElementi().add(rec[i]);
                         }
                         if (!(((Klasa) element.getDiagramElements()).getAtributsList().contains(classContent))) {
+                            int sirinaPre = ((Klasa) element.getDiagramElements()).getWidth();
                             ((Klasa) element.getDiagramElements()).povecajSumu();
                             ((Klasa) element.getDiagramElements()).setBroj(5);
                             metodaPainter = new MetodaPainter(classContent.toString(), element.getDiagramElements(), (Methods) classContent);
@@ -108,12 +111,14 @@ public class DodavanjeSadzrajaKlase implements State{
                             diagramView.getDiagram().notifySubscriber("", "crtanje");
 
                             AddElementsCommnad command = new AddElementsCommnad(classContent, metodaPainter, (Interclass) element.getDiagramElements(), diagramView);
+                            command.setSirinaPre(sirinaPre);
                             ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                         }
                     } else {
                         EnumElementsPainter enumPainter = null;
                         classContent = new EnumElements(element.getDiagramElements(), Color.black, novaRec[2].toUpperCase());
                         if (!(((Klasa) element.getDiagramElements()).getAtributsList().contains((EnumElements)classContent))) {
+                            int sirinaPre = ((Klasa) element.getDiagramElements()).getWidth();
                             ((Klasa) element.getDiagramElements()).povecajSumu();
                             ((Klasa) element.getDiagramElements()).setBroj(5);
                             enumPainter = new EnumElementsPainter(classContent.toString(), element.getDiagramElements(), (EnumElements) classContent);
@@ -122,6 +127,7 @@ public class DodavanjeSadzrajaKlase implements State{
                             diagramView.getDiagram().notifySubscriber("", "crtanje");
 
                             AddElementsCommnad command = new AddElementsCommnad(classContent, enumPainter, (Interclass) element.getDiagramElements(), diagramView);
+                            command.setSirinaPre(sirinaPre);
                             ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                         }
                     }
@@ -154,6 +160,7 @@ public class DodavanjeSadzrajaKlase implements State{
                                 ((Methods) classContent).getUlazniElementi().add(rec[i]);
                         }
                         if (!(((Interfejs) element.getDiagramElements()).getAtributsList().contains(classContent))) {
+                            int sirinaPre = ((Interfejs) element.getDiagramElements()).getWidth();
                             ((Interfejs) element.getDiagramElements()).povecajSumu();
                             //System.out.println(((Interfejs) element.getDiagramElements()).getSuma());
                             ((Interfejs) element.getDiagramElements()).setBroj(5);
@@ -161,6 +168,10 @@ public class DodavanjeSadzrajaKlase implements State{
                             diagramView.getPainteri().add(metodaPainter);
                             ((Interfejs) element.getDiagramElements()).dodaj(classContent);
                             diagramView.getDiagram().notifySubscriber("", "crtanje");
+
+                            AddElementsCommnad command = new AddElementsCommnad(classContent, metodaPainter, (Interclass) element.getDiagramElements(), diagramView);
+                            command.setSirinaPre(sirinaPre);
+                            ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                         }
                     }
 
@@ -169,12 +180,17 @@ public class DodavanjeSadzrajaKlase implements State{
                         EnumElementsPainter enumPainter = null;
                         classContent = new EnumElements(element.getDiagramElements(), Color.black, novaRec[2].toUpperCase());
                         if (!(((Enumm) element.getDiagramElements()).getAtributsList().contains(classContent))) {
+                            int sirinaPre = ((Enumm) element.getDiagramElements()).getWidth();
                             ((Enumm) element.getDiagramElements()).povecajSumu();
                             ((Enumm) element.getDiagramElements()).setBroj(5);
                             enumPainter = new EnumElementsPainter(classContent.toString(), element.getDiagramElements(), (EnumElements) classContent);
                             diagramView.getPainteri().add(enumPainter);
                             ((Enumm) element.getDiagramElements()).dodaj(classContent);
                             diagramView.getDiagram().notifySubscriber("", "crtanje");
+
+                            AddElementsCommnad command = new AddElementsCommnad(classContent, enumPainter, (Interclass) element.getDiagramElements(), diagramView);
+                            command.setSirinaPre(sirinaPre);
+                            ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                         }
                     }
 
