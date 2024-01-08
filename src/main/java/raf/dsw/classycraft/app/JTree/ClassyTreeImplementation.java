@@ -8,7 +8,12 @@ import raf.dsw.classycraft.app.composite.factory.ClassyNodeFactory;
 import raf.dsw.classycraft.app.composite.factory.FactoryUtil;
 import raf.dsw.classycraft.app.composite.factory.ProjectExplorerFactory;
 import raf.dsw.classycraft.app.composite.factory.ProjectFactory;
+import raf.dsw.classycraft.app.composite.implementation.Diagram;
 import raf.dsw.classycraft.app.composite.implementation.ProjectExplorer;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
+import raf.dsw.classycraft.app.undo.AbstractCommand;
+import raf.dsw.classycraft.app.undo.AddChildCommand;
+import raf.dsw.classycraft.app.undo.DeleteChildCommand;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
@@ -29,8 +34,14 @@ public class ClassyTreeImplementation implements CLassyTree{
         if(!(parent.getClassyNode() instanceof ClassyNodeComposite))
             return;
         ClassyNode child = createChild(parent.getClassyNode(), ime);
-        parent.add(new ClassyTreeItem(child));
-        ((ClassyNodeComposite) parent.getClassyNode()).addChild(child);//proveriti metodu addchild u modelima nodova
+        ClassyTreeItem dete = new ClassyTreeItem(child);
+
+            AbstractCommand command = new AddChildCommand(parent, dete);
+            ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
+
+
+        parent.add(dete);
+        ((ClassyNodeComposite) parent.getClassyNode()).addChild(child);
         classyTreeView.expandPath(classyTreeView.getSelectionPath());
         SwingUtilities.updateComponentTreeUI(classyTreeView);
 
@@ -51,6 +62,8 @@ public class ClassyTreeImplementation implements CLassyTree{
     public void deleteChild(ClassyTreeItem selected) {
         ClassyNode dete = selected.getClassyNode();
         ClassyNodeComposite  roditelj = (ClassyNodeComposite) dete.getParent();
+        AbstractCommand command = new DeleteChildCommand((ClassyTreeItem) selected.getParent(), selected);
+        ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
         roditelj.deleteChild(dete);
         selected.removeFromParent();
         SwingUtilities.updateComponentTreeUI(classyTreeView);

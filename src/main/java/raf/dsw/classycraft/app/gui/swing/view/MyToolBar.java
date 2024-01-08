@@ -1,5 +1,6 @@
 package raf.dsw.classycraft.app.gui.swing.view;
 
+import com.sun.tools.javac.Main;
 import raf.dsw.classycraft.app.controller.AboutUs;
 import raf.dsw.classycraft.app.controller.ExitAction;
 
@@ -15,6 +16,8 @@ public class MyToolBar extends JToolBar {
 
         add(MainFrame.getInstance().getActionManager().getNewProjectAction());
         add(MainFrame.getInstance().getActionManager().getDeleteNode());
+        add(MainFrame.getInstance().getActionManager().getUndoAction());
+        add(MainFrame.getInstance().getActionManager().getRedoAction());
 
     }
 }

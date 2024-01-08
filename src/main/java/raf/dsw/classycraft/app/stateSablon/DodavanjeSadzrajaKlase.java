@@ -2,15 +2,19 @@ package raf.dsw.classycraft.app.stateSablon;
 
 import raf.dsw.classycraft.app.JTree.model.ClassyTreeItem;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Enumm;
+import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Interclass;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Interfejs;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Klasa;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.Atributs;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.ClassContent;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.EnumElements;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.Methods;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.painters.*;
+import raf.dsw.classycraft.app.undo.AddElementsCommnad;
+import raf.dsw.classycraft.app.undo.AddInterClassObjekatCommand;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,6 +70,10 @@ public class DodavanjeSadzrajaKlase implements State{
                             diagramView.getPainteri().add(atributPainter);
                             ((Klasa) element.getDiagramElements()).dodaj(classContent);
                             diagramView.getDiagram().notifySubscriber("", "crtanje");
+
+
+                            AddElementsCommnad command = new AddElementsCommnad(classContent, atributPainter, (Interclass) element.getDiagramElements(), diagramView);
+                            ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                         }
 
 
@@ -98,6 +106,9 @@ public class DodavanjeSadzrajaKlase implements State{
                             diagramView.getPainteri().add(metodaPainter);
                             ((Klasa) element.getDiagramElements()).dodaj(classContent);
                             diagramView.getDiagram().notifySubscriber("", "crtanje");
+
+                            AddElementsCommnad command = new AddElementsCommnad(classContent, metodaPainter, (Interclass) element.getDiagramElements(), diagramView);
+                            ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                         }
                     } else {
                         EnumElementsPainter enumPainter = null;
@@ -109,8 +120,13 @@ public class DodavanjeSadzrajaKlase implements State{
                             diagramView.getPainteri().add(enumPainter);
                             ((Klasa) element.getDiagramElements()).dodaj(classContent);
                             diagramView.getDiagram().notifySubscriber("", "crtanje");
+
+                            AddElementsCommnad command = new AddElementsCommnad(classContent, enumPainter, (Interclass) element.getDiagramElements(), diagramView);
+                            ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                         }
                     }
+
+
 
                 } else if (element.getDiagramElements() instanceof Interfejs) {
                     boolean flag2 = false;

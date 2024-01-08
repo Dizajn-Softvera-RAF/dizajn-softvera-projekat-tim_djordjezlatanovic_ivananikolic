@@ -86,10 +86,10 @@ public class PackageView extends JPanel implements Subscriber {
                 DiagramView diagramView = new DiagramView((Diagram) c, this, classyTreeItem);
 
                 jTabbedPane.addTab(diagramView.getImeTaba(),diagramView);
+
                 jScrollPane = new JScrollPane(diagramView);
                 jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
                 jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-                //  jScrollPane.setPreferredSize(new Dimension(50, 70));
                 jViewport=jScrollPane.getViewport();
                 jScrollPane.setViewportView(diagramView);
                 diagramView.setViewport(jViewport);
@@ -125,11 +125,12 @@ public class PackageView extends JPanel implements Subscriber {
         }
     }
     public void refreshTabs(Diagram var1){
+
         for (int i =0; i< jTabbedPane.getTabCount();i++){
-            DiagramView d = (DiagramView) jTabbedPane.getComponentAt(i);
-            if(((DiagramView) jTabbedPane.getComponentAt(i)).getDiagram().getName().equals(var1.getName())){
+
+            if(((DiagramView) jTabbedPane.getComponentAt(i)).getDiagram().getName().equals(var1.getName()))
                 jTabbedPane.removeTabAt(i);
-            }
+
         }
     }
 
@@ -151,7 +152,6 @@ public class PackageView extends JPanel implements Subscriber {
             jScrollPane = new JScrollPane(diagramView);
             jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
             jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            //  jScrollPane.setPreferredSize(new Dimension(50, 70));
             jViewport=jScrollPane.getViewport();
             jScrollPane.setViewportView(diagramView);
             diagramView.setViewport(jViewport);

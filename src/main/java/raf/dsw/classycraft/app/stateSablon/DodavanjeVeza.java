@@ -8,6 +8,7 @@ import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.observer.message.MessageType;
 import raf.dsw.classycraft.app.painters.*;
+import raf.dsw.classycraft.app.undo.AddVezeCommand;
 
 import javax.swing.*;
 import java.awt.*;
@@ -178,25 +179,31 @@ public class DodavanjeVeza implements State{
 //                    generalizacijaPainter = null;
 
                 }
+                AddVezeCommand command = null;
                 if (flag1 == true) {
                     ClassyTreeItem c2 = new ClassyTreeItem(connection);
                     nova.add(c2);
                     Connection c = null;
                     if (agregacijaPainter != null) {
                         agregacijaPainter.setClassyTreeItem(c2);
+                         command = new AddVezeCommand(agregacijaPainter, diagramView);
                     }
                     else if (zavisnostPainter != null) {
                         zavisnostPainter.setClassyTreeItem(c2);
+                         command = new AddVezeCommand(zavisnostPainter, diagramView);
                     }
                     else if (kompozicijaPainter != null) {
                         kompozicijaPainter.setClassyTreeItem(c2);
+                         command = new AddVezeCommand(kompozicijaPainter, diagramView);
                     }
                     else if (generalizacijaPainter != null) {
                         generalizacijaPainter.setClassyTreeItem(c2);
+                         command = new AddVezeCommand(generalizacijaPainter, diagramView);
                     }
 
                     SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getJTree());
                 }
+                ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                 diagramView.getDiagram().notifySubscriber("", "crtanje");
             } else {
                 if (agregacijaPainter != null)
