@@ -10,9 +10,11 @@ import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.cla
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.ClassContent;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.EnumElements;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.classContent.Methods;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.painters.*;
+import raf.dsw.classycraft.app.undo.DuplicateCommand;
 
 import javax.swing.*;
 import java.awt.*;
@@ -57,7 +59,6 @@ public class Duplicate implements State {
                 if(flag)
                     break;
             }
-            System.out.println(flag);
         }
         if(flag){
 
@@ -90,10 +91,13 @@ public class Duplicate implements State {
         }
         else{
             if(diagramElements != null){
+
                 if(!flag){
+                    DuplicateCommand command = new DuplicateCommand(diagramView);
                     KlasaPainter painter = null;
                     EnumPainter enumPainter = null;
                     InterfejsPainter interfejsPainter = null;
+
                     if(diagramElements instanceof Klasa){
                         ((Interclass)diagramElements).setX(x);
                         ((Interclass)diagramElements).setY(y);
@@ -103,6 +107,7 @@ public class Duplicate implements State {
                             if(c instanceof Atributs){
                                 Atributs atributs = new Atributs(diagramElements, Color.black, c.getName() + " ", ((Atributs) c).getTip(), ((Atributs) c).isStatic(), ((Atributs) c).isAbstract());
                                 AtributPainter atributPainter = new AtributPainter(atributs.toString(), diagramElements, atributs);
+                                command.getElementPainteriList().add(atributPainter);
                                 diagramView.getPainteri().add(atributPainter);
                                 String rec = ((Atributs) c).getVidljivost();
                                 if(rec.equals("+")){
@@ -120,6 +125,7 @@ public class Duplicate implements State {
                             else if(c instanceof Methods){
                                 Methods atributs = new Methods(diagramElements, Color.black, c.getName()+ " ", ((Methods) c).getTip(), ((Methods) c).isStatic(), ((Methods) c).isAbstract());
                                 MetodaPainter atributPainter = new MetodaPainter(atributs.toString(), diagramElements, atributs);
+                                command.getElementPainteriList().add(atributPainter);
                                 diagramView.getPainteri().add(atributPainter);
                                 atributs.setUlazniElementi(((Methods) c).getUlazniElementi());
                                 atributs.setVidljivost(((Methods) c).getVidljivost());
@@ -129,11 +135,14 @@ public class Duplicate implements State {
                             else if(c instanceof EnumElements){
                                 EnumElements atributs = new EnumElements(diagramElements, Color.black, c.getName());
                                 EnumElementsPainter atributPainter = new EnumElementsPainter(atributs.toString() + " ", diagramElements, atributs);
+                                command.getElementPainteriList().add(atributPainter);
                                 diagramView.getPainteri().add(atributPainter);
                                 ((Interclass) diagramElements).povecajSumu();
                                 ((Klasa) diagramElements).dodaj(atributs);
                             }
                         }
+
+                        command.setInterclass((Interclass) diagramElements);
                     }
                     else if(diagramElements instanceof Interfejs){
                         ((Interclass)diagramElements).setX(x);
@@ -145,6 +154,7 @@ public class Duplicate implements State {
                                 Methods atributs = new Methods(diagramElements, Color.black, c.getName(), ((Methods) c).getTip() + " ", ((Methods) c).isStatic(), ((Methods) c).isAbstract());
                                 atributs.setUlazniElementi(((Methods) c).getUlazniElementi());
                                 MetodaPainter atributPainter = new MetodaPainter(atributs.toString(), diagramElements, atributs);
+                                command.getElementPainteriList().add(atributPainter);
                                 diagramView.getPainteri().add(atributPainter);
                                 String rec = ((Atributs) c).getVidljivost();
                                 if(rec.equals("+")){
@@ -171,6 +181,7 @@ public class Duplicate implements State {
                             if(c instanceof EnumElements){
                                 EnumElements atributs = new EnumElements(diagramElements, Color.black, c.getName() + " ");
                                 EnumElementsPainter atributPainter = new EnumElementsPainter(atributs.toString(), diagramElements, atributs);
+                                command.getElementPainteriList().add(atributPainter);
                                 diagramView.getPainteri().add(atributPainter);
                                 ((Interclass) diagramElements).povecajSumu();
                                 ((Enumm) diagramElements).dodaj(atributs);
@@ -201,8 +212,10 @@ public class Duplicate implements State {
                             enumPainter.setClassyTreeItem(c);
                         SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getJTree());
                     }
-
+                    command.setElement(painter);
+                    ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                     diagramView.getDiagram().addChild(diagramElements);
+
                 }
 
                 element = null;

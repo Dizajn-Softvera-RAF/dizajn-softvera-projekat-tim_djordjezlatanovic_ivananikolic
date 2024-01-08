@@ -21,8 +21,12 @@ public class ActionManager{
     private MenjanjeSadrzajaButton menjanjeSadrzajaButton;
     private ZoomInButton zoomInButton;
     private ZoomOutButton zoomOutButton;
+    private UndoAction undoAction;
+    private RedoAction redoAction;
 
     public ActionManager() {
+        redoAction = new RedoAction();
+        undoAction = new UndoAction();
         zoomInButton = new ZoomInButton();
         zoomOutButton = new ZoomOutButton();
         menjanjeSadrzajaButton = new MenjanjeSadrzajaButton();

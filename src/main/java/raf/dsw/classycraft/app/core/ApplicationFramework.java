@@ -6,6 +6,7 @@ import raf.dsw.classycraft.app.composite.implementation.ClassyRepositoryImplemen
 import raf.dsw.classycraft.app.composite.implementation.ProjectExplorer;
 import lombok.Getter;
 import lombok.Setter;
+import raf.dsw.classycraft.app.gui.swing.SwingGui;
 import raf.dsw.classycraft.app.gui.swing.view.MainFrame;
 import raf.dsw.classycraft.app.observer.message.MessageGenerator;
 import raf.dsw.classycraft.app.observer.message.MessageGeneratorImplementation;
@@ -19,15 +20,16 @@ import java.io.IOException;
 @Getter
 
 public class ApplicationFramework {
+    protected Gui gui;
     private static ApplicationFramework instance;
     private ClassyRepository classyRepository;
     private MessageGenerator messageGenerator;
     private LoggerFactory loggerFactory;
     private ApplicationFramework(){
     }
-    public void initialize(){
-
+    public void initialize(Gui gui){
         clearFile();
+        this.gui = gui;
         messageGenerator = new MessageGeneratorImplementation();
         loggerFactory = new LoggerFactory();
 
@@ -35,7 +37,7 @@ public class ApplicationFramework {
         messageGenerator.addLogger(loggerFactory.createLogger("filelogger"));
         classyRepository = new ClassyRepositoryImplementation();
         MainFrame.getInstance().setVisible(true);
-
+        this.gui.start();
 
          //classyRepository.getRoot();
     }

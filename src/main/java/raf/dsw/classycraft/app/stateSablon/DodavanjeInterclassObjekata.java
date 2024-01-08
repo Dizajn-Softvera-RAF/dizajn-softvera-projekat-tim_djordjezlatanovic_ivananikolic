@@ -7,6 +7,7 @@ import raf.dsw.classycraft.app.composite.factory.FactoryUtil;
 import raf.dsw.classycraft.app.composite.implementation.Diagram;
 import raf.dsw.classycraft.app.composite.implementation.DiagramElements;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Enumm;
+import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Interclass;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Interfejs;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Klasa;
 import raf.dsw.classycraft.app.core.ApplicationFramework;
@@ -16,6 +17,7 @@ import raf.dsw.classycraft.app.painters.ElementPainteri;
 import raf.dsw.classycraft.app.painters.EnumPainter;
 import raf.dsw.classycraft.app.painters.InterfejsPainter;
 import raf.dsw.classycraft.app.painters.KlasaPainter;
+import raf.dsw.classycraft.app.undo.AddInterClassObjekatCommand;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,12 +88,18 @@ public class DodavanjeInterclassObjekata implements State{
                     flag1 = true;
                 }
             }
+            ClassyTreeItem c = null;
             if(flag1==true){
-                ClassyTreeItem c = new ClassyTreeItem(diagramElements);
+                 c = new ClassyTreeItem(diagramElements);
                 nova.add(c);
                 elementPainteri.setClassyTreeItem(c);
                 SwingUtilities.updateComponentTreeUI(MainFrame.getInstance().getJTree());
             }
+                AddInterClassObjekatCommand command = new AddInterClassObjekatCommand((ClassyTreeItem) c.getParent(), c, (Interclass) diagramElements, elementPainteri, diagramView);
+                ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
+
+
+
 
         }
     }

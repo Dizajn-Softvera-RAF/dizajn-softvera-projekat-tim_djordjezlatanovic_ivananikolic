@@ -2,8 +2,10 @@ package raf.dsw.classycraft.app.stateSablon;
 
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Connection;
 import raf.dsw.classycraft.app.composite.implementation.diagramElementsClass.Interclass;
+import raf.dsw.classycraft.app.core.ApplicationFramework;
 import raf.dsw.classycraft.app.gui.swing.view.DiagramView;
 import raf.dsw.classycraft.app.painters.ElementPainteri;
+import raf.dsw.classycraft.app.undo.MoveCommand;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -99,25 +101,37 @@ public class MoveState implements State{
                 if(e.getDiagramElements() instanceof Interclass){
                     ((Interclass)e.getDiagramElements()).setX(((Interclass) e.getDiagramElements()).getStaroX());
                     ((Interclass)e.getDiagramElements()).setY(((Interclass) e.getDiagramElements()).getStaroY());
+
+
                 }
                 else{
                     ((Connection) e.getDiagramElements()).setFrom(((Connection) e.getDiagramElements()).getFrom());
                     ((Connection) e.getDiagramElements()).setTo(((Connection) e.getDiagramElements()).getTo());
                 }
             }
+
         }
+
         else{
+            MoveCommand command = new MoveCommand(diagramView);
             for(ElementPainteri e : diagramView.getSelectionModel()){
                 if(e.getDiagramElements() instanceof Interclass){
+                    Point point = new Point( ((Interclass)e.getDiagramElements()).getStaroX(),((Interclass)e.getDiagramElements()).getStaroY());
+                    command.getStariPoints().add(point);
                     ((Interclass)e.getDiagramElements()).setStaroX(((Interclass) e.getDiagramElements()).getX());
                     ((Interclass)e.getDiagramElements()).setStaroY(((Interclass) e.getDiagramElements()).getY());
+                    Point point2 = new Point(((Interclass)e.getDiagramElements()).getStaroX(),((Interclass)e.getDiagramElements()).getStaroY());
+                    command.getNoviPoints().add(point2);
+                    command.getElementPainteri().add(e);
                 }
             }
+            ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
         }
 
         for(ElementPainteri e : diagramView.getSelectionModel()){
             e.setRectangle(null);
         }
+
         diagramView.getSelectionModel().clear();
         diagramView.getDiagram().selektovano();
     }
