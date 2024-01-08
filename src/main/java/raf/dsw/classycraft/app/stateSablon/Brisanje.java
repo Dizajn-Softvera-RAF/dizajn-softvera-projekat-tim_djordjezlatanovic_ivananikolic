@@ -350,6 +350,8 @@ public class Brisanje implements State{
                                     if (elementPainteri instanceof AtributPainter) {
                                         cnt++;
                                         BrisanjeElementCommand command = new BrisanjeElementCommand(elementPainteri, diagramView, (Interclass) e.getDiagramElements());
+                                        int sirinaPre = ((Klasa) e.getDiagramElements()).getWidth();
+                                        command.setSirinaPre(sirinaPre);
                                         command.setAtributPainter((AtributPainter) elementPainteri);
                                         ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                                         if (((AtributPainter) elementPainteri).getAtribut().toString().equals(selection)) {
@@ -363,6 +365,8 @@ public class Brisanje implements State{
                                     } else if (elementPainteri instanceof MetodaPainter) {
                                         cnt++;
                                         BrisanjeElementCommand command = new BrisanjeElementCommand(elementPainteri, diagramView, (Interclass) e.getDiagramElements());
+                                        int sirinaPre = ((Klasa) e.getDiagramElements()).getWidth();
+                                        command.setSirinaPre(sirinaPre);
                                         command.setMetodaPainter((MetodaPainter) elementPainteri);
                                         ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                                         if (((MetodaPainter) elementPainteri).getMethods().toString().equals(selection)) {
@@ -376,6 +380,8 @@ public class Brisanje implements State{
                                     } else if (elementPainteri instanceof EnumElementsPainter) {
                                         cnt++;
                                         BrisanjeElementCommand command = new BrisanjeElementCommand(elementPainteri, diagramView, (Interclass) e.getDiagramElements());
+                                        int sirinaPre = ((Klasa) e.getDiagramElements()).getWidth();
+                                        command.setSirinaPre(sirinaPre);
                                         command.setEnumElements((EnumElementsPainter) elementPainteri);
                                         ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                                         if (((EnumElementsPainter) elementPainteri).getEnumElements().toString().equals(selection)) {
@@ -490,6 +496,8 @@ public class Brisanje implements State{
                                     if (elementPainteri instanceof MetodaPainter) {
                                         cnt++;
                                         BrisanjeElementCommand command = new BrisanjeElementCommand(elementPainteri, diagramView, (Interclass) e.getDiagramElements());
+                                        int sirinaPre = ((Klasa) e.getDiagramElements()).getWidth();
+                                        command.setSirinaPre(sirinaPre);
                                         command.setMetodaPainter((MetodaPainter) elementPainteri);
                                         ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                                         if (((MetodaPainter) elementPainteri).getMethods().toString().equals(selection)) {
@@ -562,6 +570,8 @@ public class Brisanje implements State{
                                     if (elementPainteri instanceof EnumElementsPainter) {
                                         cnt++;
                                         BrisanjeElementCommand command = new BrisanjeElementCommand(elementPainteri, diagramView, (Interclass) e.getDiagramElements());
+                                        int sirinaPre = ((Klasa) e.getDiagramElements()).getWidth();
+                                        command.setSirinaPre(sirinaPre);
                                         command.setEnumElements((EnumElementsPainter) elementPainteri);
                                         ApplicationFramework.getInstance().getGui().getCommandManager().addCommand(command);
                                         if (((EnumElementsPainter) elementPainteri).getEnumElements().toString().equals(selection)) {
